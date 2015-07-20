@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MHData"
-  s.version          = "0.1.0"
+  s.version          = "0.1.4"
   s.summary          = "A short description of MHData."
   s.description      = <<-DESC
                        An optional longer description of MHData
