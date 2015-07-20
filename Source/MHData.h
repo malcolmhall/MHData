@@ -9,7 +9,7 @@
 #ifndef Demo_MHData_h
 #define Demo_MHData_h
 
-#import "MHCoreData+MH.h"
+#import "CoreData+MH.h"
 #import "MHPersistentStoreBridge.h"
 #import "MHFetchedResultsViewController.h"
 
