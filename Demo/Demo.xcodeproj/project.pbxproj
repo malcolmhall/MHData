@@ -15,10 +15,10 @@
 		EC334E891B5D3F9E0069E713 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC334E881B5D3F9E0069E713 /* Images.xcassets */; };
 		EC334E8C1B5D3F9E0069E713 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC334E8A1B5D3F9E0069E713 /* LaunchScreen.xib */; };
 		EC334E981B5D3F9E0069E713 /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334E971B5D3F9E0069E713 /* DemoTests.m */; };
-		EC334EA81B5D44140069E713 /* CoreData+MH.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334EA51B5D44140069E713 /* CoreData+MH.m */; };
-		EC334EA91B5D44140069E713 /* MHPersistentStoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334EA71B5D44140069E713 /* MHPersistentStoreBridge.m */; };
-		EC334EAC1B5D447C0069E713 /* MHFetchedResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334EAB1B5D447C0069E713 /* MHFetchedResultsViewController.m */; };
 		EC334EAF1B5D47410069E713 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC334EAD1B5D47410069E713 /* Model.xcdatamodeld */; };
+		EC334EEE1B5D5FAD0069E713 /* CoreData+MH.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334EE81B5D5FAD0069E713 /* CoreData+MH.m */; };
+		EC334EEF1B5D5FAD0069E713 /* MHFetchedResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334EEB1B5D5FAD0069E713 /* MHFetchedResultsViewController.m */; };
+		EC334EF01B5D5FAD0069E713 /* MHPersistentStoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EC334EED1B5D5FAD0069E713 /* MHPersistentStoreBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,14 +47,14 @@
 		EC334E911B5D3F9E0069E713 /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC334E961B5D3F9E0069E713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC334E971B5D3F9E0069E713 /* DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoTests.m; sourceTree = "<group>"; };
-		EC334EA41B5D44140069E713 /* CoreData+MH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MH.h"; sourceTree = "<group>"; };
-		EC334EA51B5D44140069E713 /* CoreData+MH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoreData+MH.m"; sourceTree = "<group>"; };
-		EC334EA61B5D44140069E713 /* MHPersistentStoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPersistentStoreBridge.h; sourceTree = "<group>"; };
-		EC334EA71B5D44140069E713 /* MHPersistentStoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPersistentStoreBridge.m; sourceTree = "<group>"; };
-		EC334EAA1B5D447C0069E713 /* MHFetchedResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFetchedResultsViewController.h; sourceTree = "<group>"; };
-		EC334EAB1B5D447C0069E713 /* MHFetchedResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFetchedResultsViewController.m; sourceTree = "<group>"; };
 		EC334EAE1B5D47410069E713 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		EC334EB11B5D59640069E713 /* MHData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHData.h; sourceTree = "<group>"; };
+		EC334EE71B5D5FAD0069E713 /* CoreData+MH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CoreData+MH.h"; path = "../MHData/CoreData+MH.h"; sourceTree = "<group>"; };
+		EC334EE81B5D5FAD0069E713 /* CoreData+MH.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CoreData+MH.m"; path = "../MHData/CoreData+MH.m"; sourceTree = "<group>"; };
+		EC334EE91B5D5FAD0069E713 /* MHData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHData.h; path = ../MHData/MHData.h; sourceTree = "<group>"; };
+		EC334EEA1B5D5FAD0069E713 /* MHFetchedResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHFetchedResultsViewController.h; path = ../MHData/MHFetchedResultsViewController.h; sourceTree = "<group>"; };
+		EC334EEB1B5D5FAD0069E713 /* MHFetchedResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHFetchedResultsViewController.m; path = ../MHData/MHFetchedResultsViewController.m; sourceTree = "<group>"; };
+		EC334EEC1B5D5FAD0069E713 /* MHPersistentStoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHPersistentStoreBridge.h; path = ../MHData/MHPersistentStoreBridge.h; sourceTree = "<group>"; };
+		EC334EED1B5D5FAD0069E713 /* MHPersistentStoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHPersistentStoreBridge.m; path = ../MHData/MHPersistentStoreBridge.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,13 +141,13 @@
 		EC334EA31B5D44140069E713 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				EC334EB11B5D59640069E713 /* MHData.h */,
-				EC334EA41B5D44140069E713 /* CoreData+MH.h */,
-				EC334EA51B5D44140069E713 /* CoreData+MH.m */,
-				EC334EA61B5D44140069E713 /* MHPersistentStoreBridge.h */,
-				EC334EA71B5D44140069E713 /* MHPersistentStoreBridge.m */,
-				EC334EAA1B5D447C0069E713 /* MHFetchedResultsViewController.h */,
-				EC334EAB1B5D447C0069E713 /* MHFetchedResultsViewController.m */,
+				EC334EE71B5D5FAD0069E713 /* CoreData+MH.h */,
+				EC334EE81B5D5FAD0069E713 /* CoreData+MH.m */,
+				EC334EE91B5D5FAD0069E713 /* MHData.h */,
+				EC334EEA1B5D5FAD0069E713 /* MHFetchedResultsViewController.h */,
+				EC334EEB1B5D5FAD0069E713 /* MHFetchedResultsViewController.m */,
+				EC334EEC1B5D5FAD0069E713 /* MHPersistentStoreBridge.h */,
+				EC334EED1B5D5FAD0069E713 /* MHPersistentStoreBridge.m */,
 			);
 			name = Source;
 			path = ../Source;
@@ -254,12 +254,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC334E7E1B5D3F9E0069E713 /* AppDelegate.m in Sources */,
+				EC334EEE1B5D5FAD0069E713 /* CoreData+MH.m in Sources */,
 				EC334E811B5D3F9E0069E713 /* MasterViewController.m in Sources */,
-				EC334EA81B5D44140069E713 /* CoreData+MH.m in Sources */,
+				EC334EEF1B5D5FAD0069E713 /* MHFetchedResultsViewController.m in Sources */,
+				EC334EF01B5D5FAD0069E713 /* MHPersistentStoreBridge.m in Sources */,
 				EC334EAF1B5D47410069E713 /* Model.xcdatamodeld in Sources */,
-				EC334EAC1B5D447C0069E713 /* MHFetchedResultsViewController.m in Sources */,
 				EC334E7B1B5D3F9E0069E713 /* main.m in Sources */,
-				EC334EA91B5D44140069E713 /* MHPersistentStoreBridge.m in Sources */,
 				EC334E841B5D3F9E0069E713 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
