@@ -57,6 +57,14 @@
      return [self mh_fetchObjectWithEntityName:entityName predicate:predicate error:error];
 }
 
+- (BOOL)mh_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError{
+    BOOL result = [self save:error];
+    if(!result){
+        [self rollback];
+    }
+    return result;
+}
+
 @end
 
 @implementation NSPersistentStoreCoordinator(MH)

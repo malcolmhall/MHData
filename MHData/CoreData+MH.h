@@ -31,9 +31,13 @@
  -(NSEntityDescription*)mh_entityDescriptionForName:(NSString*)name;
 
  - (NSArray*)mh_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error;
+
  - (id)mh_fetchObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error;
+
  // dictionary of keys and values that an and predicate will be used. Include NSNull for null values in the query.
  -(NSManagedObject*)mh_fetchObjectWithDictionary:(NSDictionary*)dictionary entityName:(NSString*)entityName error:(NSError**)error;
+
+- (BOOL)mh_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError;
 
 @end
 
@@ -47,7 +51,7 @@
 +(NSPersistentStoreCoordinator*)mh_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL;
 
 // returns a new persistent store coordinater with the specified managed object model at the default store URL.
-+(NSPersistentStoreCoordinator*)mh_persistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL managedObjectModel:(NSManagedObjectModel*)managedObjectModel ;
++(NSPersistentStoreCoordinator*)mh_persistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL managedObjectModel:(NSManagedObjectModel*)managedObjectModel;
 
 +(NSURL*)mh_defaultSQLiteStoreURL;
 

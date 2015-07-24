@@ -36,18 +36,18 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    
+    //NSArray* a = self.fetchedResultsController.fetchedObjects;
     [self.tableView reloadData];
 }
 
 #pragma mark - Table View
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    
+    // count if all the sections have no rows
+    
     return [[self.fetchedResultsController sections] count];
 }
 
@@ -92,9 +92,12 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return [self canEditObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
+-(BOOL)canEditObject:(NSManagedObject*)managedObject{
+    return YES;
+}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
