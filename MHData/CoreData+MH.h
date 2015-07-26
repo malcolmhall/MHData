@@ -25,6 +25,12 @@
 // returns a managed object context with the given store coordinator.
 +(instancetype)mh_managedObjectContextWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator*)persistentStoreCoordinator;
 
+// Call this from a background thread to create a private queue context using the same coordinator as this context.
+// DidSaveBlock will be called on the same thread so use performBlock to call back to the main context, e.g. [_mainContext performBlock:^{[_mainContext mergeChangesFromContextDidSaveNotification:note];}];
+// If using a didSaveBlock you must also pass in an observer pointer, e.g. id<NSObject> didSaveObserver; and pass in &didSaveObserver
+// You must remove the observer before the background context is dealloced, e.g. [[NSNotificationCenter defaultCenter] removeObserver:didSaveObserver];
+-(NSManagedObjectContext*)mh_contextForBackgroundWithDidSaveBlock:(void (^)(NSNotification *note))didSaveBlock didSaveObserver:(id<NSObject>*)didSaveObserver;
+
  //exceptions if entity does not exist
  -(NSManagedObject*)mh_insertNewObjectForEntityName:(NSString*)name;
 

@@ -19,7 +19,7 @@
 @property (copy, nonatomic) NSString* messageWhenNoData;
 
 // subclass and override 2 methods
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object;
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object;
 
 /*
  - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object;

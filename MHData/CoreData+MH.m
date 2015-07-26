@@ -7,6 +7,7 @@
 //
 
 #import "CoreData+MH.h"
+#import <objc/runtime.h>
 
 @implementation NSManagedObjectContext(MH)
 
@@ -27,6 +28,21 @@
     return _defaultManagedObjectContext;
 }
 
+-(NSManagedObjectContext*)mh_contextForBackgroundWithDidSaveBlock:(void (^)(NSNotification *note))didSaveBlock didSaveObserver:(id<NSObject>*)didSaveObserver{
+    if([NSThread isMainThread]){
+        [NSException raise:@"Invalid call to mh_contextForBackgroundWithDidSaveBlock" format:@"Cannot be from main thread."];
+    }
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+    context.persistentStoreCoordinator = self.persistentStoreCoordinator;
+    context.undoManager = nil;
+    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+    if(didSaveBlock){
+        *didSaveObserver = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:context queue:nil usingBlock:^(NSNotification *note) {
+            didSaveBlock(note);
+        }];
+    }
+    return context;
+}
 
 -(NSManagedObject*)mh_insertNewObjectForEntityName:(NSString*)entityName{
     return  [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
@@ -108,12 +124,12 @@
     NSLog(@"%@", storeURL);
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         NSLog(@"Problem with PersistentStoreCoordinator: %@",error);
+       
 #ifdef DEBUG
         //todo: show modal uialert to delete it
         NSLog(@"Deleting old store because we are in debug anyway.");
         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
 #endif
-        // try again
         if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
             NSLog(@"Problem with PersistentStoreCoordinator: %@",error);
         //fatal error

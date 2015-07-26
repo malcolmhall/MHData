@@ -78,14 +78,17 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSManagedObject* object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    return [self cellForRowAtIndexPath:indexPath withObject:object];
+}
+
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object{
     //if using a storyboard this should always get a cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
     if(!cell){
         //todo cell style default might not be right, untested
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:_cellReuseIdentifier];
     }
-    NSManagedObject* object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self configureCell:cell withObject:object];
     return cell;
 }
 
@@ -187,14 +190,17 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
+            // previously we called configure cell but that didn't allow an update to change cell type.
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeMove:
             // replacing delete/insert with move also requires using the changed object to update because the index is not correct for looking up the object.
             //[tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             //[tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
+            
+#warning todo check if we can reload instead of configure
+            //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
             [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath]; // NS_AVAILABLE_IOS(5_0);
             break;
     }
@@ -218,10 +224,6 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
  }
  */
 
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object
-{
-    cell.textLabel.text = [object description];
-}
 
 
 
