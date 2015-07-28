@@ -36,7 +36,7 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    //NSArray* a = self.fetchedResultsController.fetchedObjects;
+    NSArray* a = self.fetchedResultsController.fetchedObjects;
     [self.tableView reloadData];
 }
 
@@ -195,13 +195,9 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
             break;
             
         case NSFetchedResultsChangeMove:
-            // replacing delete/insert with move also requires using the changed object to update because the index is not correct for looking up the object.
-            //[tableView  deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            //[tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
-#warning todo check if we can reload instead of configure
-            //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
-            [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath]; // NS_AVAILABLE_IOS(5_0);
+            if(![indexPath isEqual:newIndexPath]){
+                [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath]; // NS_AVAILABLE_IOS(5_0);
+            }
             break;
     }
 }

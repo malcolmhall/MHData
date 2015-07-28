@@ -33,7 +33,7 @@
 -(BOOL)canEditObject:(NSManagedObject*)managedObject;
 
 // when set the delegate is automatically set to this view controller.
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;
 /*
 -(void)viewDidLoad{
     [super viewDidLoad];
