@@ -36,7 +36,6 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    NSArray* a = self.fetchedResultsController.fetchedObjects;
     [self.tableView reloadData];
 }
 
