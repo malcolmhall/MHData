@@ -44,9 +44,7 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    
-    // count if all the sections have no rows
-    
+    // todo - count if all the sections have no rows
     return [[self.fetchedResultsController sections] count];
 }
 
@@ -59,7 +57,7 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
         tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         tableView.backgroundView = nil;
     } else {
-        // Display a message when the table is empty
+        // Display a message when the table is empty (doesn't work if multiple sections)
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         
         messageLabel.text = _messageWhenNoData;
@@ -208,18 +206,6 @@ NSString* kDefaultMessageWhenNoData = @"There is no data available to display";
     }
     [self.tableView endUpdates];
 }
-
-/*
- // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
- {
- // In the simplest, most efficient, case, reload the table view.
- [self.tableView reloadData];
- }
- */
-
-
 
 
 @end
