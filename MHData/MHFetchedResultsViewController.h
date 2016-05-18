@@ -13,27 +13,38 @@
 
 @interface MHFetchedResultsViewController : UITableViewController<NSFetchedResultsControllerDelegate>
 
+// Set this to make it work, and the delegate is automatically set to this view controller.
+@property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+// convenience for returning the fetch controller's context;
+@property (nonatomic, readonly) NSManagedObjectContext* managedObjectContext;
+
 // Defaults to "Cell"
 @property (copy, nonatomic) NSString* cellReuseIdentifier;
 
-@property (copy, nonatomic) NSString* messageWhenNoData;
+// displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
+@property (copy, nonatomic) NSString* messageWhenNoRows;
+
+@property (assign, nonatomic) UITableViewCellStyle defaultCellStyle;
 
 // subclass and override 2 methods
-- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object;
 
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object;
 /*
- - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object;
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object{
  {
+    UITableViewCell* cell = [super cellForRowAtIndexPath:indexPath withObject:object];
     StoreApp* storeApp  = (StoreApp*) object;
     cell.textLabel.text = storeApp.name;
     cell.imageView.image = storeApp.icon;
+    return cell;
  }
 */
 
 -(BOOL)canEditObject:(NSManagedObject*)managedObject;
 
-// when set the delegate is automatically set to this view controller.
-@property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;
+-(void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject*)object;
+
 /*
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -50,7 +61,8 @@
  }
 */
 
-// the default implementation is to delete the object from the context and save it. Override for a different behavior.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
+// the default implementation is to delete the object from the context and save it, and abort if it fails. Override for a different behavior.
+// returns NO and sets error if fails to save. Doesn't any more.
+-(void)deleteObject:(NSManagedObject*)managedObject;
 
 @end

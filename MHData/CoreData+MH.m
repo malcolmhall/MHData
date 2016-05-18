@@ -9,25 +9,68 @@
 #import "CoreData+MH.h"
 #import <objc/runtime.h>
 
+NSString *const ErrorDomain = @"MHCoreData";
+
 @implementation NSManagedObjectContext(MH)
 
-+(instancetype)mh_managedObjectContextWithPersistentStoreCoordinator:(NSPersistentStoreCoordinator*)persistentStoreCoordinator{
-    NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    [moc setPersistentStoreCoordinator:persistentStoreCoordinator];
-    return moc;
+//+ (instancetype)mh_defaultContext{
+//    static NSManagedObjectContext* _defaultManagedObjectContext;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        _defaultManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+//        _defaultManagedObjectContext.persistentStoreCoordinator = [NSPersistentStoreCoordinator mh_defaultCoordinator];
+//    });
+//    return _defaultManagedObjectContext;
+//}
+
+-(NSManagedObjectContext*)mh_createChildContext{
+    NSManagedObjectContext* context = [[NSManagedObjectContext alloc] initWithConcurrencyType:self.concurrencyType];
+    context.parentContext = self;
+    return context;
 }
 
-// designated init
-+ (instancetype)mh_defaultManagedObjectContext{
-    static NSManagedObjectContext* _defaultManagedObjectContext;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _defaultManagedObjectContext = [NSManagedObjectContext mh_managedObjectContextWithPersistentStoreCoordinator:[NSPersistentStoreCoordinator mh_defaultPersistentStoreCoordinator]];
-       
-    });
-    return _defaultManagedObjectContext;
+- (NSManagedObjectContext *)mh_createPrivateQueueContextWithError:(NSError **)error {
+    
+    // It uses the same store and model, but a new persistent store coordinator and context.
+    NSPersistentStoreCoordinator *localCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
+
+    NSPersistentStore* store = self.persistentStoreCoordinator.persistentStores.firstObject;
+    
+    NSURL* storeURL = store.URL;
+    if(!storeURL){
+        if(error){
+            *error = [NSError errorWithDomain:ErrorDomain code:101 userInfo:@{NSLocalizedDescriptionKey : @"Could not find the existing store's URL",
+                                                                              NSLocalizedFailureReasonErrorKey : @"It was nil."}];
+        }
+        return nil;
+    }
+    
+    if (![localCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:store.configurationName
+                                                  URL:storeURL
+                                              options:store.options
+                                                error:error]) {
+        return nil;
+    }
+    
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [context performBlockAndWait:^{
+        [context setPersistentStoreCoordinator:localCoordinator];
+        
+        // Avoid using default merge policy in multi-threading environment:
+        // when we delete (and save) a record in one context,
+        // and try to save edits on the same record in the other context before merging the changes,
+        // an exception will be thrown because Core Data by default uses NSErrorMergePolicy.
+        // Setting a reasonable mergePolicy is a good practice to avoid that kind of exception.
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+        
+        // In OS X, a context provides an undo manager by default
+        // Disable it for performance benefit
+        context.undoManager = nil;
+    }];
+    return context;
 }
 
+/*
 -(NSManagedObjectContext*)mh_contextForBackgroundWithDidSaveBlock:(void (^)(NSNotification *note))didSaveBlock didSaveObserver:(id<NSObject>*)didSaveObserver{
     if([NSThread isMainThread]){
         [NSException raise:@"Invalid call to mh_contextForBackgroundWithDidSaveBlock" format:@"Cannot be from main thread."];
@@ -35,7 +78,7 @@
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
     context.persistentStoreCoordinator = self.persistentStoreCoordinator;
     context.undoManager = nil;
-    context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
+    //context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy; // we want it to error and usually the context will be thrown away after so no need to rollback.
     if(didSaveBlock){
         *didSaveObserver = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:context queue:nil usingBlock:^(NSNotification *note) {
             didSaveBlock(note);
@@ -43,6 +86,7 @@
     }
     return context;
 }
+*/
 
 -(NSManagedObject*)mh_insertNewObjectForEntityName:(NSString*)entityName{
     return  [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
@@ -52,10 +96,10 @@
     return [NSEntityDescription entityForName:name inManagedObjectContext:self];
 }
 
- - (NSArray*)mh_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
- NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
- fetchRequest.predicate = predicateOrNil;
- return [self executeFetchRequest:fetchRequest error:error];
+ -(NSArray*)mh_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
+     fetchRequest.predicate = predicateOrNil;
+     return [self executeFetchRequest:fetchRequest error:error];
  }
  
  - (id)mh_fetchObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
@@ -63,7 +107,7 @@
      return objects.firstObject;
  }
  
- -(NSManagedObject*)mh_fetchObjectWithDictionary:(NSDictionary*)dictionary entityName:(NSString*)entityName error:(NSError**)error{
+ -(NSManagedObject*)mh_fetchObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
      // build the and predicate using the dict that also checks nulls.
      NSMutableArray* array = [NSMutableArray array];
      [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -71,6 +115,63 @@
      }];
      NSCompoundPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
      return [self mh_fetchObjectWithEntityName:entityName predicate:predicate error:error];
+}
+
+-(NSManagedObject*)mh_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
+    NSError* e;
+    
+    // initialize inserted
+    if(inserted){
+        *inserted = NO;
+    }
+    
+    NSManagedObject* object = [self mh_fetchObjectWithEntityName:entityName dictionary:dictionary error:&e];
+    if(e){
+        // nil pointer check
+        if(error){
+            *error = e;
+        }
+        return nil;
+    }
+    else if(!object){
+        object = [self mh_insertNewObjectForEntityName:entityName];
+        [object setValuesForKeysWithDictionary:dictionary];
+        // nil pointer check
+        if(inserted){
+            *inserted = YES;
+        }
+    }
+    return object;
+}
+
+-(id)mh_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+    // todo validate these
+    NSEntityDescription* entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self];
+    NSAttributeDescription* attribute = entity.attributesByName[attributeName];
+    
+    NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:attribute.name];
+    
+    NSExpression *maxExpression = [NSExpression
+                                   expressionForFunction:function
+                                   arguments:@[keyPathExpression]];
+    
+    NSString* resultKey = @"resultKey";
+    
+    NSExpressionDescription *description = [[NSExpressionDescription alloc] init];
+    description.name = resultKey;
+    description.expression = maxExpression;
+    description.expressionResultType = attribute.attributeType;
+    
+    // find highest recordChangeTag
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = entity;
+    fetchRequest.propertiesToFetch = @[description];
+    fetchRequest.resultType = NSDictionaryResultType;
+    fetchRequest.predicate = predicateOrNil;
+    
+    NSArray* fetchResults = [self executeFetchRequest:fetchRequest error:error];
+
+    return [[fetchResults lastObject] valueForKey:resultKey];
 }
 
 - (BOOL)mh_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError{
@@ -83,66 +184,127 @@
 
 @end
 
+
 @implementation NSPersistentStoreCoordinator(MH)
 
-+(NSPersistentStoreCoordinator*)mh_defaultPersistentStoreCoordinator{
-    return [NSPersistentStoreCoordinator mh_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:[NSPersistentStoreCoordinator mh_defaultSQLiteStoreURL]];
-}
+//+(NSPersistentStoreCoordinator*)mh_defaultCoordinator{
+//    static NSPersistentStoreCoordinator* psc = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        
+//        NSError* error;
+//        NSURL* URL = [NSPersistentStoreCoordinator mh_defaultStoreURLWithError:&error];
+//        if(!URL){
+//            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:error.description userInfo:error.userInfo];
+//        }
+//        psc = [NSPersistentStoreCoordinator mh_coordinatorWithManagedObjectModel:[NSManagedObjectModel mh_defaultModel] storeURL:URL error:&error];
+//        if(!psc){
+//            @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:error.description userInfo:error.userInfo];
+//        }
+//    });
+//    return psc;
+//}
 
-+(NSPersistentStoreCoordinator*)mh_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
-    
-    static NSMutableDictionary* _persistentStoreCoordinators;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _persistentStoreCoordinators = [[NSMutableDictionary alloc] init];
-    });
-    
-    NSPersistentStoreCoordinator* psc = [_persistentStoreCoordinators objectForKey:SQLiteStoreURL];
-    if(!psc){
-        psc = [self mh_persistentStoreCoordinatorWithSQLiteStoreURL:SQLiteStoreURL managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
-        [_persistentStoreCoordinators setObject:psc forKey:SQLiteStoreURL];
+//+ (NSPersistentStoreCoordinator*)mh_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model{
+//    return [self mh_coordinatorWithManagedObjectModel:model storeURL:[self mh_def] error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>]
+//}
+
++ (NSPersistentStoreCoordinator*)mh_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError**)error{
+    NSPersistentStoreCoordinator* psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+    if(![psc mh_addStoreWithURL:storeURL error:error]){
+        return nil;
     }
-    
     return psc;
 }
 
+//+(NSPersistentStoreCoordinator*)mh_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
+//    
+//    static NSMutableDictionary* _persistentStoreCoordinators;
+//    
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        _persistentStoreCoordinators = [[NSMutableDictionary alloc] init];
+//    });
+//    
+//    NSPersistentStoreCoordinator* psc = [_persistentStoreCoordinators objectForKey:SQLiteStoreURL];
+//    if(!psc){
+//        psc = [self mh_persistentStoreCoordinatorWithSQLiteStoreURL:SQLiteStoreURL managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
+//        [_persistentStoreCoordinators setObject:psc forKey:SQLiteStoreURL];
+//    }
+//    
+//    return psc;
+//}
 
-+(NSPersistentStoreCoordinator*)mh_persistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)storeURL managedObjectModel:(NSManagedObjectModel*)managedObjectModel{
-    NSPersistentStoreCoordinator* persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: managedObjectModel];
-    
-    NSError *error;
+
+-(NSPersistentStore*)mh_addStoreWithURL:(NSURL*)storeURL error:(NSError**)error{
+
     NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                    [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                                    [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
+                                    @YES, NSMigratePersistentStoresAutomaticallyOption,
+                                    @YES, NSInferMappingModelAutomaticallyOption,
                                     nil];
+    NSPersistentStore* store;
 #ifdef DEBUG
     // turn off WAL because it means can't see things in the sqlite file its all in a binary log file.
-    NSDictionary *pragmaOptions = [NSDictionary dictionaryWithObject:@"DELETE" forKey:@"journal_mode"];
-    [options setObject: pragmaOptions forKey: NSSQLitePragmasOption];
+    NSDictionary *pragmaOptions = @{@"journal_mode" : @"DELETE"};
+    options[NSSQLitePragmasOption] = pragmaOptions;
 #endif
-    NSLog(@"%@", storeURL);
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-        NSLog(@"Problem with PersistentStoreCoordinator: %@",error);
-       
+    NSLog(@"%@", storeURL.path);
+
+    store = [self addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:error];
+    if (!store) {
 #ifdef DEBUG
         //todo: show modal uialert to delete it
         NSLog(@"Deleting old store because we are in debug anyway.");
         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+
+        // try again
+        store = [self addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:error];
 #endif
-        if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-            NSLog(@"Problem with PersistentStoreCoordinator: %@",error);
-        //fatal error
-            abort();
-        }
     }
-    return persistentStoreCoordinator;
+    return store;
 }
 
-+(NSURL*)mh_defaultSQLiteStoreURL{
-    NSURL* dir = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    return [dir URLByAppendingPathComponent:[[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@".sqlite"]];
++(NSString*)mh_defaultStoreFilename{
+    return [[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@".sqlite"];
+}
+
++(NSURL *)mh_defaultStoreURLWithError:(NSError**)error{
+    NSURL* dir = [self mh_applicationSupportDirectoryWithError:error]; // if nil then method returns nil.
+    return [dir URLByAppendingPathComponent:[self mh_defaultStoreFilename]];
+}
+
++ (NSURL *)mh_applicationSupportDirectoryWithError:(NSError**)error{
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *URLs = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
     
+    NSURL *URL = URLs[URLs.count - 1];
+    URL = [URL URLByAppendingPathComponent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleExecutable"]];
+    
+    NSError* e;
+    NSDictionary *properties = [URL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&e];
+    if (properties) {
+        NSNumber *isDirectoryNumber = properties[NSURLIsDirectoryKey];
+        
+        if (isDirectoryNumber && !isDirectoryNumber.boolValue) {
+            if(error){
+                *error = [NSError errorWithDomain:ErrorDomain code:101 userInfo:@{NSLocalizedDescriptionKey : @"Could not access the application data folder",
+                                                                                  NSLocalizedFailureReasonErrorKey : @"Found a file in its place"}];
+            }
+            return nil;
+        }
+    }
+    else {
+        if (e.code == NSFileReadNoSuchFileError) {
+            if(![fileManager createDirectoryAtPath:URL.path withIntermediateDirectories:YES attributes:nil error:&e]){
+                if(error){
+                    *error = e;
+                }
+                return nil;
+            }
+        }
+    }
+    return URL;
 }
 
 @end
@@ -151,26 +313,65 @@
 
 //helper for load model files
 +(NSManagedObjectModel*)mh_modelNamed:(NSString *)name{
-    static NSMutableDictionary *models = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        models = [[NSMutableDictionary alloc] init];
-    });
-    NSManagedObjectModel* model = [models objectForKey:name];
-    if(!model){
-        NSString* s = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
-        if(!s){
-            s = [[NSBundle mainBundle] pathForResource:name ofType:@"mom"]; // mom is what it gets compiled to on the phone.
-            if(!s){
-                [NSException raise:@"Invalid model name" format:@"model named %@ is invalid", name];
-            }
-        }
-        //todo crash if s is null or not found.
-        NSURL* url = [NSURL fileURLWithPath:s];
-        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
-        models[name] = model;
+
+    NSString* s = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
+    if(!s){
+        s = [[NSBundle mainBundle] pathForResource:name ofType:@"mom"]; // mom is what it gets compiled to on the phone.
     }
-    return model;
+    if(!s){
+        [NSException raise:@"Invalid model name" format:@"model named %@ is invalid", name];
+    }
+    NSURL* url = [NSURL fileURLWithPath:s];
+    return [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+}
+
++(NSManagedObjectModel*)mh_defaultModel{
+    return [NSManagedObjectModel mergedModelFromBundles:nil];
+}
+
+-(NSEntityDescription*)mh_entityNamed:(NSString*)entityName{
+    return self.entitiesByName[entityName];
+}
+
+@end
+
+
+@implementation NSEntityDescription (MH)
+
+-(NSDictionary<NSString *, NSRelationshipDescription *> *)mh_toManyRelationshipsByName{
+    NSArray* toManyRelationships = [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = YES"]];
+    return [NSDictionary dictionaryWithObjects:toManyRelationships forKeys:[toManyRelationships valueForKey:@"name"]];
+}
+
+
+-(NSDictionary<NSString *, NSRelationshipDescription *> *)mh_toOneRelationshipsByName{
+    NSArray* toManyRelationships = [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = NO"]];
+    return [NSDictionary dictionaryWithObjects:toManyRelationships forKeys:[toManyRelationships valueForKey:@"name"]];
+}
+
+- (NSArray<NSRelationshipDescription *> *)relationshipsWithManagedObjectClass:(Class)managedObjectClass{
+    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"managedObjectClass = %@", managedObjectClass]];
+}
+
+//-(NSArray*)mh_toManyRelations{
+//    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isToMany = true"]];
+//}
+//
+//-(NSSet*)mh_toManyRelationNames{
+//    return [NSSet setWithArray:[self.mh_toManyRelations valueForKey:@"name"]];
+//}
+
+-(NSArray*)mh_transientProperties{
+    return [self.properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isTransient = true"]];
+}
+
+//-(NSArray*)mh_toOneRelations{
+//    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isToMany = false"]];
+//}
+
+-(NSString*)mh_propertyNameForToManyRelation{
+    return [[self.name stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                               withString:[self.name substringToIndex:1].lowercaseString] stringByAppendingString:@"s"];
 }
 
 @end
@@ -187,3 +388,11 @@
 }
 
 @end
+
+//@implementation NSRelationshipDescription (MH)
+//
+//-(BOOL)isInverseOfRelation:(NSRelationshipDescription*)relation{
+//    if(self.cl)
+//}
+//
+//@end

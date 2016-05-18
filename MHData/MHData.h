@@ -12,5 +12,6 @@
 #import "CoreData+MH.h"
 #import "MHPersistentStoreBridge.h"
 #import "MHFetchedResultsViewController.h"
+#import "MHFetchedResultsController.h"
 
 #endif
