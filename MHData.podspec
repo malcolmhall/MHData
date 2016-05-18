@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MHData"
-  s.version          = "0.1.5"
+  s.version          = "0.1.6"
   s.summary          = "A short description of MHData."
   s.description      = <<-DESC
                        An optional longer description of MHData
@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
                        * Markdown format.
                        * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/malcolmhall/MHData"
+  s.homepage         = "https://github.com/malhal/MHData"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { "Malcolm Hall" => "malcolmhall@users.noreply.github.com" }
-  s.source           = { :git => "https://github.com/malcolmhall/MHData.git", :tag => s.version.to_s }
+  s.author           = { "Malcolm Hall" => "malhal@users.noreply.github.com" }
+  s.source           = { :git => "https://github.com/malhal/MHData.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/malhal'
 
   s.platform     = :ios, '7.0'
