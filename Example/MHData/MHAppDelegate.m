@@ -14,7 +14,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    MHCoreDataStackManager* a = [MHCoreDataStackManager sharedManager];
+    ZZMHCoreDataStackManager* a = [ZZMHCoreDataStackManager sharedManager];
    // NSManagedObjectModel* model = a.managedObjectModel;
     
     // Override point for customization after application launch.

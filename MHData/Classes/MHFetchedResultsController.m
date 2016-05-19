@@ -6,7 +6,7 @@
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import "MHFetchedResultsController.h"
+#import <MHData/MHFetchedResultsController.h>
 
 @interface MHFetchedResultsController()<NSFetchedResultsControllerDelegate>
 

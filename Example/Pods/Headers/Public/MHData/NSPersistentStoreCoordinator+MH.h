@@ -1,0 +1,1 @@
+../../../../../MHData/Classes/NSPersistentStoreCoordinator+MH.h

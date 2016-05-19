@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Malcolm Hall. All rights reserved.
 //
 
-#import "MHPersistentStoreBridge.h"
+#import <MHData/MHPersistentStoreBridge.h>
 
 NSString * const MHPersistentStoreBridgeWillExecuteRequestNotification = @"MHPersistentStoreBridgeWillExecuteRequestNotification";
 NSString * const MHRequestKey = @"MHRequestKey";

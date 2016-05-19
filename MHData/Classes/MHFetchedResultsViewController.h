@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 
 @interface MHFetchedResultsViewController : UITableViewController<NSFetchedResultsControllerDelegate>
@@ -66,3 +68,5 @@
 -(void)deleteObject:(NSManagedObject*)managedObject;
 
 @end
+
+NS_ASSUME_NONNULL_END

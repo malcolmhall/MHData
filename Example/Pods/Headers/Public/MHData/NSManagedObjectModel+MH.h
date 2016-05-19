@@ -1,0 +1,1 @@
+../../../../../MHData/Classes/NSManagedObjectModel+MH.h

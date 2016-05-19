@@ -1,19 +1,23 @@
 {
   "name": "MHData",
-  "version": "0.1.0",
+  "version": "0.1.8",
   "summary": "A short description of MHData.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/MHData",
+  "homepage": "https://github.com/malhal/MHData",
   "license": "MIT",
   "authors": {
     "Malcolm Hall": "malhal@users.noreply.github.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/MHData.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/malhal/MHData.git",
+    "tag": "0.1.8"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "7.0"
   },
-  "source_files": "MHData/Classes/**/*"
+  "source_files": "MHData/Classes/**/*",
+  "frameworks": [
+    "UIKit",
+    "CoreData"
+  ]
 }

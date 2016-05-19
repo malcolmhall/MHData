@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 MAlcolm Hall. All rights reserved.
 //
 
-#import "MHFetchedResultsViewController.h"
+#import <MHData/MHFetchedResultsViewController.h>
 
-NSString* kDefaultCellReuseIdentifier = @"Cell";
-NSString* kDefaultmessageWhenNoRows = @"There is no data available to display";
+static NSString* kDefaultCellReuseIdentifier = @"Cell";
+static NSString* kDefaultmessageWhenNoRows = @"There is no data available to display";
 
 @interface MHFetchedResultsViewController ()
 

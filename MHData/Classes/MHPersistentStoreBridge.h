@@ -8,6 +8,8 @@
 
 #import <CoreData/CoreData.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // when adding to a persistent store, declare the destination store type using the NSStoreTypeKey in the options dictionary.
 
 extern NSString * const MHPersistentStoreBridgeWillExecuteRequestNotification;
@@ -19,3 +21,5 @@ extern NSString * const MHContextKey;
 +(NSString*)type;
 
 @end
+
+NS_ASSUME_NONNULL_END

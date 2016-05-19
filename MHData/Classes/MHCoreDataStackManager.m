@@ -6,8 +6,9 @@
 //
 //
 
-#import "MHCoreDataStackManager.h"
-#import "CoreData+MH.h"
+#import <MHData/MHCoreDataStackManager.h>
+#import <MHData/NSManagedObjectModel+MH.h>
+#import <MHData/NSPersistentStoreCoordinator+MH.h>
 
 @interface MHDATA_ADD_PREFIX(MHCoreDataStackManager)()
 
@@ -38,7 +39,7 @@
 - (NSURL *)storeURL {
     if (!_storeURL) {
         NSError* error;
-        _storeURL = [NSPersistentStoreCoordinator mh_defaultStoreURLWithError:&error];
+        _storeURL = [NSPersistentStoreCoordinator MH_defaultStoreURLWithError:&error];
         if(!_storeURL){
             [NSException raise:NSInternalInconsistencyException format:@"Failed to create store path %@", error];
         }
@@ -49,7 +50,7 @@
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (!_persistentStoreCoordinator) {
         NSError* error;
-        _persistentStoreCoordinator = [NSPersistentStoreCoordinator mh_coordinatorWithManagedObjectModel:self.managedObjectModel storeURL:self.storeURL error:&error];
+        _persistentStoreCoordinator = [NSPersistentStoreCoordinator MH_coordinatorWithManagedObjectModel:self.managedObjectModel storeURL:self.storeURL error:&error];
         if(!_persistentStoreCoordinator){
             [NSException raise:NSInternalInconsistencyException format:@"Failed to create store %@", error];
         }
