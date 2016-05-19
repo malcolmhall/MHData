@@ -1,0 +1,60 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/mh/Development/Github/Test/MHData/Example/build/Debug-iphonesimulator/MHData/MHData.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "MHData-Swift.h",
+          'external-contents': "/Users/mh/Development/Github/Test/MHData/Example/build/Debug-iphonesimulator/MHData/MHData.framework/Headers/MHData-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "MHData-umbrella.h",
+          'external-contents': "/Users/mh/Development/Github/Test/MHData/Example/Pods/Target Support Files/MHData/MHData-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mh/Development/Github/Test/MHData/Example/build/Debug-iphonesimulator/MHData/MHData.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/mh/Development/Github/Test/MHData/Example/build/Pods.build/Debug-iphonesimulator/MHData.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mh/Development/Github/Test/MHData/Example/build/Debug-iphonesimulator/Pods_MHData_Example.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-MHData_Example-umbrella.h",
+          'external-contents': "/Users/mh/Development/Github/Test/MHData/Example/Pods/Target Support Files/Pods-MHData_Example/Pods-MHData_Example-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_MHData_Example-Swift.h",
+          'external-contents': "/Users/mh/Development/Github/Test/MHData/Example/build/Debug-iphonesimulator/Pods_MHData_Example.framework/Headers/Pods_MHData_Example-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/mh/Development/Github/Test/MHData/Example/build/Debug-iphonesimulator/Pods_MHData_Example.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/mh/Development/Github/Test/MHData/Example/build/Pods.build/Debug-iphonesimulator/Pods-MHData_Example.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}
