@@ -1,5 +1,5 @@
 PODS:
-  - MHData (0.1.8)
+  - MHData (0.1.9)
 
 DEPENDENCIES:
   - MHData (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MHData: ddb4b1d5c2a49fb1d5bf146a18cf4958fcf565dd
+  MHData: 9ba0b18cbcf9073606d4e198877c125c80025d3f
 
 PODFILE CHECKSUM: b38dd195e8f74787da85a3f3746fb20de5f72e54
 
