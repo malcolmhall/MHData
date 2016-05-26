@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '7.0'
 
-  s.source_files = 'MHData/Classes/**/*'
+  s.source_files = 'MHData/**/*'
   
   # s.resource_bundles = {
   #   'MHData' => ['MHData/Assets/*.png']
