@@ -1,6 +1,6 @@
 //
 //  MHFetchedResultsController.m
-//  DataTest
+//  MHData
 //
 //  Created by Malcolm Hall on 04/01/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.

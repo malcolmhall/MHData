@@ -1,6 +1,6 @@
 //
 //  MHCoreDataStackManager.h
-//  AppTrack
+//  MHData
 //
 //  Created by Malcolm Hall on 08/02/2016.
 //
