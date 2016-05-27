@@ -94,8 +94,9 @@
     
     self.fetching = YES;
     
-    // trick to make the section array mutable so it can be sorted. It's done by a fake delete. The section array only becomes mutable after the first change.
-    // todo optimise by reusing undo for multiple sections
+    // Trick to make the section array mutable so it can be sorted. It's done by a fake delete.
+    // The section array only becomes mutable after the first change.
+    // Todo optimise by reusing undo for multiple sections
     NSManagedObjectContext* context = self.managedObjectContext;
     for(id<NSFetchedResultsSectionInfo> section in super.sections){
         if(!section.numberOfObjects){

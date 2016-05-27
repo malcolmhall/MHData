@@ -7,6 +7,18 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <MHData/MHDataDefines.h>
+
+#define MH_defaultContext MHDATA_ADD_PREFIX(MH_defaultContext)
+#define MH_createPrivateQueueContextWithError MHDATA_ADD_PREFIX(MH_defaultContext)
+#define MH_createChildContext MHDATA_ADD_PREFIX(MH_createChildContext)
+#define MH_insertNewObjectForEntityName MHDATA_ADD_PREFIX(MH_insertNewObjectForEntityName)
+#define MH_entityDescriptionForName MHDATA_ADD_PREFIX(MH_entityDescriptionForName)
+#define MH_fetchObjectsWithEntityName MHDATA_ADD_PREFIX(MH_fetchObjectsWithEntityName)
+#define MH_fetchObjectWithEntityName MHDATA_ADD_PREFIX(MH_fetchObjectWithEntityName)
+#define MH_fetchOrInsertObjectWithEntityName MHDATA_ADD_PREFIX(MH_fetchOrInsertObjectWithEntityName)
+#define MH_save MHDATA_ADD_PREFIX(MH_save)
+#define MH_fetchValueForAggregateFunction MHDATA_ADD_PREFIX(MH_fetchValueForAggregateFunction)
 
 NS_ASSUME_NONNULL_BEGIN
 

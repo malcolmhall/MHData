@@ -7,6 +7,16 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <MHData/MHDataDefines.h>
+
+#define MH_toManyRelationshipsByName MHDATA_ADD_PREFIX(MH_toManyRelationshipsByName)
+#define MH_toOneRelationshipsByName MHDATA_ADD_PREFIX(MH_toOneRelationshipsByName)
+#define MH_relationshipsWithManagedObjectClass MHDATA_ADD_PREFIX(MH_relationshipsWithManagedObjectClass)
+#define MH_toManyRelationships MHDATA_ADD_PREFIX(MH_toManyRelationships)
+#define MH_toOneRelationships MHDATA_ADD_PREFIX(MH_toOneRelationships)
+#define MH_propertyNameForToManyRelation MHDATA_ADD_PREFIX(MH_propertyNameForToManyRelation)
+#define MH_transientProperties MHDATA_ADD_PREFIX(MH_transientProperties)
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,13 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSRelationshipDescription *> *)MH_relationshipsWithManagedObjectClass:(Class)managedObjectClass;
 
 // convenience for getting only relations that have toMany true.
-//-(NSArray*)MH_toManyRelations;
+-(NSArray*)MH_toManyRelationships;
 
-//-(NSSet*)MH_toManyRelationNames;
+-(NSArray*)MH_toOneRelationships;
 
-//-(NSArray*)MH_toOneRelations;
-
-// e.g. if this entity is FruitType it would return fruitTypes. It lowercases first letter and appends an 's'.
+// e.g. if this entity is FruitType it would return fruitTypes. It lowercases first letter and appends an 's'. Todo move to camelCaseAndPluralize
 - (NSString*)MH_propertyNameForToManyRelation;
 
 - (NSArray*)MH_transientProperties;

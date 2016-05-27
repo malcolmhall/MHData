@@ -11,34 +11,30 @@
 @implementation NSEntityDescription (MH)
 
 -(NSDictionary<NSString *, NSRelationshipDescription *> *)MH_toManyRelationshipsByName{
-    NSArray* toManyRelationships = [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = YES"]];
+    NSArray* toManyRelationships = self.MH_toManyRelationships;
     return [NSDictionary dictionaryWithObjects:toManyRelationships forKeys:[toManyRelationships valueForKey:@"name"]];
 }
 
 -(NSDictionary<NSString *, NSRelationshipDescription *> *)MH_toOneRelationshipsByName{
-    NSArray* toManyRelationships = [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = NO"]];
-    return [NSDictionary dictionaryWithObjects:toManyRelationships forKeys:[toManyRelationships valueForKey:@"name"]];
+    NSArray* toOneRelationships = self.MH_toOneRelationships;
+    return [NSDictionary dictionaryWithObjects:toOneRelationships forKeys:[toOneRelationships valueForKey:@"name"]];
 }
 
 - (NSArray<NSRelationshipDescription *> *)MH_relationshipsWithManagedObjectClass:(Class)managedObjectClass{
     return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"managedObjectClass = %@", managedObjectClass]];
 }
 
-//-(NSArray*)MH_toManyRelations{
-//    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isToMany = true"]];
-//}
-//
-//-(NSSet*)MH_toManyRelationNames{
-//    return [NSSet setWithArray:[self.MH_toManyRelations valueForKey:@"name"]];
-//}
+-(NSArray*)MH_toManyRelationships{
+    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = YES"]];
+}
+
+-(NSArray*)MH_toOneRelationships{
+    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = NO"]];
+}
 
 -(NSArray*)MH_transientProperties{
     return [self.properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isTransient = true"]];
 }
-
-//-(NSArray*)MH_toOneRelations{
-//    return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isToMany = false"]];
-//}
 
 -(NSString*)MH_propertyNameForToManyRelation{
     return [[self.name stringByReplacingCharactersInRange:NSMakeRange(0,1)
