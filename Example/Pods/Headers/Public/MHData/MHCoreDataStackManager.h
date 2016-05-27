@@ -1,1 +1,1 @@
-../../../../../MHData/Classes/MHCoreDataStackManager.h
+../../../../../MHData/MHCoreDataStackManager.h

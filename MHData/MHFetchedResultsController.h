@@ -7,11 +7,11 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <UIKit/UIKit.h>
+#import <MHData/MHDataDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MHFetchedResultsController : NSFetchedResultsController
+@interface MHDATA_ADD_PREFIX(MHFetchedResultsController) : NSFetchedResultsController
 
 /* An NSComparator block which sorts the objects after filtering and sectioning */
 @property (nonatomic, copy) NSComparator postFetchComparator;

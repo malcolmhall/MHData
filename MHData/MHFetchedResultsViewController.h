@@ -6,14 +6,15 @@
 //  Copyright (c) 2013 Malcolm Hall. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <UIKit/UIKit.h>
+#import <MHData/MHDataDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 
-@interface MHFetchedResultsViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface MHDATA_ADD_PREFIX(MHFetchedResultsViewController) : UITableViewController<NSFetchedResultsControllerDelegate>
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
 @property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;

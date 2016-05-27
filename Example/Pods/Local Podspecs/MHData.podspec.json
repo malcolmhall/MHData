@@ -15,7 +15,7 @@
   "platforms": {
     "ios": "7.0"
   },
-  "source_files": "MHData/Classes/**/*",
+  "source_files": "MHData/**/*",
   "frameworks": [
     "UIKit",
     "CoreData"

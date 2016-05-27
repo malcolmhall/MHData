@@ -6,9 +6,9 @@
 //
 //
 
-#import <MHData/MHCoreDataStackManager.h>
-#import <MHData/NSManagedObjectModel+MH.h>
-#import <MHData/NSPersistentStoreCoordinator+MH.h>
+#import "MHCoreDataStackManager.h"
+#import "NSManagedObjectModel+MH.h"
+#import "NSPersistentStoreCoordinator+MH.h"
 
 @interface MHDATA_ADD_PREFIX(MHCoreDataStackManager)()
 

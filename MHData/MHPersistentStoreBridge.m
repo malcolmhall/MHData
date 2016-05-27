@@ -6,19 +6,19 @@
 //  Copyright (c) 2015 Malcolm Hall. All rights reserved.
 //
 
-#import <MHData/MHPersistentStoreBridge.h>
+#import "MHPersistentStoreBridge.h"
 
 NSString * const MHPersistentStoreBridgeWillExecuteRequestNotification = @"MHPersistentStoreBridgeWillExecuteRequestNotification";
 NSString * const MHRequestKey = @"MHRequestKey";
 NSString * const MHContextKey = @"MHContextKey";
 
-@implementation MHPersistentStoreBridge{
+@implementation MHDATA_ADD_PREFIX(MHPersistentStoreBridge){
     NSPersistentStoreCoordinator* _destinationPersistentStoreCoordinator;
     NSIncrementalStore* _destinationPersistentStore;
 }
 
 +(void)initialize{
-    if(self == [MHPersistentStoreBridge class]){
+    if(self == [MHDATA_ADD_PREFIX(MHPersistentStoreBridge) class]){
         [NSPersistentStoreCoordinator registerStoreClass:self forStoreType:self.type];
     }
 }

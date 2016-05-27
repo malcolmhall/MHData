@@ -7,6 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
+#import <MHData/MHDataDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,7 @@ extern NSString * const MHPersistentStoreBridgeWillExecuteRequestNotification;
 extern NSString * const MHRequestKey;
 extern NSString * const MHContextKey;
 
-@interface MHPersistentStoreBridge : NSIncrementalStore
+@interface MHDATA_ADD_PREFIX(MHPersistentStoreBridge) : NSIncrementalStore
 
 +(NSString*)type;
 

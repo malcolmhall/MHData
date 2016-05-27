@@ -6,9 +6,9 @@
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import <MHData/MHFetchedResultsController.h>
+#import "MHFetchedResultsController.h"
 
-@interface MHFetchedResultsController()<NSFetchedResultsControllerDelegate>
+@interface MHDATA_ADD_PREFIX(MHFetchedResultsController)()<NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, assign) id<NSFetchedResultsControllerDelegate> actualDelegate;
 
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation MHFetchedResultsController
+@implementation MHDATA_ADD_PREFIX(MHFetchedResultsController)
 
 @synthesize actualDelegate = _actualDelegate;
 //@synthesize actualSections = _actualSections;
