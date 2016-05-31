@@ -20,13 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 // Singleton access
 + (instancetype)sharedManager;
 
-/// Managed object model for the application, defaults to MH_defaultModel
+/// Managed object model for the application, defaults to mh_defaultModel
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 
-/// Primary persistent store coordinator for the application, defaults to MH_coordinatorWithManagedObjectModel
+/// Primary persistent store coordinator for the application, defaults to mh_coordinatorWithManagedObjectModel
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-/// URL for the Core Data store file, defaults to MH_defaultStoreURLWithError
+/// URL for the Core Data store file, defaults to mh_defaultStoreURLWithError
 @property (nonatomic, strong) NSURL *storeURL;
 
 // Main context for the application, calls each of the above properties in turn.

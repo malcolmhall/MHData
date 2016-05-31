@@ -31,7 +31,7 @@
 
 - (NSManagedObjectModel *)managedObjectModel {
     if (!_managedObjectModel) {
-        _managedObjectModel = [NSManagedObjectModel MH_defaultModel];
+        _managedObjectModel = [NSManagedObjectModel mh_defaultModel];
     }
     return _managedObjectModel;
 }
@@ -39,7 +39,7 @@
 - (NSURL *)storeURL {
     if (!_storeURL) {
         NSError* error;
-        _storeURL = [NSPersistentStoreCoordinator MH_defaultStoreURLWithError:&error];
+        _storeURL = [NSPersistentStoreCoordinator mh_defaultStoreURLWithError:&error];
         if(!_storeURL){
             [NSException raise:NSInternalInconsistencyException format:@"Failed to create store path %@", error];
         }
@@ -50,7 +50,7 @@
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (!_persistentStoreCoordinator) {
         NSError* error;
-        _persistentStoreCoordinator = [NSPersistentStoreCoordinator MH_coordinatorWithManagedObjectModel:self.managedObjectModel storeURL:self.storeURL error:&error];
+        _persistentStoreCoordinator = [NSPersistentStoreCoordinator mh_coordinatorWithManagedObjectModel:self.managedObjectModel storeURL:self.storeURL error:&error];
         if(!_persistentStoreCoordinator){
             [NSException raise:NSInternalInconsistencyException format:@"Failed to create store %@", error];
         }

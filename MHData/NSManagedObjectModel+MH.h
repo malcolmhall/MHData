@@ -9,9 +9,9 @@
 #import <CoreData/CoreData.h>
 #import <MHData/MHDataDefines.h>
 
-#define MH_defaultModel MHDATA_ADD_PREFIX(MH_defaultModel)
-#define MH_modelNamed MHDATA_ADD_PREFIX(MH_modelNamed)
-#define MH_entityNamed MHDATA_ADD_PREFIX(MH_entityNamed)
+#define mh_defaultModel MHDATA_ADD_PREFIX(mh_defaultModel)
+#define mh_modelNamed MHDATA_ADD_PREFIX(mh_modelNamed)
+#define mh_entityNamed MHDATA_ADD_PREFIX(mh_entityNamed)
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,12 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // merged model of all models in bundle.
 
-+ (NSManagedObjectModel*)MH_defaultModel;
++ (NSManagedObjectModel*)mh_defaultModel;
 
 // Easily load a model from a model file and caches it. Do not include any file extension.
-+ (NSManagedObjectModel*)MH_modelNamed:(NSString*)name;
++ (NSManagedObjectModel*)mh_modelNamed:(NSString*)name;
 
--(NSEntityDescription*)MH_entityNamed:(NSString*)entityName;
+-(NSEntityDescription*)mh_entityNamed:(NSString*)entityName;
 
 @end
 

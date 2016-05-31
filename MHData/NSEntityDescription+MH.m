@@ -10,33 +10,33 @@
 
 @implementation NSEntityDescription (MH)
 
--(NSDictionary<NSString *, NSRelationshipDescription *> *)MH_toManyRelationshipsByName{
-    NSArray* toManyRelationships = self.MH_toManyRelationships;
+-(NSDictionary<NSString *, NSRelationshipDescription *> *)mh_toManyRelationshipsByName{
+    NSArray* toManyRelationships = self.mh_toManyRelationships;
     return [NSDictionary dictionaryWithObjects:toManyRelationships forKeys:[toManyRelationships valueForKey:@"name"]];
 }
 
--(NSDictionary<NSString *, NSRelationshipDescription *> *)MH_toOneRelationshipsByName{
-    NSArray* toOneRelationships = self.MH_toOneRelationships;
+-(NSDictionary<NSString *, NSRelationshipDescription *> *)mh_toOneRelationshipsByName{
+    NSArray* toOneRelationships = self.mh_toOneRelationships;
     return [NSDictionary dictionaryWithObjects:toOneRelationships forKeys:[toOneRelationships valueForKey:@"name"]];
 }
 
-- (NSArray<NSRelationshipDescription *> *)MH_relationshipsWithManagedObjectClass:(Class)managedObjectClass{
+- (NSArray<NSRelationshipDescription *> *)mh_relationshipsWithManagedObjectClass:(Class)managedObjectClass{
     return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"managedObjectClass = %@", managedObjectClass]];
 }
 
--(NSArray*)MH_toManyRelationships{
+-(NSArray*)mh_toManyRelationships{
     return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = YES"]];
 }
 
--(NSArray*)MH_toOneRelationships{
+-(NSArray*)mh_toOneRelationships{
     return [self.relationshipsByName.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isToMany = NO"]];
 }
 
--(NSArray*)MH_transientProperties{
+-(NSArray*)mh_transientProperties{
     return [self.properties filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isTransient = true"]];
 }
 
--(NSString*)MH_propertyNameForToManyRelation{
+-(NSString*)mh_propertyNameForToManyRelation{
     return [[self.name stringByReplacingCharactersInRange:NSMakeRange(0,1)
                                                withString:[self.name substringToIndex:1].lowercaseString] stringByAppendingString:@"s"];
 }

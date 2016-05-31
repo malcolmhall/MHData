@@ -12,10 +12,10 @@
 
 @implementation NSManagedObjectContext (MH)
 
-+ (instancetype)MH_defaultContextWithError:(NSError**)error{
++ (instancetype)mh_defaultContextWithError:(NSError**)error{
     static NSManagedObjectContext* _defaultManagedObjectContext;
     if(!_defaultManagedObjectContext){
-        NSPersistentStoreCoordinator* psc = [NSPersistentStoreCoordinator MH_defaultCoordinatorWithError:error];
+        NSPersistentStoreCoordinator* psc = [NSPersistentStoreCoordinator mh_defaultCoordinatorWithError:error];
         if(!psc){
             return nil;
         }
@@ -25,9 +25,9 @@
     return _defaultManagedObjectContext;
 }
 
-+ (instancetype)MH_defaultContext{
++ (instancetype)mh_defaultContext{
     NSError* error;
-    NSManagedObjectContext* context = [self MH_defaultContextWithError:&error];
+    NSManagedObjectContext* context = [self mh_defaultContextWithError:&error];
     if(error){
         [NSException raise:NSInternalInconsistencyException format:@"Failed to create default context %@", error];
     }
@@ -35,13 +35,13 @@
 }
 
 
--(NSManagedObjectContext*)MH_createChildContext{
+-(NSManagedObjectContext*)mh_createChildContext{
     NSManagedObjectContext* context = [[NSManagedObjectContext alloc] initWithConcurrencyType:self.concurrencyType];
     context.parentContext = self;
     return context;
 }
 
-- (NSManagedObjectContext *)MH_createPrivateQueueContextWithError:(NSError **)error {
+- (NSManagedObjectContext *)mh_createPrivateQueueContextWithError:(NSError **)error {
     
     // It uses the same store and model, but a new persistent store coordinator and context.
     NSPersistentStoreCoordinator *localCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
@@ -82,36 +82,36 @@
     return context;
 }
 
--(NSManagedObject*)MH_insertNewObjectForEntityName:(NSString*)entityName{
+-(NSManagedObject*)mh_insertNewObjectForEntityName:(NSString*)entityName{
     return  [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
 }
 
--(NSEntityDescription*)MH_entityDescriptionForName:(NSString*)name{
+-(NSEntityDescription*)mh_entityDescriptionForName:(NSString*)name{
     return [NSEntityDescription entityForName:name inManagedObjectContext:self];
 }
 
--(NSArray*)MH_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+-(NSArray*)mh_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.predicate = predicateOrNil;
     return [self executeFetchRequest:fetchRequest error:error];
 }
 
-- (id)MH_fetchObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
-    NSArray* objects = [self MH_fetchObjectsWithEntityName:entityName predicate:predicateOrNil error:error];
+- (id)mh_fetchObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+    NSArray* objects = [self mh_fetchObjectsWithEntityName:entityName predicate:predicateOrNil error:error];
     return objects.firstObject;
 }
 
--(NSManagedObject*)MH_fetchObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
+-(NSManagedObject*)mh_fetchObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
     // build the and predicate using the dict that also checks nulls.
     NSMutableArray* array = [NSMutableArray array];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [array addObject:[NSPredicate predicateWithFormat:@"%K = %@", key, obj]];
     }];
     NSCompoundPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
-    return [self MH_fetchObjectWithEntityName:entityName predicate:predicate error:error];
+    return [self mh_fetchObjectWithEntityName:entityName predicate:predicate error:error];
 }
 
--(NSManagedObject*)MH_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
+-(NSManagedObject*)mh_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
     NSError* e;
     
     // initialize inserted
@@ -119,7 +119,7 @@
         *inserted = NO;
     }
     
-    NSManagedObject* object = [self MH_fetchObjectWithEntityName:entityName dictionary:dictionary error:&e];
+    NSManagedObject* object = [self mh_fetchObjectWithEntityName:entityName dictionary:dictionary error:&e];
     if(e){
         // nil pointer check
         if(error){
@@ -128,7 +128,7 @@
         return nil;
     }
     else if(!object){
-        object = [self MH_insertNewObjectForEntityName:entityName];
+        object = [self mh_insertNewObjectForEntityName:entityName];
         [object setValuesForKeysWithDictionary:dictionary];
         // nil pointer check
         if(inserted){
@@ -138,7 +138,7 @@
     return object;
 }
 
--(id)MH_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+-(id)mh_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
     // todo validate these
     NSEntityDescription* entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self];
     NSAttributeDescription* attribute = entity.attributesByName[attributeName];
@@ -168,7 +168,7 @@
     return [[fetchResults lastObject] valueForKey:resultKey];
 }
 
-- (BOOL)MH_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError{
+- (BOOL)mh_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError{
     BOOL result = [self save:error];
     if(!result){
         [self rollback];

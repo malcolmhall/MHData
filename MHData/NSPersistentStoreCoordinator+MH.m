@@ -12,14 +12,14 @@
 
 @implementation NSPersistentStoreCoordinator (MH)
 
-+(NSPersistentStoreCoordinator*)MH_defaultCoordinatorWithError:(NSError**)error{
++(NSPersistentStoreCoordinator*)mh_defaultCoordinatorWithError:(NSError**)error{
     static NSPersistentStoreCoordinator* psc = nil;
     if(!psc){
-        NSURL* url = [NSPersistentStoreCoordinator MH_defaultStoreURLWithError:error];
+        NSURL* url = [NSPersistentStoreCoordinator mh_defaultStoreURLWithError:error];
         if(!url){
             return nil;
         }
-        psc = [NSPersistentStoreCoordinator MH_coordinatorWithManagedObjectModel:[NSManagedObjectModel MH_defaultModel] storeURL:url error:error];
+        psc = [NSPersistentStoreCoordinator mh_coordinatorWithManagedObjectModel:[NSManagedObjectModel mh_defaultModel] storeURL:url error:error];
         if(!psc){
             return nil;
         }
@@ -27,19 +27,19 @@
     return psc;
 }
 
-//+ (NSPersistentStoreCoordinator*)MH_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model{
-//    return [self MH_coordinatorWithManagedObjectModel:model storeURL:[self MH_def] error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>]
+//+ (NSPersistentStoreCoordinator*)mh_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model{
+//    return [self mh_coordinatorWithManagedObjectModel:model storeURL:[self mh_def] error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>]
 //}
 
-+ (NSPersistentStoreCoordinator*)MH_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError**)error{
++ (NSPersistentStoreCoordinator*)mh_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError**)error{
     NSPersistentStoreCoordinator* psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    if(![psc MH_addStoreWithURL:storeURL error:error]){
+    if(![psc mh_addStoreWithURL:storeURL error:error]){
         return nil;
     }
     return psc;
 }
 
-//+(NSPersistentStoreCoordinator*)MH_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
+//+(NSPersistentStoreCoordinator*)mh_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
 //
 //    static NSMutableDictionary* _persistentStoreCoordinators;
 //
@@ -50,7 +50,7 @@
 //
 //    NSPersistentStoreCoordinator* psc = [_persistentStoreCoordinators objectForKey:SQLiteStoreURL];
 //    if(!psc){
-//        psc = [self MH_persistentStoreCoordinatorWithSQLiteStoreURL:SQLiteStoreURL managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
+//        psc = [self mh_persistentStoreCoordinatorWithSQLiteStoreURL:SQLiteStoreURL managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
 //        [_persistentStoreCoordinators setObject:psc forKey:SQLiteStoreURL];
 //    }
 //
@@ -58,7 +58,7 @@
 //}
 
 
--(NSPersistentStore*)MH_addStoreWithURL:(NSURL*)storeURL error:(NSError**)error{
+-(NSPersistentStore*)mh_addStoreWithURL:(NSURL*)storeURL error:(NSError**)error{
     
     NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     @YES, NSMigratePersistentStoresAutomaticallyOption,
@@ -86,16 +86,16 @@
     return store;
 }
 
-+(NSString*)MH_defaultStoreFilename{
++(NSString*)mh_defaultStoreFilename{
     return [[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@".sqlite"];
 }
 
-+(NSURL *)MH_defaultStoreURLWithError:(NSError**)error{
-    NSURL* dir = [self MH_applicationSupportDirectoryWithError:error]; // if nil then method returns nil.
-    return [dir URLByAppendingPathComponent:[self MH_defaultStoreFilename]];
++(NSURL *)mh_defaultStoreURLWithError:(NSError**)error{
+    NSURL* dir = [self mh_applicationSupportDirectoryWithError:error]; // if nil then method returns nil.
+    return [dir URLByAppendingPathComponent:[self mh_defaultStoreFilename]];
 }
 
-+ (NSURL *)MH_applicationSupportDirectoryWithError:(NSError**)error{
++ (NSURL *)mh_applicationSupportDirectoryWithError:(NSError**)error{
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *URLs = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];

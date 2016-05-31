@@ -10,7 +10,7 @@
 
 @implementation NSManagedObjectModel (MH)
 
-+(NSManagedObjectModel*)MH_defaultModel{
++(NSManagedObjectModel*)mh_defaultModel{
     static NSManagedObjectModel* _defaultModel = nil;
     if(!_defaultModel){
         NSManagedObjectModel* mom = [NSManagedObjectModel mergedModelFromBundles:nil];
@@ -23,7 +23,7 @@
 }
 
 //helper for load model files
-+(NSManagedObjectModel*)MH_modelNamed:(NSString *)name{
++(NSManagedObjectModel*)mh_modelNamed:(NSString *)name{
     NSString* s = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
     if(!s){
         s = [[NSBundle mainBundle] pathForResource:name ofType:@"mom"]; // mom is what it gets compiled to on the phone.
@@ -35,7 +35,7 @@
     return [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
 }
 
--(NSEntityDescription*)MH_entityNamed:(NSString*)entityName{
+-(NSEntityDescription*)mh_entityNamed:(NSString*)entityName{
     return self.entitiesByName[entityName];
 }
 

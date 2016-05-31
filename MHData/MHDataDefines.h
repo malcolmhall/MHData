@@ -19,9 +19,9 @@
 // Tweak class clash safety
 #ifndef MHDATA_ADD_PREFIX
     #ifdef MHDATA_PREFIX_TO_ADD
-        #define __MHDATA_PASTER(a, b) a ## b
-        #define __MHDATA_EVALUATOR(a, b) __MHDATA_PASTER(a, b)
-        #define MHDATA_ADD_PREFIX(name) __MHDATA_EVALUATOR(MHDATA_PREFIX_TO_ADD, name)
+        #define __MHDATA_PASTE__(a, b) a ## _ ## b
+        #define __MHDATA_ADD_PREFIX_IMPL__(a, b) __MHDATA_PASTE__(a, b)
+        #define MHDATA_ADD_PREFIX(name) __MHDATA_ADD_PREFIX_IMPL__(MHDATA_PREFIX_TO_ADD, name)
     #else
         #define MHDATA_ADD_PREFIX(name) name
     #endif
