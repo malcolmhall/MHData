@@ -22,7 +22,7 @@ MHDATA_EXTERN NSString * const MHDataErrorDomain;
 
 NS_ASSUME_NONNULL_END
 
-//  When developing a tweak #define MHDATA_ADD_PREFIX TweakName for extra class clash safety.
+//  When developing a tweak #define MHDATA_PREFIX_TO_ADD TweakName for extra class clash safety.
 #if !defined(MHDATA_ADD_PREFIX) && defined(MHDATA_PREFIX_TO_ADD)
     #define __MHDATA_PASTE__(a, b) a ## _ ## b
     #define __MHDATA_ADD_PREFIX_IMPL__(a, b) __MHDATA_PASTE__(a, b)
