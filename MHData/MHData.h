@@ -10,14 +10,14 @@
 
 #import <MHData/MHDataDefines.h>
 
-#import <MHData/NSManagedObjectContext+MH.h>
-#import <MHData/NSManagedObjectModel+MH.h>
-#import <MHData/NSPersistentStoreCoordinator+MH.h>
-#import <MHData/NSManagedObject+MH.h>
-#import <MHData/NSEntityDescription+MH.h>
+#import <MHData/NSManagedObjectContext+MHD.h>
+#import <MHData/NSManagedObjectModel+MHD.h>
+#import <MHData/NSPersistentStoreCoordinator+MHD.h>
+#import <MHData/NSManagedObject+MHD.h>
+#import <MHData/NSEntityDescription+MHD.h>
 
-#import <MHData/MHCoreDataStackManager.h>
-#import <MHData/MHPersistentStoreBridge.h>
-#import <MHData/MHFetchedResultsViewController.h>
-#import <MHData/MHFetchedResultsController.h>
+#import <MHData/MHDStackManager.h>
+#import <MHData/MHDPersistentStoreBridge.h>
+#import <MHData/MHDFetchedResultsViewController.h>
+#import <MHData/MHDFetchedResultsController.h>
 

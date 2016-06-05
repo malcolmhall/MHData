@@ -15,4 +15,6 @@
 @import Foundation;
 #endif
 
-//#define MHDATA_PREFIX_TO_ADD ZZ
+#import <MHData/MHData.h>
+
+//#define MHDATA_PREFIX_TO_ADD TestTweak

@@ -7,14 +7,13 @@
 //
 
 #import "MHAppDelegate.h"
-#import <MHData/MHData.h>
 
 @implementation MHAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-   __unused MHCoreDataStackManager* a = [MHCoreDataStackManager sharedManager];
+   __unused MHDStackManager* a = [MHDStackManager sharedManager];
    // NSManagedObjectModel* model = a.managedObjectModel;
     
     // Override point for customization after application launch.
