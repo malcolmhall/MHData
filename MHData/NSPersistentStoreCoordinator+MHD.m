@@ -63,6 +63,7 @@
     NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     @YES, NSMigratePersistentStoresAutomaticallyOption,
                                     @YES, NSInferMappingModelAutomaticallyOption,
+                                    NSFileProtectionNone, NSPersistentStoreFileProtectionKey,
                                     nil];
     NSPersistentStore* store;
 #ifdef DEBUG
