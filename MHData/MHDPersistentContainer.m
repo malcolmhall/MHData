@@ -65,8 +65,16 @@
 
 - (NSManagedObjectContext *)newBackgroundContext{
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    // Rather than create a new coordinator, strangely Apple decided to re-use the main coordinator.
     context.persistentStoreCoordinator = _persistentStoreCoordinator;
     return context;
+}
+
+- (void)performBackgroundTask:(void (^)(NSManagedObjectContext *))block{
+    NSManagedObjectContext* bc = [self newBackgroundContext];
+    [bc performBlock:^{
+        block(bc);
+    }];
 }
 
 @end
