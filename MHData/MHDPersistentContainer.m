@@ -50,6 +50,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *URL = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
     if(![fileManager createDirectoryAtURL:URL withIntermediateDirectories:YES attributes:nil error:nil]){
+        // very strange Apple decided to just crash instead of set an error or even throw an exception.
         abort();
     }
     return URL;
