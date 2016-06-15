@@ -56,14 +56,17 @@ NS_ASSUME_NONNULL_END
     #define mhd_propertyNameForToManyRelation MHDATA_ADD_PREFIX(mhd_propertyNameForToManyRelation)
     #define mhd_transientProperties MHDATA_ADD_PREFIX(mhd_transientProperties)
 
+    // NSManagedObjectModel
     #define mhd_defaultModel MHDATA_ADD_PREFIX(mhd_defaultModel)
     #define mhd_modelNamed MHDATA_ADD_PREFIX(mhd_modelNamed)
     #define mhd_entityNamed MHDATA_ADD_PREFIX(mhd_entityNamed)
 
+    //NSPersistentStoreCoordinator
     #define mhd_defaultCoordinatorWithError MHDATA_ADD_PREFIX(mhd_defaultCoordinatorWithError)
     #define mhd_coordinatorWithManagedObjectModel MHDATA_ADD_PREFIX(mhd_coordinatorWithManagedObjectModel)
     #define mhd_addStoreWithURL MHDATA_ADD_PREFIX(mhd_addStoreWithURL)
     #define mhd_defaultStoreURLWithError MHDATA_ADD_PREFIX(mhd_defaultStoreURLWithError)
     #define mhd_defaultStoreFilename MHDATA_ADD_PREFIX(mhd_defaultStoreFilename)
     #define mhd_applicationSupportDirectoryWithError MHDATA_ADD_PREFIX(mhd_applicationSupportDirectoryWithError)
+    #define mhd_addPersistentStoreWithDescription MHDATA_ADD_PREFIX(mhd_addPersistentStoreWithDescription)
 #endif

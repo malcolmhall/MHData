@@ -216,10 +216,14 @@ static NSString* kDefaultmessageWhenNoRows = @"There is no data available to dis
             if(![indexPath isEqual:newIndexPath]){
                 //NSLog(@"Move %@ to %@", indexPath, newIndexPath);
                 // move assumes reload however if we do both it crashes with 2 animations cannot be done at the same time.
-                [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tableView reloadRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                });
+//                [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [tableView reloadRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//                });
+                // test
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                
             }else{
                 //NSLog(@"Move %@", indexPath);
                 // it hadn't actually moved but it was updated. Required as of iOS 9.

@@ -8,8 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #import <MHData/MHDataDefines.h>
-
-
+#import <MHData/MHDPersistentStoreDescription.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Returns the path to Application Support/Executable Name creating directories as necessary.
 + (NSURL *)mhd_applicationSupportDirectoryWithError:(NSError**)error;
+
+- (void)mhd_addPersistentStoreWithDescription:(MHDPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MHDPersistentStoreDescription *, NSError * _Nullable))block;
 
 @end
 

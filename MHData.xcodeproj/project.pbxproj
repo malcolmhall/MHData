@@ -10,26 +10,30 @@
 		EC3144DE1D073E010025F669 /* MHData.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144DD1D073E010025F669 /* MHData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3144E51D073E010025F669 /* MHData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3144DA1D073E010025F669 /* MHData.framework */; };
 		EC3144EA1D073E010025F669 /* MHDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144E91D073E010025F669 /* MHDataTests.m */; };
-		EC3145081D073EA30025F669 /* MHDataDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F41D073EA30025F669 /* MHDataDefines.h */; };
+		EC3145081D073EA30025F669 /* MHDataDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F41D073EA30025F669 /* MHDataDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3145091D073EA30025F669 /* MHDataDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F51D073EA30025F669 /* MHDataDefines.m */; };
-		EC31450A1D073EA30025F669 /* MHDFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F61D073EA30025F669 /* MHDFetchedResultsController.h */; };
+		EC31450A1D073EA30025F669 /* MHDFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F61D073EA30025F669 /* MHDFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31450B1D073EA30025F669 /* MHDFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F71D073EA30025F669 /* MHDFetchedResultsController.m */; };
-		EC31450C1D073EA30025F669 /* MHDFetchedResultsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F81D073EA30025F669 /* MHDFetchedResultsViewController.h */; };
+		EC31450C1D073EA30025F669 /* MHDFetchedResultsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F81D073EA30025F669 /* MHDFetchedResultsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31450D1D073EA30025F669 /* MHDFetchedResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F91D073EA30025F669 /* MHDFetchedResultsViewController.m */; };
-		EC31450E1D073EA30025F669 /* MHDPersistentStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FA1D073EA30025F669 /* MHDPersistentStoreBridge.h */; };
+		EC31450E1D073EA30025F669 /* MHDPersistentStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FA1D073EA30025F669 /* MHDPersistentStoreBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31450F1D073EA30025F669 /* MHDPersistentStoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144FB1D073EA30025F669 /* MHDPersistentStoreBridge.m */; };
-		EC3145101D073EA30025F669 /* MHDStackManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FC1D073EA30025F669 /* MHDStackManager.h */; };
+		EC3145101D073EA30025F669 /* MHDStackManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FC1D073EA30025F669 /* MHDStackManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3145111D073EA30025F669 /* MHDStackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144FD1D073EA30025F669 /* MHDStackManager.m */; };
-		EC3145121D073EA30025F669 /* NSEntityDescription+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FE1D073EA30025F669 /* NSEntityDescription+MHD.h */; };
+		EC3145121D073EA30025F669 /* NSEntityDescription+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FE1D073EA30025F669 /* NSEntityDescription+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3145131D073EA30025F669 /* NSEntityDescription+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144FF1D073EA30025F669 /* NSEntityDescription+MHD.m */; };
-		EC3145141D073EA30025F669 /* NSManagedObject+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145001D073EA30025F669 /* NSManagedObject+MHD.h */; };
+		EC3145141D073EA30025F669 /* NSManagedObject+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145001D073EA30025F669 /* NSManagedObject+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3145151D073EA30025F669 /* NSManagedObject+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3145011D073EA30025F669 /* NSManagedObject+MHD.m */; };
-		EC3145161D073EA30025F669 /* NSManagedObjectContext+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145021D073EA30025F669 /* NSManagedObjectContext+MHD.h */; };
+		EC3145161D073EA30025F669 /* NSManagedObjectContext+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145021D073EA30025F669 /* NSManagedObjectContext+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3145171D073EA30025F669 /* NSManagedObjectContext+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3145031D073EA30025F669 /* NSManagedObjectContext+MHD.m */; };
-		EC3145181D073EA30025F669 /* NSManagedObjectModel+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145041D073EA30025F669 /* NSManagedObjectModel+MHD.h */; };
+		EC3145181D073EA30025F669 /* NSManagedObjectModel+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145041D073EA30025F669 /* NSManagedObjectModel+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3145191D073EA30025F669 /* NSManagedObjectModel+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3145051D073EA30025F669 /* NSManagedObjectModel+MHD.m */; };
-		EC31451A1D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145061D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h */; };
+		EC31451A1D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3145061D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31451B1D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m */; };
+		ECC991CC1D118E40000F5EFB /* MHDPersistentStoreDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECC991CD1D118E40000F5EFB /* MHDPersistentStoreDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991CB1D118E40000F5EFB /* MHDPersistentStoreDescription.m */; };
+		ECC991D31D11AD88000F5EFB /* MHDPersistentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC991D11D11AD88000F5EFB /* MHDPersistentContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECC991D41D11AD88000F5EFB /* MHDPersistentContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991D21D11AD88000F5EFB /* MHDPersistentContainer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,10 @@
 		EC3145051D073EA30025F669 /* NSManagedObjectModel+MHD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+MHD.m"; sourceTree = "<group>"; };
 		EC3145061D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPersistentStoreCoordinator+MHD.h"; sourceTree = "<group>"; };
 		EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStoreCoordinator+MHD.m"; sourceTree = "<group>"; };
+		ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDPersistentStoreDescription.h; sourceTree = "<group>"; };
+		ECC991CB1D118E40000F5EFB /* MHDPersistentStoreDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDPersistentStoreDescription.m; sourceTree = "<group>"; };
+		ECC991D11D11AD88000F5EFB /* MHDPersistentContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDPersistentContainer.h; sourceTree = "<group>"; };
+		ECC991D21D11AD88000F5EFB /* MHDPersistentContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDPersistentContainer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +141,10 @@
 				EC3145061D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h */,
 				EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m */,
 				EC3144DF1D073E010025F669 /* Info.plist */,
+				ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */,
+				ECC991CB1D118E40000F5EFB /* MHDPersistentStoreDescription.m */,
+				ECC991D11D11AD88000F5EFB /* MHDPersistentContainer.h */,
+				ECC991D21D11AD88000F5EFB /* MHDPersistentContainer.m */,
 			);
 			path = MHData;
 			sourceTree = "<group>";
@@ -153,10 +165,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECC991D31D11AD88000F5EFB /* MHDPersistentContainer.h in Headers */,
 				EC3145121D073EA30025F669 /* NSEntityDescription+MHD.h in Headers */,
 				EC31450C1D073EA30025F669 /* MHDFetchedResultsViewController.h in Headers */,
 				EC3145181D073EA30025F669 /* NSManagedObjectModel+MHD.h in Headers */,
 				EC3145101D073EA30025F669 /* MHDStackManager.h in Headers */,
+				ECC991CC1D118E40000F5EFB /* MHDPersistentStoreDescription.h in Headers */,
 				EC3145081D073EA30025F669 /* MHDataDefines.h in Headers */,
 				EC3145141D073EA30025F669 /* NSManagedObject+MHD.h in Headers */,
 				EC3145161D073EA30025F669 /* NSManagedObjectContext+MHD.h in Headers */,
@@ -265,7 +279,9 @@
 			files = (
 				EC31450B1D073EA30025F669 /* MHDFetchedResultsController.m in Sources */,
 				EC31450F1D073EA30025F669 /* MHDPersistentStoreBridge.m in Sources */,
+				ECC991CD1D118E40000F5EFB /* MHDPersistentStoreDescription.m in Sources */,
 				EC31450D1D073EA30025F669 /* MHDFetchedResultsViewController.m in Sources */,
+				ECC991D41D11AD88000F5EFB /* MHDPersistentContainer.m in Sources */,
 				EC3145151D073EA30025F669 /* NSManagedObject+MHD.m in Sources */,
 				EC3145111D073EA30025F669 /* MHDStackManager.m in Sources */,
 				EC3145171D073EA30025F669 /* NSManagedObjectContext+MHD.m in Sources */,

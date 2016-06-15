@@ -130,4 +130,10 @@
     return URL;
 }
 
+- (void)mhd_addPersistentStoreWithDescription:(MHDPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MHDPersistentStoreDescription *, NSError * _Nullable))block{
+    NSError* error;
+    [self addPersistentStoreWithType:storeDescription.type configuration:storeDescription.configuration URL:storeDescription.URL options:storeDescription.options error:&error];
+    block(storeDescription, error);
+}
+
 @end
