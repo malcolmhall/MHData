@@ -8,11 +8,34 @@
 
 #import "MHDPersistentStoreDescription.h"
 
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+
 @implementation MHDPersistentStoreDescription{
     NSMutableDictionary<NSString *, NSObject *> *_options;
 }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
++(BOOL)classAvailable{
+    // if the class exists and we linked against the SDK it became available in.
+    NSString* sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
+    NSString* sdkVersion = [sdkName stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
+    return sdkVersion.integerValue >= 10;
+}
+
++(id)alloc{
+    if([self classAvailable]){
+        return [NSPersistentStoreDescription alloc];
+    }
+    return [super alloc];
+}
+#endif
+
 + (instancetype)persistentStoreDescriptionWithURL:(NSURL *)URL{
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+    if([self classAvailable]){
+        return [NSPersistentStoreDescription persistentStoreDescriptionWithURL:URL];
+    }
+    #endif
     return [[self alloc] initWithURL:URL];
 }
 
@@ -43,3 +66,5 @@
 }
 
 @end
+
+//#endif

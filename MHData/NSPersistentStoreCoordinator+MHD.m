@@ -131,9 +131,21 @@
 }
 
 - (void)mhd_addPersistentStoreWithDescription:(MHDPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MHDPersistentStoreDescription *, NSError * _Nullable))block{
-    NSError* error;
-    [self addPersistentStoreWithType:storeDescription.type configuration:storeDescription.configuration URL:storeDescription.URL options:storeDescription.options error:&error];
-    block(storeDescription, error);
+    if (storeDescription.shouldAddStoreAsynchronously) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSError *error;
+            [self addPersistentStoreWithType:storeDescription.type configuration:storeDescription.configuration URL:storeDescription.URL options:storeDescription.options error:&error];
+            if (block) {
+                block(storeDescription, error);
+            }
+        });
+    } else {
+        NSError *error;
+        [self addPersistentStoreWithType:storeDescription.type configuration:storeDescription.configuration URL:storeDescription.URL options:storeDescription.options error:&error];
+        if (block) {
+            block(storeDescription, error);
+        }
+    }
 }
 
 @end

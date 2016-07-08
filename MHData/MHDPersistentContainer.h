@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MHDPersistentStoreDescription;
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
 @interface MHDPersistentContainer : NSObject
 
@@ -42,6 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)performBackgroundTask:(void (^)(NSManagedObjectContext *))block;
 
 @end
+
+//@compatibility_alias NSPersistentContainer MHDPersistentContainer;
+
+//#else
+//#define __NSPersistentContainer__(a) a
+//#define MHDPersistentContainer __NSPersistentContainer__(NSPersistentContainer)
+//#endif
 
 NS_ASSUME_NONNULL_END
 

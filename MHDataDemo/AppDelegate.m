@@ -20,6 +20,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //NSURL* url = [MHDPersistentContainer defaultDirectoryURL];
+    
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
     UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
     navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
@@ -28,9 +31,9 @@
     UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
     MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
     //controller.managedObjectContext = self.managedObjectContext;
-    controller.managedObjectContext = self.persistentContainer.viewContext;
+    controller.persistentContainer = self.persistentContainer;
     
-    //NSURL* url = [MHDPersistentContainer defaultDirectoryURL];
+    
     //NSManagedObjectContext* c1 = self.persistentContainer.newBackgroundContext;
     
     return YES;
@@ -73,15 +76,17 @@
 
 #pragma mark - Core Data stack
 
+- (NSURL *)applicationDocumentsDirectory {
+    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.malhal.MHDataDemo" in the application's documents directory.
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
 /*
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-- (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.malhal.MHDataDemo" in the application's documents directory.
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
+
 
 - (NSManagedObjectModel *)managedObjectModel {
     // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
@@ -148,9 +153,9 @@
         if (_persistentContainer == nil) {
             //NSURL* def = [MHDPersistentContainer defaultDirectoryURL];
             _persistentContainer = [[MHDPersistentContainer alloc] initWithName:@"MHDataDemo"];
-            //NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
-            //NSPersistentStoreDescription* d = [NSPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
-            
+            NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
+            MHDPersistentStoreDescription* d = [MHDPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
+            _persistentContainer.persistentStoreDescriptions = @[d];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(MHDPersistentStoreDescription * _Nonnull storeDescription, NSError * _Nullable error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.

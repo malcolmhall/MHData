@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+
 // An instance of MHDPersistentStoreDescription encapsulates all information needed to describe a persistent store.
 @interface MHDPersistentStoreDescription : NSObject //<NSCopying>
 
@@ -40,5 +42,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithURL:(NSURL *)URL NS_DESIGNATED_INITIALIZER;
 
 @end
+
+//@compatibility_alias NSPersistentStoreDescription MHDPersistentStoreDescription;
+
+//#else
+//#define __NSPersistentStoreDescription__(a) a
+//#define MHDPersistentStoreDescription __NSPersistentStoreDescription__(NSPersistentStoreDescription)
+//#endif
 
 NS_ASSUME_NONNULL_END

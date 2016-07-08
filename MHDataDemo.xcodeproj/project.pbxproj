@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC5F680D1D1C091D004B84F2 /* MHDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A41D118968000F5EFB /* MHDataDemo.xcdatamodeld */; };
 		ECC991A01D118968000F5EFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC9919F1D118968000F5EFB /* main.m */; };
 		ECC991A31D118968000F5EFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A21D118968000F5EFB /* AppDelegate.m */; };
-		ECC991A61D118968000F5EFB /* MHDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A41D118968000F5EFB /* MHDataDemo.xcdatamodeld */; };
 		ECC991A91D118968000F5EFB /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A81D118968000F5EFB /* MasterViewController.m */; };
 		ECC991AC1D118968000F5EFB /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991AB1D118968000F5EFB /* DetailViewController.m */; };
 		ECC991AF1D118968000F5EFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECC991AD1D118968000F5EFB /* Main.storyboard */; };
@@ -17,6 +17,7 @@
 		ECC991B41D118968000F5EFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECC991B21D118968000F5EFB /* LaunchScreen.storyboard */; };
 		ECC991C51D118A19000F5EFB /* MHData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC991C21D118A03000F5EFB /* MHData.framework */; };
 		ECC991C61D118A19000F5EFB /* MHData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECC991C21D118A03000F5EFB /* MHData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECCF0F321D1B66E7006094B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCF0F311D1B66E7006094B8 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		ECC991B31D118968000F5EFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECC991B51D118968000F5EFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECC991BC1D118A03000F5EFB /* MHData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MHData.xcodeproj; sourceTree = "<group>"; };
+		ECCF0F311D1B66E7006094B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCF0F321D1B66E7006094B8 /* UIKit.framework in Frameworks */,
 				ECC991C51D118A19000F5EFB /* MHData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +136,7 @@
 		ECC991BB1D1189FB000F5EFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECCF0F311D1B66E7006094B8 /* UIKit.framework */,
 				ECC991BC1D118A03000F5EFB /* MHData.xcodeproj */,
 			);
 			name = Frameworks;
@@ -180,6 +184,8 @@
 				TargetAttributes = {
 					ECC9919A1D118968000F5EFB = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = HUK6B7UUU2;
+						DevelopmentTeamName = "Malcolm Hall";
 					};
 				};
 			};
@@ -244,9 +250,9 @@
 			files = (
 				ECC991AC1D118968000F5EFB /* DetailViewController.m in Sources */,
 				ECC991A91D118968000F5EFB /* MasterViewController.m in Sources */,
+				EC5F680D1D1C091D004B84F2 /* MHDataDemo.xcdatamodeld in Sources */,
 				ECC991A31D118968000F5EFB /* AppDelegate.m in Sources */,
 				ECC991A01D118968000F5EFB /* main.m in Sources */,
-				ECC991A61D118968000F5EFB /* MHDataDemo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -356,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_END
     #define mhd_fetchOrInsertObjectWithEntityName MHDATA_ADD_PREFIX(mhd_fetchOrInsertObjectWithEntityName)
     #define mhd_save MHDATA_ADD_PREFIX(mhd_save)
     #define mhd_fetchValueForAggregateFunction MHDATA_ADD_PREFIX(mhd_fetchValueForAggregateFunction)
+    #define mhd_automaticallyMergesChangesFromParent MHDATA_ADD_PREFIX(mhd_automaticallyMergesChangesFromParent)
 
     #define mhd_toManyRelationshipsByName MHDATA_ADD_PREFIX(mhd_toManyRelationshipsByName)
     #define mhd_toOneRelationshipsByName MHDATA_ADD_PREFIX(mhd_toOneRelationshipsByName)
