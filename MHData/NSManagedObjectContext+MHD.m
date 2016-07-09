@@ -76,12 +76,14 @@
     
     context.persistentStoreCoordinator = coordinator;
     
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
     // Avoid using default merge policy in multi-threading environment:
     // when we delete (and save) a record in one context,
     // and try to save edits on the same record in the other context before merging the changes,
     // an exception will be thrown because Core Data by default uses NSErrorMergePolicy.
     // Setting a reasonable mergePolicy is a good practice to avoid that kind of exception.
-    //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+#endif
     
     // In OS X (pre-Sierra), a context provides an undo manager by default
     // Disable it for performance benefit
@@ -190,10 +192,12 @@
     self.automaticallyMergesChangesFromParent = automatically;
 #else
     [self performBlockAndWait:^{
+        // preventing adding a duplicate observer
         if (automatically != self.mhd_automaticallyMergesChangesFromParent) {
             objc_setAssociatedObject(self, @selector(mhd_automaticallyMergesChangesFromParent), @(automatically), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             if (automatically) {
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mhd_automaticallyMergeChangesFromContextDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:self.parentContext];
+                // parentContext might be nil which will result in this observing all contexts so require another check in the method.
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mhd_automaticallyMergeChangesFromContextDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
             } else {
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:NSManagedObjectContextDidSaveNotification object:self.parentContext];
             }
@@ -217,12 +221,26 @@
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 - (void)mhd_automaticallyMergeChangesFromContextDidSaveNotification:(NSNotification *)notification {
-    NSManagedObjectContext *context = (NSManagedObjectContext*)notification.object;
-    if (context == self) {
+    // this context could be the parent or any context.
+    NSManagedObjectContext *context = (NSManagedObjectContext *)notification.object;
+    // ignore if its the same context
+    if(context == self){
+        return;
+    }
+    // ignore if it has a parent and our parent isn't it.
+    else if(context.parentContext && self.parentContext != context){
+        return;
+    }
+    // ignore if its using a different store.
+    else if (![context.persistentStoreCoordinator.persistentStores.firstObject.URL isEqual:self.persistentStoreCoordinator.persistentStores.firstObject.URL]) {
         return;
     }
     
     [self performBlock:^{
+        for (NSManagedObject *updatedObject in notification.userInfo[NSUpdatedObjectsKey]) {
+            // fault
+            [[self objectWithID:updatedObject.objectID] willAccessValueForKey:nil];
+        }
         [self mergeChangesFromContextDidSaveNotification:notification];
     }];
 }

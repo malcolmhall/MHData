@@ -99,25 +99,12 @@
 + (NSURL *)mhd_applicationSupportDirectoryWithError:(NSError**)error{
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *URLs = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-    
-    NSURL *URL = URLs[URLs.count - 1];
-    URL = [URL URLByAppendingPathComponent:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleExecutable"]];
+    NSURL *URL = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
     
     NSError* e;
     NSDictionary *properties = [URL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&e];
-    if (properties) {
-        NSNumber *isDirectoryNumber = properties[NSURLIsDirectoryKey];
-        
-        if (isDirectoryNumber && !isDirectoryNumber.boolValue) {
-            if(error){
-                *error = [NSError errorWithDomain:MHDataErrorDomain code:101 userInfo:@{NSLocalizedDescriptionKey : @"Could not access the application data folder",
-                                                                                  NSLocalizedFailureReasonErrorKey : @"Found a file in its place"}];
-            }
-            return nil;
-        }
-    }
-    else {
+    if (!properties) {
+        // creates the folder if doesn't exist
         if (e.code == NSFileReadNoSuchFileError) {
             if(![fileManager createDirectoryAtPath:URL.path withIntermediateDirectories:YES attributes:nil error:&e]){
                 if(error){
@@ -126,7 +113,23 @@
                 return nil;
             }
         }
+        else{ // another error reading the resource values.
+            if(error){
+                *error = e;
+            }
+            return nil;
+        }
     }
+    // check it is a directory
+    NSNumber *isDirectoryNumber = properties[NSURLIsDirectoryKey];
+    if (isDirectoryNumber && !isDirectoryNumber.boolValue) {
+        if(error){
+            *error = [NSError errorWithDomain:MHDataErrorDomain code:101 userInfo:@{NSLocalizedDescriptionKey : @"Could not access the application data folder",
+                                                                              NSLocalizedFailureReasonErrorKey : @"Found a file in its place"}];
+        }
+        return nil;
+    }
+    
     return URL;
 }
 
