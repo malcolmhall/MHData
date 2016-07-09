@@ -6,7 +6,7 @@
 //
 //
 
-#import <MHData/NSEntityDescription+MHD.h>
+#import "NSEntityDescription+MHD.h"
 
 @implementation NSEntityDescription (MHD)
 

@@ -7,7 +7,6 @@
 //
 
 #import "MHDFetchedResultsController.h"
-#import <UIKit/UIKit.h>
 
 @interface MHDFetchedResultsController()<NSFetchedResultsControllerDelegate>
 

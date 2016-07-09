@@ -6,9 +6,9 @@
 //
 //
 
-#import <MHData/NSPersistentStoreCoordinator+MHD.h>
-#import <MHData/MHDataDefines.h>
-#import <MHData/NSManagedObjectModel+MHD.h>
+#import "NSPersistentStoreCoordinator+MHD.h"
+#import "MHDataDefines.h"
+#import "NSManagedObjectModel+MHD.h"
 
 @implementation NSPersistentStoreCoordinator (MHD)
 

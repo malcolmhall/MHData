@@ -6,7 +6,7 @@
 //
 //
 
-#import <MHData/NSManagedObject+MHD.h>
+#import "NSManagedObject+MHD.h"
 
 @implementation NSManagedObject (MHD)
 

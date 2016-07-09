@@ -6,7 +6,7 @@
 //
 //
 
-#import <MHData/NSManagedObjectModel+MHD.h>
+#import "NSManagedObjectModel+MHD.h"
 
 @implementation NSManagedObjectModel (MHD)
 
