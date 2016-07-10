@@ -7,7 +7,7 @@
 //
 
 #import "NSPersistentStoreCoordinator+MHD.h"
-#import "MHDataDefines.h"
+#import "MHDataErrors.h"
 #import "NSManagedObjectModel+MHD.h"
 
 @implementation NSPersistentStoreCoordinator (MHD)

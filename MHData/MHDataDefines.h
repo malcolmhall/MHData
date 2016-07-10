@@ -16,12 +16,7 @@
     #endif
 #endif
 
-NS_ASSUME_NONNULL_BEGIN
-
-MHDATA_EXTERN NSString * const MHDataErrorDomain;
-
-NS_ASSUME_NONNULL_END
-
+/*
 //  When developing a tweak #define MHDATA_PREFIX_TO_ADD TweakName for extra class clash safety.
 #if !defined(MHDATA_ADD_PREFIX) && defined(MHDATA_PREFIX_TO_ADD)
     #define __MHDATA_PASTE__(a, b) a ## _ ## b
@@ -71,3 +66,4 @@ NS_ASSUME_NONNULL_END
     #define mhd_applicationSupportDirectoryWithError MHDATA_ADD_PREFIX(mhd_applicationSupportDirectoryWithError)
     #define mhd_addPersistentStoreWithDescription MHDATA_ADD_PREFIX(mhd_addPersistentStoreWithDescription)
 #endif
+*/

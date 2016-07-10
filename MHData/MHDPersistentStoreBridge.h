@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 // when adding to a persistent store, declare the destination store type using the NSStoreTypeKey in the options dictionary.
 
 extern NSString * const MHDPersistentStoreBridgeWillExecuteRequestNotification;
-extern NSString * const MHRequestKey;
-extern NSString * const MHContextKey;
+extern NSString * const MHDRequestKey;
+extern NSString * const MHDContextKey;
 
 @interface MHDPersistentStoreBridge : NSIncrementalStore
 

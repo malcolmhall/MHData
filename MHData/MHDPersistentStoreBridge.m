@@ -9,8 +9,8 @@
 #import "MHDPersistentStoreBridge.h"
 
 NSString * const MHDPersistentStoreBridgeWillExecuteRequestNotification = @"MHDPersistentStoreBridgeWillExecuteRequestNotification";
-NSString * const MHRequestKey = @"MHRequestKey";
-NSString * const MHContextKey = @"MHContextKey";
+NSString * const MHDRequestKey = @"MHDRequestKey";
+NSString * const MHDContextKey = @"MHDContextKey";
 
 @implementation MHDPersistentStoreBridge{
     NSPersistentStoreCoordinator* _destinationPersistentStoreCoordinator;
@@ -42,8 +42,8 @@ NSString * const MHContextKey = @"MHContextKey";
 }
 
 - (id)executeRequest:(NSPersistentStoreRequest *)persistentStoreRequest withContext:(NSManagedObjectContext*)context error:(NSError **)error{
-    NSDictionary* userInfo = @{MHRequestKey : persistentStoreRequest,
-                               MHContextKey : context};
+    NSDictionary* userInfo = @{MHDRequestKey : persistentStoreRequest,
+                               MHDContextKey : context};
     [[NSNotificationCenter defaultCenter] postNotificationName:MHDPersistentStoreBridgeWillExecuteRequestNotification object:self userInfo:userInfo];
 
     return [_destinationPersistentStore executeRequest:persistentStoreRequest withContext:context error:error];
