@@ -6,11 +6,7 @@
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#ifndef MHDATA_NAMESPACE
-#error You must define MHDATA_NAMESPACE in your project settings in order to use a namespace.
-#endif
-
-#ifndef __MHDATA_NS_SYMBOL
+#if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
 #define __MHDATA_NS_REWRITE(ns, symbol) ns ## _ ## symbol
 #define __MHDATA_NS_BRIDGE(ns, symbol) __MHDATA_NS_REWRITE(ns, symbol)
 #define __MHDATA_NS_SYMBOL(symbol) __MHDATA_NS_BRIDGE(MHDATA_NAMESPACE, symbol)
