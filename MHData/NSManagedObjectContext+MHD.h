@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 // function is one of the predefined NSExpression functions, e.g. max: sum: etc. Returns nil if there is no value.
 - (id)mhd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error;
 
-@property (nonatomic) BOOL mhd_automaticallyMergesChangesFromParent;
+@property (nonatomic, setter=mhd_setAutomaticallyMergesChangesFromParent:) BOOL mhd_automaticallyMergesChangesFromParent;
 
 @end
 

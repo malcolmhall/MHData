@@ -38,6 +38,7 @@
     #define mhd_fetchValueForAggregateFunction __MHDATA_NS_SYMBOL(mhd_fetchValueForAggregateFunction)
     #define mhd_insertNewObjectForEntityName __MHDATA_NS_SYMBOL(mhd_insertNewObjectForEntityName)
     #define mhd_save __MHDATA_NS_SYMBOL(mhd_save)
+    #define mhd_setAutomaticallyMergesChangesFromParent __MHDATA_NS_SYMBOL(mhd_setAutomaticallyMergesChangesFromParent)
     #define mhd_entityNamed __MHDATA_NS_SYMBOL(mhd_entityNamed)
     #define mhd_addPersistentStoreWithDescription __MHDATA_NS_SYMBOL(mhd_addPersistentStoreWithDescription)
     #define mhd_addStoreWithURL __MHDATA_NS_SYMBOL(mhd_addStoreWithURL)

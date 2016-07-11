@@ -187,7 +187,7 @@
     return result;
 }
 
-- (void)setMhd_automaticallyMergesChangesFromParent:(BOOL)automatically {
+- (void)mhd_setAutomaticallyMergesChangesFromParent:(BOOL)automatically {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
     self.automaticallyMergesChangesFromParent = automatically;
 #else
