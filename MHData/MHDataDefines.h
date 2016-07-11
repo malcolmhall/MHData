@@ -6,7 +6,7 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+#import <MHData/MHDataNamespace.h>
 
 #ifndef MHDATA_EXTERN
     #ifdef __cplusplus
@@ -16,7 +16,7 @@
     #endif
 #endif
 
-#import <MHData/MHDataNamespace.h>
+
 /*
 //  When developing a tweak #define MHDATA_PREFIX_TO_ADD TweakName for extra class clash safety.
 #if !defined(MHDATA_ADD_PREFIX) && defined(MHDATA_PREFIX_TO_ADD)
