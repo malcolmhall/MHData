@@ -8,7 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
-#import <MHData/MHDataDefines.h>
+#import <MHData/MHDDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

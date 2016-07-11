@@ -1,6 +1,6 @@
 //
 //
-//  MHDataNamespace.h
+//  MHDNamespaceDefines.h
 //  MHData
 //
 //  Auto-generated using script created by Malcolm Hall on 11/07/2016.

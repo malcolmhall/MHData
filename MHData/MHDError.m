@@ -6,6 +6,6 @@
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import "MHDataErrors.h"
+#import "MHDError.h"
 
 NSString * const MHDataErrorDomain = @"MHData";

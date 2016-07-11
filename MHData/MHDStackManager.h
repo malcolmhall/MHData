@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import <MHData/MHDataDefines.h>
+#import <MHData/MHDDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,7 +7,7 @@
 //
 
 #import "NSManagedObjectContext+MHD.h"
-#import "MHDataErrors.h"
+#import "MHDError.h"
 #import "NSPersistentStoreCoordinator+MHD.h"
 #import <objc/runtime.h>
 

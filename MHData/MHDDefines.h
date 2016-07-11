@@ -6,7 +6,7 @@
 //
 //
 
-#import <MHData/MHDataNamespace.h>
+#import <MHData/MHDNamespaceDefines.h>
 
 #ifndef MHDATA_EXTERN
     #ifdef __cplusplus

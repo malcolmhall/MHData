@@ -16,7 +16,7 @@ FOUNDATION_EXPORT const unsigned char MHDataVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MHData/PublicHeader.h>
 
-#import <MHData/MHDataDefines.h>
+#import <MHData/MHDDefines.h>
 
 #import <MHData/NSManagedObjectContext+MHD.h>
 #import <MHData/NSManagedObjectModel+MHD.h>
