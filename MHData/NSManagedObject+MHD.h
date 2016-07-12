@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 // setter
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)key;
 
+-(instancetype)mhd_initWithContext:(NSManagedObjectContext*)context;
+
 @end
 
 NS_ASSUME_NONNULL_END

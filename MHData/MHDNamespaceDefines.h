@@ -35,6 +35,7 @@
     #define mhd_toOneRelationshipsByName __MHDATA_NS_SYMBOL(mhd_toOneRelationshipsByName)
     #define mhd_toOneRelationships __MHDATA_NS_SYMBOL(mhd_toOneRelationships)
     #define mhd_transientProperties __MHDATA_NS_SYMBOL(mhd_transientProperties)
+    #define mhd_initWithContext __MHDATA_NS_SYMBOL(mhd_initWithContext)
     #define mhd_automaticallyMergeChangesFromContextDidSaveNotification __MHDATA_NS_SYMBOL(mhd_automaticallyMergeChangesFromContextDidSaveNotification)
     #define mhd_automaticallyMergesChangesFromParent __MHDATA_NS_SYMBOL(mhd_automaticallyMergesChangesFromParent)
     #define mhd_createChildContext __MHDATA_NS_SYMBOL(mhd_createChildContext)
