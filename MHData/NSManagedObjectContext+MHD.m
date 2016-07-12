@@ -93,13 +93,15 @@
     return context;
 }
 
+/*
 -(NSManagedObject*)mhd_insertNewObjectForEntityName:(NSString*)entityName{
-    return  [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
+    return [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
 }
 
 -(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name{
     return [NSEntityDescription entityForName:name inManagedObjectContext:self];
 }
+*/
 
 -(NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
@@ -139,7 +141,7 @@
         return nil;
     }
     else if(!object){
-        object = [self mhd_insertNewObjectForEntityName:entityName];
+        object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
         [object setValuesForKeysWithDictionary:dictionary];
         // nil pointer check
         if(inserted){

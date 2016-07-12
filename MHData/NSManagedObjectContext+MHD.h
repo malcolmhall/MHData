@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSManagedObjectContext*)mhd_createChildContext;
 
 //exceptions if entity does not exist
--(NSManagedObject*)mhd_insertNewObjectForEntityName:(NSString*)name;
+//-(NSManagedObject*)mhd_insertNewObjectForEntityName:(NSString*)name;
 
 -(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name;
 
