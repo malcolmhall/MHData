@@ -29,9 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name;
 
-- (NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error;
+- (NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
 
-- (id)mhd_fetchObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error;
+- (id)mhd_fetchObjectWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
 
 // dictionary of keys and values that an and predicate will be used. Include NSNull for null values in the query.
 - (NSManagedObject*)mhd_fetchObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error;
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)mhd_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError;
 
 // function is one of the predefined NSExpression functions, e.g. max: sum: etc. Returns nil if there is no value.
-- (id)mhd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error;
+- (id)mhd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
 
 @property (nonatomic, setter=mhd_setAutomaticallyMergesChangesFromParent:) BOOL mhd_automaticallyMergesChangesFromParent;
 

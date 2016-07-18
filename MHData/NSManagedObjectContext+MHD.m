@@ -103,14 +103,14 @@
 }
 */
 
--(NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+-(NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
-    fetchRequest.predicate = predicateOrNil;
+    fetchRequest.predicate = predicate;
     return [self executeFetchRequest:fetchRequest error:error];
 }
 
-- (id)mhd_fetchObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
-    NSArray* objects = [self mhd_fetchObjectsWithEntityName:entityName predicate:predicateOrNil error:error];
+- (id)mhd_fetchObjectWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
+    NSArray* objects = [self mhd_fetchObjectsWithEntityName:entityName predicate:predicate error:error];
     return objects.firstObject;
 }
 
@@ -151,10 +151,10 @@
     return object;
 }
 
--(id)mhd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(NSPredicate*)predicateOrNil error:(NSError**)error{
+-(id)mhd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
     // todo validate these
-    NSEntityDescription* entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self];
-    NSAttributeDescription* attribute = entity.attributesByName[attributeName];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self];
+    NSAttributeDescription *attribute = entity.attributesByName[attributeName];
     
     NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:attribute.name];
     
@@ -174,7 +174,7 @@
     fetchRequest.entity = entity;
     fetchRequest.propertiesToFetch = @[description];
     fetchRequest.resultType = NSDictionaryResultType;
-    fetchRequest.predicate = predicateOrNil;
+    fetchRequest.predicate = predicate;
     
     NSArray* fetchResults = [self executeFetchRequest:fetchRequest error:error];
     
