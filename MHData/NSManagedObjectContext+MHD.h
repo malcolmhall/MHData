@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 // creates a child context with the same concurrency type.
 -(NSManagedObjectContext*)mhd_createChildContext;
 
-//exceptions if entity does not exist
+// exceptions if entity does not exist
 //-(NSManagedObject*)mhd_insertNewObjectForEntityName:(NSString*)name;
 
 -(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name;
