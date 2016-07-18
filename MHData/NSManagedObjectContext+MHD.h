@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 // exceptions if entity does not exist
 //-(NSManagedObject*)mhd_insertNewObjectForEntityName:(NSString*)name;
 
--(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name;
+//-(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name;
 
 - (NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
 
