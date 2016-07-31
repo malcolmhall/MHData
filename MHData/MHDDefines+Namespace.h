@@ -1,15 +1,14 @@
 //
-//  MHDNamespaceDefines.h
+//  MHDDefines+Namespace.h
 //  MHData
 //
-//  Auto-generated using script created by Malcolm Hall on 30/07/2016.
-//  Copyright © 2016 Malcolm Hall. All rights reserved.
+//  Generated using MHNamespaceGenerator on 31/07/2016
 //
 
 #if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
-#define __MHDATA_NS_REWRITE(ns, symbol) ns ## _ ## symbol
-#define __MHDATA_NS_BRIDGE(ns, symbol) __MHDATA_NS_REWRITE(ns, symbol)
-#define __MHDATA_NS_SYMBOL(symbol) __MHDATA_NS_BRIDGE(MHDATA_NAMESPACE, symbol)
+    #define __MHDATA_NS_REWRITE(ns, symbol) ns ## _ ## symbol
+    #define __MHDATA_NS_BRIDGE(ns, symbol) __MHDATA_NS_REWRITE(ns, symbol)
+    #define __MHDATA_NS_SYMBOL(symbol) __MHDATA_NS_BRIDGE(MHDATA_NAMESPACE, symbol)
 // Classes
     #define MHDFetchedResultsController __MHDATA_NS_SYMBOL(MHDFetchedResultsController)
     #define MHDFetchedResultsViewController __MHDATA_NS_SYMBOL(MHDFetchedResultsViewController)
