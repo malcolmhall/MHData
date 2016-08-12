@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 // Easily load a model from a model file and caches it. Do not include any file extension.
 + (NSManagedObjectModel*)mhd_modelNamed:(NSString*)name;
 
--(NSEntityDescription*)mhd_entityNamed:(NSString*)entityName;
+// Returns the entity in the model without copying it which is what entityByName does, this allows it to be mutated.
+- (NSEntityDescription*)mhd_entityNamed:(NSString*)entityName;
 
 @end
 

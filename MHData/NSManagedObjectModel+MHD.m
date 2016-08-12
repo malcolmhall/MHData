@@ -35,8 +35,13 @@
     return [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
 }
 
--(NSEntityDescription*)mhd_entityNamed:(NSString*)entityName{
-    return self.entitiesByName[entityName];
+- (NSEntityDescription *)mhd_entityNamed:(NSString*)entityName{
+    for(NSEntityDescription* entity in self.entities){
+        if([entity.name isEqualToString:entityName]){
+            return entity;
+        }
+    }
+    return nil;
 }
 
 @end
