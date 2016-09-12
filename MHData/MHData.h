@@ -23,6 +23,7 @@ FOUNDATION_EXPORT const unsigned char MHDataVersionString[];
 #import <MHData/NSPersistentStoreCoordinator+MHD.h>
 #import <MHData/NSManagedObject+MHD.h>
 #import <MHData/NSEntityDescription+MHD.h>
+#import <MHData/NSError+MHD.h>
 
 #import <MHData/MHDStackManager.h>
 #import <MHData/MHDPersistentStoreBridge.h>

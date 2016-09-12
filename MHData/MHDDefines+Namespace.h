@@ -2,7 +2,7 @@
 //  MHDDefines+Namespace.h
 //  MHData
 //
-//  Generated using MHNamespaceGenerator on 31/07/2016
+//  Generated using MHNamespaceGenerator on 12/09/2016
 //
 
 #if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
@@ -37,6 +37,8 @@
     #define mhd_fetchOrInsertObjectWithEntityName __MHDATA_NS_SYMBOL(mhd_fetchOrInsertObjectWithEntityName)
     #define mhd_fetchValueForAggregateFunction __MHDATA_NS_SYMBOL(mhd_fetchValueForAggregateFunction)
     #define mhd_initWithContext __MHDATA_NS_SYMBOL(mhd_initWithContext)
+    #define mhd_isValidation __MHDATA_NS_SYMBOL(mhd_isValidation)
+    #define mhd_localizedDisplayDescription __MHDATA_NS_SYMBOL(mhd_localizedDisplayDescription)
     #define mhd_modelNamed __MHDATA_NS_SYMBOL(mhd_modelNamed)
     #define mhd_propertyNameForToManyRelation __MHDATA_NS_SYMBOL(mhd_propertyNameForToManyRelation)
     #define mhd_relationshipsWithManagedObjectClass __MHDATA_NS_SYMBOL(mhd_relationshipsWithManagedObjectClass)
