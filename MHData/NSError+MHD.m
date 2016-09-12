@@ -34,19 +34,14 @@
     for (NSError * error in errors) {
         
         NSManagedObject *object = [error.userInfo objectForKey:@"NSValidationErrorObject"];
-        if(!object){
-            continue;
+        NSString *entityName = object.entity.name;
+        if(!entityName){
+            entityName = @"Unknown";
         }
         
         NSString *attributeName = [error.userInfo objectForKey:@"NSValidationErrorKey"];
         if(!attributeName){
-            continue;
-        }
-        
-        NSString *entityName = object.entity.name;
-        NSMutableArray* messageArray = [dict[entityName] mutableCopy];
-        if(!messageArray){
-            messageArray = [NSMutableArray array];
+            attributeName = @"unknown";
         }
         
         NSString *msg;
@@ -97,8 +92,13 @@
                 msg = [NSString stringWithFormat:@"Unknown error code %li.", error.code];
                 break;
         }
-        [messageArray addObject:msg];
-        dict[entityName] = messageArray.copy;
+        NSArray* messageArray = dict[entityName];
+        if(!messageArray){
+            messageArray = [NSArray arrayWithObject:msg];
+        }else{
+            messageArray = [messageArray arrayByAddingObject:msg];
+        }
+        dict[entityName] = messageArray;
     }
     return dict.copy;
 }
