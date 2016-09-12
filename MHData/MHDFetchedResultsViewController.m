@@ -35,10 +35,6 @@ static NSString* kDefaultmessageWhenNoRows = @"There is no data available to dis
     [self.tableView reloadData];
 }
 
--(NSManagedObjectContext*)managedObjectContext{
-    return self.fetchedResultsController.managedObjectContext;
-}
-
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

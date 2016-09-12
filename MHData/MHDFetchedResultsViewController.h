@@ -19,9 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Set this to make it work, and the delegate is automatically set to this view controller.
 @property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
-// convenience for returning the fetch controller's context;
-@property (nonatomic, readonly) NSManagedObjectContext* managedObjectContext;
-
 // Defaults to "Cell"
 @property (copy, nonatomic) NSString* cellReuseIdentifier;
 
