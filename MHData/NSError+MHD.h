@@ -12,8 +12,11 @@
 
 @interface NSError (MHD)
 
+- (NSDictionary *)mhd_validationDescriptionsByEntityName;
+
+// shows validation errors as messages, otherwise defaults to localizedDescription.
 - (NSString *)mhd_displayDescription;
 
--(BOOL)mhd_isValidation;
+- (BOOL)mhd_isValidation;
 
 @end

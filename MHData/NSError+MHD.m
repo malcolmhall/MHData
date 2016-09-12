@@ -10,84 +10,117 @@
 
 @implementation NSError (MHD)
 
--(BOOL)mhd_isValidation{
+- (BOOL)mhd_isValidation{
     if(self.domain != NSCocoaErrorDomain){
         return NO;
     }
     return self.code >= 1550 && self.code <= 1680;
 }
 
-- (NSString *)mhd_localizedDisplayDescription{
+- (NSDictionary *)mhd_validationDescriptionsByEntityName{
+    if(!self.mhd_isValidation){
+        return nil;
+    }
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
     
-    NSString* message;
+    NSArray *errors;
+    // multiple errors?
+    if (self.code == NSValidationMultipleErrorsError) {
+        errors = [self.userInfo objectForKey:NSDetailedErrorsKey];
+    } else {
+        errors = [NSArray arrayWithObject:self];
+    }
+    
+    for (NSError * error in errors) {
+        
+        NSManagedObject *object = [error.userInfo objectForKey:@"NSValidationErrorObject"];
+        if(!object){
+            continue;
+        }
+        
+        NSString *attributeName = [error.userInfo objectForKey:@"NSValidationErrorKey"];
+        if(!attributeName){
+            continue;
+        }
+        
+        NSString *entityName = object.entity.name;
+        NSMutableArray* messageArray = [dict[entityName] mutableCopy];
+        if(!messageArray){
+            messageArray = [NSMutableArray array];
+        }
+        
+        NSString *msg;
+        switch (error.code) {
+            case NSManagedObjectValidationError:
+                msg = @"Generic validation error.";
+                break;
+            case NSManagedObjectConstraintValidationError:
+                msg = @"Constraint validation error.";
+                break;
+            case NSValidationMissingMandatoryPropertyError:
+                msg = [NSString stringWithFormat:@"The %@ property is required.", attributeName];
+                break;
+            case NSValidationRelationshipLacksMinimumCountError:
+                msg = [NSString stringWithFormat:@"The %@ relationship lacks minimum count.", attributeName];
+                break;
+            case NSValidationRelationshipExceedsMaximumCountError:
+                msg = [NSString stringWithFormat:@"The %@ relationship exceeds maximum count.", attributeName];
+                break;
+            case NSValidationRelationshipDeniedDeleteError:
+                msg = [NSString stringWithFormat:@"The relationship %@ denied delete.", attributeName];
+                break;
+            case NSValidationNumberTooLargeError:
+                msg = [NSString stringWithFormat:@"The %@ is too large.", attributeName];
+                break;
+            case NSValidationNumberTooSmallError:
+                msg = [NSString stringWithFormat:@"The %@ is too small.", attributeName];
+                break;
+            case NSValidationDateTooLateError:
+                msg = [NSString stringWithFormat:@"The %@ is too late.", attributeName];
+                break;
+            case NSValidationDateTooSoonError:
+                msg = [NSString stringWithFormat:@"The %@ is too soon.", attributeName];
+                break;
+            case NSValidationInvalidDateError:
+                msg = [NSString stringWithFormat:@"The %@ is not a valid date.", attributeName];
+                break;
+            case NSValidationStringTooLongError:
+                msg = [NSString stringWithFormat:@"The %@ is too long.", attributeName];
+                break;
+            case NSValidationStringTooShortError:
+                msg = [NSString stringWithFormat:@"The %@ is too short.", attributeName];
+                break;
+            case NSValidationStringPatternMatchingError:
+                msg = [NSString stringWithFormat:@"The %@ does not match the required pattern.", attributeName];
+                break;
+            default:
+                msg = [NSString stringWithFormat:@"Unknown error code %li.", error.code];
+                break;
+        }
+        [messageArray addObject:msg];
+        dict[entityName] = messageArray.copy;
+    }
+    return dict.copy;
+}
+
+- (NSString *)mhd_displayDescription{
+    
+    NSString *description;
     
     if(self.mhd_isValidation){
-        NSArray *errors;
-        // multiple errors?
-        if (self.code == NSValidationMultipleErrorsError) {
-            errors = [self.userInfo objectForKey:NSDetailedErrorsKey];
-        } else {
-            errors = [NSArray arrayWithObject:self];
+        NSDictionary *validationDescriptionsByEntityName = self.mhd_validationDescriptionsByEntityName;
+        NSMutableArray* messages = [NSMutableArray array];
+        for(NSString *entityName in validationDescriptionsByEntityName.allKeys){
+            NSArray* validationDescriptions = validationDescriptionsByEntityName[entityName];
+            NSString* message = [NSString stringWithFormat:@"%@: %@", entityName, [validationDescriptions componentsJoinedByString:@" "]];
+            [messages addObject:message];
         }
-    
-        message = @"Validation Error:\n";
-        
-        for (NSError * error in errors) {
-            NSString *entityName = [[[[error userInfo] objectForKey:@"NSValidationErrorObject"] entity] name];
-            NSString *attributeName = [[error userInfo] objectForKey:@"NSValidationErrorKey"];
-            NSString *msg;
-            switch ([error code]) {
-                case NSManagedObjectValidationError:
-                    msg = @"Generic validation error.";
-                    break;
-                case NSValidationMissingMandatoryPropertyError:
-                    msg = [NSString stringWithFormat:@"The attribute '%@' mustn't be empty.", attributeName];
-                    break;
-                case NSValidationRelationshipLacksMinimumCountError:
-                    msg = [NSString stringWithFormat:@"The relationship '%@' doesn't have enough entries.", attributeName];
-                    break;
-                case NSValidationRelationshipExceedsMaximumCountError:
-                    msg = [NSString stringWithFormat:@"The relationship '%@' has too many entries.", attributeName];
-                    break;
-                case NSValidationRelationshipDeniedDeleteError:
-                    msg = [NSString stringWithFormat:@"To delete, the relationship '%@' must be empty.", attributeName];
-                    break;
-                case NSValidationNumberTooLargeError:
-                    msg = [NSString stringWithFormat:@"The number of the attribute '%@' is too large.", attributeName];
-                    break;
-                case NSValidationNumberTooSmallError:
-                    msg = [NSString stringWithFormat:@"The number of the attribute '%@' is too small.", attributeName];
-                    break;
-                case NSValidationDateTooLateError:
-                    msg = [NSString stringWithFormat:@"The date of the attribute '%@' is too late.", attributeName];
-                    break;
-                case NSValidationDateTooSoonError:
-                    msg = [NSString stringWithFormat:@"The date of the attribute '%@' is too soon.", attributeName];
-                    break;
-                case NSValidationInvalidDateError:
-                    msg = [NSString stringWithFormat:@"The date of the attribute '%@' is invalid.", attributeName];
-                    break;
-                case NSValidationStringTooLongError:
-                    msg = [NSString stringWithFormat:@"The text of the attribute '%@' is too long.", attributeName];
-                    break;
-                case NSValidationStringTooShortError:
-                    msg = [NSString stringWithFormat:@"The text of the attribute '%@' is too short.", attributeName];
-                    break;
-                case NSValidationStringPatternMatchingError:
-                    msg = [NSString stringWithFormat:@"The text of the attribute '%@' doesn't match the required pattern.", attributeName];
-                    break;
-                default:
-                    msg = [NSString stringWithFormat:@"Unknown error (code %li).", error.code];
-                    break;
-            }
-            
-            message = [message stringByAppendingFormat:@"%@%@%@\n", (entityName?:@""), (entityName?@": ":@""), msg];
-        }
+        description = [messages componentsJoinedByString:@"\n"];
     }
     else{
-        message = self.localizedDescription;
+        description = self.localizedDescription;
     }
-    return message;
+    return description;
 }
 
 @end
