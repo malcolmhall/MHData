@@ -5,6 +5,7 @@
 //  Created by Malcolm Hall on 12/09/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
+// https://developer.apple.com/library/mac/documentation/Cocoa/Reference/CoreDataFramework/Miscellaneous/CoreData_Constants/index.html
 
 #import "NSError+MHD.h"
 
