@@ -90,7 +90,7 @@
                 msg = [NSString stringWithFormat:@"The %@ does not match the required pattern.", attributeName];
                 break;
             default:
-                msg = [NSString stringWithFormat:@"Unknown error code %li.", error.code];
+                msg = [NSString stringWithFormat:@"Unknown error code %ld.", (long)error.code];
                 break;
         }
         NSArray* messageArray = dict[entityName];

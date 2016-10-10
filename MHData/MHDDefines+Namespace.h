@@ -2,7 +2,7 @@
 //  MHDDefines+Namespace.h
 //  MHData
 //
-//  Generated using MHNamespaceGenerator on 12/09/2016
+//  Generated using MHNamespaceGenerator on 10/10/2016
 //
 
 #if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
@@ -31,6 +31,7 @@
     #define mhd_defaultModel __MHDATA_NS_SYMBOL(mhd_defaultModel)
     #define mhd_defaultStoreFilename __MHDATA_NS_SYMBOL(mhd_defaultStoreFilename)
     #define mhd_defaultStoreURLWithError __MHDATA_NS_SYMBOL(mhd_defaultStoreURLWithError)
+    #define mhd_displayDescription __MHDATA_NS_SYMBOL(mhd_displayDescription)
     #define mhd_entityNamed __MHDATA_NS_SYMBOL(mhd_entityNamed)
     #define mhd_fetchObjectWithEntityName __MHDATA_NS_SYMBOL(mhd_fetchObjectWithEntityName)
     #define mhd_fetchObjectsWithEntityName __MHDATA_NS_SYMBOL(mhd_fetchObjectsWithEntityName)
@@ -38,7 +39,6 @@
     #define mhd_fetchValueForAggregateFunction __MHDATA_NS_SYMBOL(mhd_fetchValueForAggregateFunction)
     #define mhd_initWithContext __MHDATA_NS_SYMBOL(mhd_initWithContext)
     #define mhd_isValidation __MHDATA_NS_SYMBOL(mhd_isValidation)
-    #define mhd_localizedDisplayDescription __MHDATA_NS_SYMBOL(mhd_localizedDisplayDescription)
     #define mhd_modelNamed __MHDATA_NS_SYMBOL(mhd_modelNamed)
     #define mhd_propertyNameForToManyRelation __MHDATA_NS_SYMBOL(mhd_propertyNameForToManyRelation)
     #define mhd_relationshipsWithManagedObjectClass __MHDATA_NS_SYMBOL(mhd_relationshipsWithManagedObjectClass)
@@ -49,6 +49,7 @@
     #define mhd_toOneRelationships __MHDATA_NS_SYMBOL(mhd_toOneRelationships)
     #define mhd_toOneRelationshipsByName __MHDATA_NS_SYMBOL(mhd_toOneRelationshipsByName)
     #define mhd_transientProperties __MHDATA_NS_SYMBOL(mhd_transientProperties)
+    #define mhd_validationDescriptionsByEntityName __MHDATA_NS_SYMBOL(mhd_validationDescriptionsByEntityName)
 // Externs
     #define MHDContextKey __MHDATA_NS_SYMBOL(MHDContextKey)
     #define MHDPersistentStoreBridgeWillExecuteRequestNotification __MHDATA_NS_SYMBOL(MHDPersistentStoreBridgeWillExecuteRequestNotification)
