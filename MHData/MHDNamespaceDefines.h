@@ -1,8 +1,8 @@
 //
-//  MHDDefines+Namespace.h
+//  MHDNamespaceDefines.h
 //  MHData
 //
-//  Generated using MHNamespaceGenerator on 10/10/2016
+//  Generated using MHNamespaceGenerator on 13/10/2016
 //
 
 #if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
@@ -24,7 +24,6 @@
     #define mhd_automaticallyMergesChangesFromParent __MHDATA_NS_SYMBOL(mhd_automaticallyMergesChangesFromParent)
     #define mhd_coordinatorWithManagedObjectModel __MHDATA_NS_SYMBOL(mhd_coordinatorWithManagedObjectModel)
     #define mhd_createChildContext __MHDATA_NS_SYMBOL(mhd_createChildContext)
-    #define mhd_newBackgroundContextWithError __MHDATA_NS_SYMBOL(mhd_newBackgroundContextWithError)
     #define mhd_defaultContext __MHDATA_NS_SYMBOL(mhd_defaultContext)
     #define mhd_defaultContextWithError __MHDATA_NS_SYMBOL(mhd_defaultContextWithError)
     #define mhd_defaultCoordinatorWithError __MHDATA_NS_SYMBOL(mhd_defaultCoordinatorWithError)
@@ -40,6 +39,7 @@
     #define mhd_initWithContext __MHDATA_NS_SYMBOL(mhd_initWithContext)
     #define mhd_isValidation __MHDATA_NS_SYMBOL(mhd_isValidation)
     #define mhd_modelNamed __MHDATA_NS_SYMBOL(mhd_modelNamed)
+    #define mhd_newBackgroundContextWithError __MHDATA_NS_SYMBOL(mhd_newBackgroundContextWithError)
     #define mhd_propertyNameForToManyRelation __MHDATA_NS_SYMBOL(mhd_propertyNameForToManyRelation)
     #define mhd_relationshipsWithManagedObjectClass __MHDATA_NS_SYMBOL(mhd_relationshipsWithManagedObjectClass)
     #define mhd_save __MHDATA_NS_SYMBOL(mhd_save)
@@ -55,6 +55,4 @@
     #define MHDPersistentStoreBridgeWillExecuteRequestNotification __MHDATA_NS_SYMBOL(MHDPersistentStoreBridgeWillExecuteRequestNotification)
     #define MHDRequestKey __MHDATA_NS_SYMBOL(MHDRequestKey)
     #define MHDataErrorDomain __MHDATA_NS_SYMBOL(MHDataErrorDomain)
-    #define MHDataVersionNumber __MHDATA_NS_SYMBOL(MHDataVersionNumber)
-    #define MHDataVersionString __MHDATA_NS_SYMBOL(MHDataVersionString)
 #endif

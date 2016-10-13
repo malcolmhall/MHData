@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC07F1CA1D4E598A00A28610 /* MHDDefines+Namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = EC07F1C91D4E598A00A28610 /* MHDDefines+Namespace.h */; };
 		EC3144DE1D073E010025F669 /* MHData.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144DD1D073E010025F669 /* MHData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3144E51D073E010025F669 /* MHData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3144DA1D073E010025F669 /* MHData.framework */; };
 		EC3144EA1D073E010025F669 /* MHDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144E91D073E010025F669 /* MHDataTests.m */; };
@@ -32,6 +31,7 @@
 		EC31451B1D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m */; };
 		EC6023981D313FD200ACE8B0 /* MHDError.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6023961D313FD200ACE8B0 /* MHDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC6023991D313FD200ACE8B0 /* MHDError.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6023971D313FD200ACE8B0 /* MHDError.m */; };
+		EC67588D1DB0246800838798 /* MHDNamespaceDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EC67588C1DB0246800838798 /* MHDNamespaceDefines.h */; };
 		ECB213761D872F2400246A1F /* NSError+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = ECB213741D872F2400246A1F /* NSError+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECB213771D872F2400246A1F /* NSError+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB213751D872F2400246A1F /* NSError+MHD.m */; };
 		ECC991CC1D118E40000F5EFB /* MHDPersistentStoreDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -51,7 +51,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EC07F1C91D4E598A00A28610 /* MHDDefines+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MHDDefines+Namespace.h"; sourceTree = "<group>"; };
 		EC3144DA1D073E010025F669 /* MHData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MHData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3144DD1D073E010025F669 /* MHData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHData.h; sourceTree = "<group>"; };
 		EC3144DF1D073E010025F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +78,7 @@
 		EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStoreCoordinator+MHD.m"; sourceTree = "<group>"; };
 		EC6023961D313FD200ACE8B0 /* MHDError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDError.h; sourceTree = "<group>"; };
 		EC6023971D313FD200ACE8B0 /* MHDError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDError.m; sourceTree = "<group>"; };
+		EC67588C1DB0246800838798 /* MHDNamespaceDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDNamespaceDefines.h; sourceTree = "<group>"; };
 		ECB213741D872F2400246A1F /* NSError+MHD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MHD.h"; sourceTree = "<group>"; };
 		ECB213751D872F2400246A1F /* NSError+MHD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MHD.m"; sourceTree = "<group>"; };
 		ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDPersistentStoreDescription.h; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 			children = (
 				EC3144DD1D073E010025F669 /* MHData.h */,
 				EC3144F41D073EA30025F669 /* MHDDefines.h */,
-				EC07F1C91D4E598A00A28610 /* MHDDefines+Namespace.h */,
+				EC67588C1DB0246800838798 /* MHDNamespaceDefines.h */,
 				EC6023961D313FD200ACE8B0 /* MHDError.h */,
 				EC6023971D313FD200ACE8B0 /* MHDError.m */,
 				EC3144F61D073EA30025F669 /* MHDFetchedResultsController.h */,
@@ -181,6 +181,7 @@
 				EC3145121D073EA30025F669 /* NSEntityDescription+MHD.h in Headers */,
 				ECB213761D872F2400246A1F /* NSError+MHD.h in Headers */,
 				EC31450C1D073EA30025F669 /* MHDFetchedResultsViewController.h in Headers */,
+				EC67588D1DB0246800838798 /* MHDNamespaceDefines.h in Headers */,
 				EC3145181D073EA30025F669 /* NSManagedObjectModel+MHD.h in Headers */,
 				EC3145101D073EA30025F669 /* MHDStackManager.h in Headers */,
 				ECC991CC1D118E40000F5EFB /* MHDPersistentStoreDescription.h in Headers */,
@@ -189,7 +190,6 @@
 				EC3145161D073EA30025F669 /* NSManagedObjectContext+MHD.h in Headers */,
 				EC31451A1D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h in Headers */,
 				EC31450E1D073EA30025F669 /* MHDPersistentStoreBridge.h in Headers */,
-				EC07F1CA1D4E598A00A28610 /* MHDDefines+Namespace.h in Headers */,
 				EC31450A1D073EA30025F669 /* MHDFetchedResultsController.h in Headers */,
 				EC6023981D313FD200ACE8B0 /* MHDError.h in Headers */,
 				EC3144DE1D073E010025F669 /* MHData.h in Headers */,
@@ -366,7 +366,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -389,8 +388,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -414,7 +411,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -431,8 +427,6 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};

@@ -8,14 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for MHData.
-FOUNDATION_EXPORT double MHDataVersionNumber;
-
-//! Project version string for MHData.
-FOUNDATION_EXPORT const unsigned char MHDataVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <MHData/PublicHeader.h>
-
 #import <MHData/MHDDefines.h>
 
 #import <MHData/NSManagedObjectContext+MHD.h>
