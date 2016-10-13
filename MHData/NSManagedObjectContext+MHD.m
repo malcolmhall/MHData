@@ -35,14 +35,13 @@
     return context;
 }
 
-
--(NSManagedObjectContext*)mhd_createChildContext{
-    NSManagedObjectContext* context = [[NSManagedObjectContext alloc] initWithConcurrencyType:self.concurrencyType];
+- (NSManagedObjectContext *)mhd_createChildContext{
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:self.concurrencyType];
     context.parentContext = self;
     return context;
 }
 
-- (NSManagedObjectContext *)mhd_createPrivateQueueContextWithError:(NSError **)error {
+- (NSManagedObjectContext *)mhd_newBackgroundContextWithError:(NSError **)error {
     
     // It uses the same store and model, but a new persistent store coordinator and context.
     NSPersistentStoreCoordinator *coordinator;
@@ -82,7 +81,7 @@
     // and try to save edits on the same record in the other context before merging the changes,
     // an exception will be thrown because Core Data by default uses NSErrorMergePolicy.
     // Setting a reasonable mergePolicy is a good practice to avoid that kind of exception.
-    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+    //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
 #endif
     
     // In OS X (pre-Sierra), a context provides an undo manager by default

@@ -20,7 +20,7 @@
 
 @implementation MHDFetchedResultsController
 
-@synthesize actualDelegate = _actualDelegate;
+//@synthesize actualDelegate = _actualDelegate;
 //@synthesize actualSections = _actualSections;
 
 //- (instancetype)initWithFetchRequest:(NSFetchRequest *)fetchRequest managedObjectContext: (NSManagedObjectContext *)context sectionNameKeyPath:(nullable NSString *)sectionNameKeyPath cacheName:(nullable NSString *)name{

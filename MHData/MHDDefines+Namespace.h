@@ -24,7 +24,7 @@
     #define mhd_automaticallyMergesChangesFromParent __MHDATA_NS_SYMBOL(mhd_automaticallyMergesChangesFromParent)
     #define mhd_coordinatorWithManagedObjectModel __MHDATA_NS_SYMBOL(mhd_coordinatorWithManagedObjectModel)
     #define mhd_createChildContext __MHDATA_NS_SYMBOL(mhd_createChildContext)
-    #define mhd_createPrivateQueueContextWithError __MHDATA_NS_SYMBOL(mhd_createPrivateQueueContextWithError)
+    #define mhd_newBackgroundContextWithError __MHDATA_NS_SYMBOL(mhd_newBackgroundContextWithError)
     #define mhd_defaultContext __MHDATA_NS_SYMBOL(mhd_defaultContext)
     #define mhd_defaultContextWithError __MHDATA_NS_SYMBOL(mhd_defaultContextWithError)
     #define mhd_defaultCoordinatorWithError __MHDATA_NS_SYMBOL(mhd_defaultCoordinatorWithError)

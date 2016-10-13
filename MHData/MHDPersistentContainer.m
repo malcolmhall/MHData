@@ -103,7 +103,7 @@
 
 - (NSManagedObjectContext *)newBackgroundContext{
     NSError* error;
-    NSManagedObjectContext* context = [self.viewContext mhd_createPrivateQueueContextWithError:&error];
+    NSManagedObjectContext* context = [self.viewContext mhd_newBackgroundContextWithError:&error];
     if(!context){
         NSLog(@"%@", error.description);
         abort();

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Creates a new managed object context associated with a private queue.
 // Designed to work on a context that already has an SQLite store added because it creates a new coordinator with the same URL.
--(NSManagedObjectContext *)mhd_createPrivateQueueContextWithError:(NSError **)error;
+-(NSManagedObjectContext *)mhd_newBackgroundContextWithError:(NSError **)error;
 
 // creates a child context with the same concurrency type.
 -(NSManagedObjectContext*)mhd_createChildContext;

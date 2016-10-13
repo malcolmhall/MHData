@@ -19,22 +19,21 @@
 @implementation MHDBackgroundOperation
 
 -(BOOL)asyncOperationShouldRun:(NSError**)error{
-    if(!self.mainContext){
-        //[NSException raise:NSInternalInconsistencyException format:@"sync manager must be set on sync operation"];
-        *error = [NSError mhf_errorWithDomain:MHDataErrorDomain code:MHDErrorInvalidArguments descriptionFormat:@"a mainContext must be provided for %@", NSStringFromClass(self.class)];
+    if(![super asyncOperationShouldRun:error]){
         return NO;
     }
     
-    NSManagedObjectContext *backgroundContext = [self.mainContext mhd_createPrivateQueueContextWithError:error];
-    if(!backgroundContext){
+    self.backgroundContext = [self.mainContext mhd_newBackgroundContextWithError:error];
+    if(!self.backgroundContext){
         return NO;
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(backgroundContextDidSaveNotificationHandler:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:backgroundContext
-    ];
-    self.backgroundContext = backgroundContext;
+    else if(self.mergeChanges){
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(backgroundContextDidSaveNotificationHandler:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:self.backgroundContext
+        ];
+    }
     
     return YES;
 }
@@ -42,7 +41,7 @@
 - (void)backgroundContextDidSaveNotificationHandler:(NSNotification *)notification {
     [self.mainContext performBlockAndWait:^{
         for (NSManagedObject *updatedObject in notification.userInfo[NSUpdatedObjectsKey]) {
-            // perform a fault to overcome bug
+            // perform a fault to fix bug in fetched result controller.
             [self.mainContext existingObjectWithID:updatedObject.objectID error:nil];
         }
         [self.mainContext mergeChangesFromContextDidSaveNotification:notification];
@@ -50,7 +49,7 @@
 }
 
 -(void)performAsyncOperation{
-    [super performAsyncOperation]; // adds the finished operation.
+    [super performAsyncOperation]; // starts the queue asyncronously
     
     NSBlockOperation* saveOperation = [NSBlockOperation blockOperationWithBlock:^{
         [self.backgroundContext performBlockAndWait:^{
@@ -63,9 +62,9 @@
     [self addOperation:saveOperation];
 }
 
-- (void)finishWithError:(NSError *)error{
+-(void)finishOnCallbackQueueWithError:(NSError *)error{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super finishWithError:error];
+    [super finishOnCallbackQueueWithError:error];
 }
 
 @end

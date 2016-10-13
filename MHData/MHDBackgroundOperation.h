@@ -7,19 +7,17 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <MHFoundation/MHFoundation.h>
 #import <MHData/MHDDefines.h>
+#import <MHData/MHDOperation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MHDBackgroundOperation : MHFSerialQueueOperation
+@interface MHDBackgroundOperation : MHDOperation
 
-@property (nonatomic, strong, nullable) NSManagedObjectContext *mainContext;
-
+// will be set after asyncOperationShouldRun is called.
 @property (nonatomic, strong, readonly) NSManagedObjectContext *backgroundContext;
 
-// merges changes from the backgroundContext to the mainContext.
-- (void)backgroundContextDidSaveNotificationHandler:(NSNotification *)notification;
+@property (nonatomic, assign) BOOL mergeChanges;
 
 @end
 

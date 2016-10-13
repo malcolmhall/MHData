@@ -13,5 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 MHDATA_EXTERN NSString * const MHDataErrorDomain;
 
+typedef NS_ENUM(NSInteger, MHDErrorCode) {
+    MHDErrorUnknown                = 1,  /* Unknown or generic error */
+    MHDErrorInvalidArguments       = 2,  /* Things needed were not set */
+};
+
 NS_ASSUME_NONNULL_END
 
