@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addOperation:(NSOperation *)operation;
 
+- (BOOL)asyncOperationShouldRun:(NSError **)error;
+
 - (void)performAsyncOperation NS_REQUIRES_SUPER;
 
 - (void)finishWithError:(nullable NSError *)error NS_REQUIRES_SUPER;
