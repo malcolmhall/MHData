@@ -247,4 +247,10 @@
 }
 #endif
 
+- (NSOperation *)mhd_performBlockAndWaitOperation:(void (^)())block{
+    return [NSBlockOperation blockOperationWithBlock:^{
+        [self performBlockAndWait:block];
+    }];
+}
+
 @end
