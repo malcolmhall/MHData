@@ -21,6 +21,7 @@
 #import <MHData/MHDPersistentStoreBridge.h>
 #import <MHData/MHDFetchedResultsViewController.h>
 #import <MHData/MHDFetchedResultsController.h>
+#import <MHData/MHDOperation.h>
 #import <MHData/MHDBackgroundOperation.h>
 
 #import <MHData/MHDPersistentContainer.h>

@@ -8,6 +8,7 @@
 
 #import "MHDOperation.h"
 #import "MHDError.h"
+#import "NSError+MHD.h"
 
 @implementation MHDOperation
 
@@ -20,7 +21,7 @@
     return self;
 }
 
-- (BOOL)asyncOperationShouldRun:(NSError**)error{
+- (BOOL)asyncOperationShouldRun:(NSError **)error{
     if(!self.mainContext){
         //[NSException raise:NSInternalInconsistencyException format:@"sync manager must be set on sync operation"];
         *error = [NSError mhf_errorWithDomain:MHDataErrorDomain code:MHDErrorInvalidArguments descriptionFormat:@"a mainContext must be provided for %@", NSStringFromClass(self.class)];

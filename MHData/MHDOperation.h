@@ -7,18 +7,24 @@
 //
 
 #import <CoreData/CoreData.h>
+#ifdef MHDATA_TARGET
 #import <MHFoundation/MHFoundation.h>
+#endif
 #import <MHData/MHDDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+#ifdef MHDATA_TARGET
 @interface MHDOperation : MHFSerialQueueOperation
-
-- (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext;
+#else
+@interface MHDOperation : NSOperation
+#endif
 
 @property (nonatomic, strong, nullable) NSManagedObjectContext *mainContext;
 
-- (BOOL)asyncOperationShouldRun:(NSError**)error NS_REQUIRES_SUPER;
+- (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext;
+
+- (BOOL)asyncOperationShouldRun:(NSError **)error NS_REQUIRES_SUPER;
 
 @end
 

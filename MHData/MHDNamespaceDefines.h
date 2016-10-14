@@ -2,7 +2,7 @@
 //  MHDNamespaceDefines.h
 //  MHData
 //
-//  Generated using MHNamespaceGenerator on 13/10/2016
+//  Generated using MHNamespaceGenerator on 14/10/2016
 //
 
 #if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
@@ -10,12 +10,18 @@
     #define __MHDATA_NS_BRIDGE(ns, symbol) __MHDATA_NS_REWRITE(ns, symbol)
     #define __MHDATA_NS_SYMBOL(symbol) __MHDATA_NS_BRIDGE(MHDATA_NAMESPACE, symbol)
 // Classes
+    #define MHDBackgroundOperation __MHDATA_NS_SYMBOL(MHDBackgroundOperation)
     #define MHDFetchedResultsController __MHDATA_NS_SYMBOL(MHDFetchedResultsController)
     #define MHDFetchedResultsViewController __MHDATA_NS_SYMBOL(MHDFetchedResultsViewController)
+    #define MHDOperation __MHDATA_NS_SYMBOL(MHDOperation)
     #define MHDPersistentContainer __MHDATA_NS_SYMBOL(MHDPersistentContainer)
     #define MHDPersistentStoreBridge __MHDATA_NS_SYMBOL(MHDPersistentStoreBridge)
     #define MHDPersistentStoreDescription __MHDATA_NS_SYMBOL(MHDPersistentStoreDescription)
     #define MHDStackManager __MHDATA_NS_SYMBOL(MHDStackManager)
+    #define MHData_MHFAsyncOperation __MHDATA_NS_SYMBOL(MHData_MHFAsyncOperation)
+    #define MHData_MHFError __MHDATA_NS_SYMBOL(MHData_MHFError)
+    #define MHData_MHFQueueOperation __MHDATA_NS_SYMBOL(MHData_MHFQueueOperation)
+    #define MHData_MHFSerialQueueOperation __MHDATA_NS_SYMBOL(MHData_MHFSerialQueueOperation)
 // Categories
     #define mhd_addPersistentStoreWithDescription __MHDATA_NS_SYMBOL(mhd_addPersistentStoreWithDescription)
     #define mhd_addStoreWithURL __MHDATA_NS_SYMBOL(mhd_addStoreWithURL)
@@ -55,4 +61,6 @@
     #define MHDPersistentStoreBridgeWillExecuteRequestNotification __MHDATA_NS_SYMBOL(MHDPersistentStoreBridgeWillExecuteRequestNotification)
     #define MHDRequestKey __MHDATA_NS_SYMBOL(MHDRequestKey)
     #define MHDataErrorDomain __MHDATA_NS_SYMBOL(MHDataErrorDomain)
+    #define MHData_MHFPartialErrorsByItemIDKey __MHDATA_NS_SYMBOL(MHData_MHFPartialErrorsByItemIDKey)
+    #define MHData_MHFoundationErrorDomain __MHDATA_NS_SYMBOL(MHData_MHFoundationErrorDomain)
 #endif
