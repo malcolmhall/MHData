@@ -17,6 +17,7 @@
 @implementation MHDContextOperationInternal
 
 @synthesize mainContext = _mainContext;
+@synthesize contextCompletionBlock = _contextCompletionBlock;
 
 - (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext
 {
@@ -91,6 +92,9 @@
 }
 
 -(void)finishOnCallbackQueueWithError:(NSError *)error{
+    if(self.contextCompletionBlock){
+        self.contextCompletionBlock(error);
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super finishOnCallbackQueueWithError:error];
 }

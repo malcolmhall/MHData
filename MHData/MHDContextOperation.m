@@ -49,6 +49,14 @@
     @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
 }
 
+- (void (^)(NSError * __nullable operationError))contextCompletionBlock {
+    @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
+}
+
+- (void)setContextCompletionBlock:(void (^)(NSError * __nullable))contextCompletionBlock{
+    @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
+}
+
 @end
 
 @implementation MHDBackgroundContextOperation

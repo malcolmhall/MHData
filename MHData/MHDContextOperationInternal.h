@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MHDContextOperationInternal : MHFSerialQueueOperation<MHDContextOperationProtocol>
 
-- (BOOL)asyncOperationShouldRun:(NSError **)error NS_REQUIRES_SUPER;
-
 @end
 
 @interface MHDBackgroundContextOperationInternal : MHDContextOperationInternal
