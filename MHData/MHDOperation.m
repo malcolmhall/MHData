@@ -7,28 +7,40 @@
 //
 
 #import "MHDOperation.h"
-#import "MHDError.h"
-#import "NSError+MHD.h"
-#import "NSError+MHF.h"
+#import "MHDOperationInternal.h"
 
 @implementation MHDOperation
 
+- (instancetype)init
+{
+    return (id)[[MHDOperationInternal alloc] init];
+}
+
 - (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext
 {
-    self = [super init];
-    if (self) {
-        _mainContext = mainContext;
-    }
-    return self;
+    return (id)[[MHDOperationInternal alloc] initWithMainContext:mainContext];
 }
 
 - (BOOL)asyncOperationShouldRun:(NSError **)error{
-    if(!self.mainContext){
-        //[NSException raise:NSInternalInconsistencyException format:@"sync manager must be set on sync operation"];
-        *error = [NSError mhf_errorWithDomain:MHDataErrorDomain code:MHDErrorInvalidArguments descriptionFormat:@"a mainContext must be provided for %@", NSStringFromClass(self.class)];
-        return NO;
-    }
-    return YES;
+    @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
+}
+
+-(void)performAsyncOperation{
+    @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
+}
+
+@end
+
+@implementation MHDBackgroundOperation
+
+- (instancetype)init
+{
+    return (id)[[MHDBackgroundOperationInternal alloc] init];
+}
+
+- (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext
+{
+    return (id)[[MHDBackgroundOperationInternal alloc] initWithMainContext:mainContext];
 }
 
 @end

@@ -1,23 +1,49 @@
 //
-//  MHDBackgroundOperation.m
-//  WiFiFoFum-Passwords
+//  MHDOperationInternal.m
+//  MHData
 //
-//  Created by Malcolm Hall on 08/10/2016.
+//  Created by Malcolm Hall on 14/10/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import "MHDBackgroundOperation.h"
+#import "MHDOperationInternal.h"
+#import "MHDError.h"
+#import "NSError+MHD.h"
+#import "NSError+MHF.h"
 #import "MHDError.h"
 #import "NSManagedObjectContext+MHD.h"
 #import "MHFAsyncOperation_Private.h"
 
-@interface MHDBackgroundOperation()
+@implementation MHDOperationInternal
+
+- (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext
+{
+    self = [super init];
+    if (self) {
+        _mainContext = mainContext;
+    }
+    return self;
+}
+
+- (BOOL)asyncOperationShouldRun:(NSError **)error{
+    if(!self.mainContext){
+        //[NSException raise:NSInternalInconsistencyException format:@"sync manager must be set on sync operation"];
+        *error = [NSError mhf_errorWithDomain:MHDataErrorDomain code:MHDErrorInvalidArguments descriptionFormat:@"a mainContext must be provided for %@", NSStringFromClass(self.class)];
+        return NO;
+    }
+    return YES;
+}
+
+@end
+
+
+@interface MHDBackgroundOperationInternal()
 
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *backgroundContext;
 
 @end
 
-@implementation MHDBackgroundOperation
+@implementation MHDBackgroundOperationInternal
 
 -(BOOL)asyncOperationShouldRun:(NSError**)error{
     if(![super asyncOperationShouldRun:error]){
@@ -33,7 +59,7 @@
                                                  selector:@selector(backgroundContextDidSaveNotificationHandler:)
                                                      name:NSManagedObjectContextDidSaveNotification
                                                    object:self.backgroundContext
-        ];
+         ];
     }
     
     return YES;

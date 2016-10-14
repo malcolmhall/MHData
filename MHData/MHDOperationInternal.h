@@ -1,17 +1,17 @@
 //
-//  MHDOperation.h
-//  WiFiFoFum-Passwords
+//  MHDOperationInternal.h
+//  MHData
 //
-//  Created by Malcolm Hall on 11/10/2016.
+//  Created by Malcolm Hall on 14/10/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
 #import <CoreData/CoreData.h>
-#import <MHData/MHDDefines.h>
+#import <MHFoundation/MHFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MHDOperation : NSOperation
+@interface MHDOperationInternal : MHFSerialQueueOperation
 
 @property (nonatomic, strong, nullable) NSManagedObjectContext *mainContext;
 
@@ -19,13 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)asyncOperationShouldRun:(NSError **)error NS_REQUIRES_SUPER;
 
-- (void)performAsyncOperation;
-
-
-
 @end
 
-@interface MHDBackgroundOperation : MHDOperation
+@interface MHDBackgroundOperationInternal : MHDOperationInternal
 
 // will be set after asyncOperationShouldRun is called.
 @property (nonatomic, strong, readonly) NSManagedObjectContext *backgroundContext;
