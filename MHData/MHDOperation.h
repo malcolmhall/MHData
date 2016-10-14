@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)finishWithError:(NSError * __nullable)error NS_REQUIRES_SUPER;
 
+- (void)addOperation:(NSOperation *)operation;
+
 @end
 
 @interface MHDBackgroundOperation : MHDOperation

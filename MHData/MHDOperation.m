@@ -33,6 +33,10 @@
     @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
 }
 
+- (void)addOperation:(NSOperation *)operation{
+    @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];    
+}
+
 @end
 
 @implementation MHDBackgroundOperation
