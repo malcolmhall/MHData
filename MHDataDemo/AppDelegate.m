@@ -23,6 +23,9 @@
     
     //NSURL* url = [MHDPersistentContainer defaultDirectoryURL];
     
+    //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    
     MHDBackgroundContextOperation *op = [[MHDBackgroundContextOperation alloc] init];
     
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
