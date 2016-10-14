@@ -9,6 +9,7 @@
 #import "MHDBackgroundOperation.h"
 #import "MHDError.h"
 #import "NSManagedObjectContext+MHD.h"
+#import "MHFAsyncOperation_Private.h"
 
 @interface MHDBackgroundOperation()
 
