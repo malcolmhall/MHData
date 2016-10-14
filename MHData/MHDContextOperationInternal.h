@@ -13,16 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MHDContextOperationInternal : MHFSerialQueueOperation<MHDContextOperationProtocol>
-
-@end
-
-@interface MHDBackgroundContextOperationInternal : MHDContextOperationInternal
-
-// will be set after asyncOperationShouldRun is called.
-@property (nonatomic, strong, readonly) NSManagedObjectContext *backgroundContext;
-
-@property (nonatomic, assign) BOOL mergeChanges;
+@interface MHDContextOperationInternal : MHFSerialQueueOperation
 
 @end
 

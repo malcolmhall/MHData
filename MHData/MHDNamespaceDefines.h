@@ -11,7 +11,6 @@
     #define __MHDATA_NS_SYMBOL(symbol) __MHDATA_NS_BRIDGE(MHDATA_NAMESPACE, symbol)
 // Classes
     #define MHDBackgroundContextOperation __MHDATA_NS_SYMBOL(MHDBackgroundContextOperation)
-    #define MHDBackgroundContextOperationInternal __MHDATA_NS_SYMBOL(MHDBackgroundContextOperationInternal)
     #define MHDContextOperation __MHDATA_NS_SYMBOL(MHDContextOperation)
     #define MHDContextOperationInternal __MHDATA_NS_SYMBOL(MHDContextOperationInternal)
     #define MHDFetchedResultsController __MHDATA_NS_SYMBOL(MHDFetchedResultsController)

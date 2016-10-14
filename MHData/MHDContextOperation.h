@@ -11,7 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol MHDContextOperationProtocol <NSObject>
+@interface MHDContextOperation : NSOperation
+
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext;
 
@@ -19,19 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) void (^contextCompletionBlock)(NSError * __nullable operationError);
 
-@end
-
-@interface MHDContextOperation : NSOperation<MHDContextOperationProtocol>
-
-// see protocol above for init etc.
-
-- (void)performAsyncOperation;
-
-- (void)finishWithError:(nullable NSError *)error NS_REQUIRES_SUPER;
-
 - (void)addOperation:(NSOperation *)operation;
 
-- (BOOL)asyncOperationShouldRun:(NSError **)error NS_REQUIRES_SUPER;
+- (void)performAsyncOperation NS_REQUIRES_SUPER;
+
+- (void)finishWithError:(nullable NSError *)error NS_REQUIRES_SUPER;
 
 @end
 
