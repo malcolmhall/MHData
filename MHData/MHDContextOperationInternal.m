@@ -1,12 +1,12 @@
 //
-//  MHDOperationInternal.m
+//  MHDContextOperationInternal.m
 //  MHData
 //
 //  Created by Malcolm Hall on 14/10/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import "MHDOperationInternal.h"
+#import "MHDContextOperationInternal.h"
 #import "MHDError.h"
 #import "NSError+MHD.h"
 #import "NSError+MHF.h"
@@ -14,7 +14,9 @@
 #import "NSManagedObjectContext+MHD.h"
 #import "MHFAsyncOperation_Private.h"
 
-@implementation MHDOperationInternal
+@implementation MHDContextOperationInternal
+
+@synthesize mainContext = _mainContext;
 
 - (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext
 {
@@ -36,14 +38,13 @@
 
 @end
 
-
-@interface MHDBackgroundOperationInternal()
+@interface MHDBackgroundContextOperationInternal()
 
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *backgroundContext;
 
 @end
 
-@implementation MHDBackgroundOperationInternal
+@implementation MHDBackgroundContextOperationInternal
 
 -(BOOL)asyncOperationShouldRun:(NSError**)error{
     if(![super asyncOperationShouldRun:error]){

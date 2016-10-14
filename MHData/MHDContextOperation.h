@@ -1,5 +1,5 @@
 //
-//  MHDOperation.h
+//  MHDContextOperation.h
 //  WiFiFoFum-Passwords
 //
 //  Created by Malcolm Hall on 11/10/2016.
@@ -11,11 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MHDOperation : NSOperation
+@protocol MHDContextOperationProtocol <NSObject>
 
 @property (nonatomic, strong, nullable) NSManagedObjectContext *mainContext;
 
 - (instancetype)initWithMainContext:(NSManagedObjectContext *)mainContext;
+
+@end
+
+@interface MHDContextOperation : NSOperation<MHDContextOperationProtocol>
 
 - (BOOL)asyncOperationShouldRun:(NSError **)error NS_REQUIRES_SUPER;
 
@@ -25,9 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addOperation:(NSOperation *)operation;
 
+@property (nonatomic, copy, nullable) void (^operationCompletionBlock)(NSError * __nullable operationError);
+
 @end
 
-@interface MHDBackgroundOperation : MHDOperation
+@interface MHDBackgroundContextOperation : MHDContextOperation
 
 // will be set after asyncOperationShouldRun is called.
 @property (nonatomic, strong, readonly) NSManagedObjectContext *backgroundContext;
