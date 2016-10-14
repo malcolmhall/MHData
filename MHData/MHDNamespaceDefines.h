@@ -12,7 +12,6 @@
 // Classes
     #define MHDBackgroundContextOperation __MHDATA_NS_SYMBOL(MHDBackgroundContextOperation)
     #define MHDContextOperation __MHDATA_NS_SYMBOL(MHDContextOperation)
-    #define MHDContextOperationInternal __MHDATA_NS_SYMBOL(MHDContextOperationInternal)
     #define MHDFetchedResultsController __MHDATA_NS_SYMBOL(MHDFetchedResultsController)
     #define MHDFetchedResultsViewController __MHDATA_NS_SYMBOL(MHDFetchedResultsViewController)
     #define MHDPersistentContainer __MHDATA_NS_SYMBOL(MHDPersistentContainer)
