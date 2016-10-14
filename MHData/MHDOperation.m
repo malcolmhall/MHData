@@ -9,6 +9,7 @@
 #import "MHDOperation.h"
 #import "MHDError.h"
 #import "NSError+MHD.h"
+#import "NSError+MHF.h"
 
 @implementation MHDOperation
 

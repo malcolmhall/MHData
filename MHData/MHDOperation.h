@@ -8,7 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #ifdef MHDATA_TARGET
-#import <MHFoundation/MHFoundation.h>
+#import <MHFoundation/MHFQueueOperation.h>
 #endif
 #import <MHData/MHDDefines.h>
 
