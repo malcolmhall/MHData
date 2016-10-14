@@ -48,6 +48,8 @@
 		EC6759281DB06C1C00838798 /* MHFNamespaceDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6759261DB06C1C00838798 /* MHFNamespaceDefines.h */; };
 		EC6759361DB0F86700838798 /* MHDContextOperation_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6759341DB0F86700838798 /* MHDContextOperation_Internal.h */; };
 		EC6759411DB11F7C00838798 /* MHDContextOperation_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6759401DB11F7400838798 /* MHDContextOperation_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EC6759541DB13FC600838798 /* MHFoundation_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6759521DB13FC600838798 /* MHFoundation_Private.h */; };
+		EC6759551DB13FC600838798 /* MHFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6759531DB13FC600838798 /* MHFoundation.h */; };
 		ECB213761D872F2400246A1F /* NSError+MHD.h in Headers */ = {isa = PBXBuildFile; fileRef = ECB213741D872F2400246A1F /* NSError+MHD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECB213771D872F2400246A1F /* NSError+MHD.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB213751D872F2400246A1F /* NSError+MHD.m */; };
 		ECC991CC1D118E40000F5EFB /* MHDPersistentStoreDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -111,6 +113,8 @@
 		EC6759261DB06C1C00838798 /* MHFNamespaceDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHFNamespaceDefines.h; path = dependencies/MHFoundation/MHFoundation/MHFNamespaceDefines.h; sourceTree = "<group>"; };
 		EC6759341DB0F86700838798 /* MHDContextOperation_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDContextOperation_Internal.h; sourceTree = "<group>"; };
 		EC6759401DB11F7400838798 /* MHDContextOperation_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MHDContextOperation_Private.h; sourceTree = "<group>"; };
+		EC6759521DB13FC600838798 /* MHFoundation_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHFoundation_Private.h; path = dependencies/MHFoundation/MHFoundation/MHFoundation_Private.h; sourceTree = "<group>"; };
+		EC6759531DB13FC600838798 /* MHFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHFoundation.h; path = dependencies/MHFoundation/MHFoundation/MHFoundation.h; sourceTree = "<group>"; };
 		ECB213741D872F2400246A1F /* NSError+MHD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MHD.h"; sourceTree = "<group>"; };
 		ECB213751D872F2400246A1F /* NSError+MHD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MHD.m"; sourceTree = "<group>"; };
 		ECC991CA1D118E40000F5EFB /* MHDPersistentStoreDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDPersistentStoreDescription.h; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 		EC6759291DB06D6B00838798 /* MHFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				EC6759521DB13FC600838798 /* MHFoundation_Private.h */,
+				EC6759531DB13FC600838798 /* MHFoundation.h */,
 				EC6759251DB06C1C00838798 /* MHFDefines.h */,
 				EC6759261DB06C1C00838798 /* MHFNamespaceDefines.h */,
 				EC6759191DB06BB900838798 /* MHFError_Internal.h */,
@@ -244,6 +250,7 @@
 				EC6759061DB069F000838798 /* MHDContextOperation.h in Headers */,
 				ECC991D31D11AD88000F5EFB /* MHDPersistentContainer.h in Headers */,
 				EC3145121D073EA30025F669 /* NSEntityDescription+MHD.h in Headers */,
+				EC6759551DB13FC600838798 /* MHFoundation.h in Headers */,
 				EC6759271DB06C1C00838798 /* MHFDefines.h in Headers */,
 				EC67591D1DB06BB900838798 /* MHFError.h in Headers */,
 				ECB213761D872F2400246A1F /* NSError+MHD.h in Headers */,
@@ -255,6 +262,7 @@
 				EC3145101D073EA30025F669 /* MHDStackManager.h in Headers */,
 				ECC991CC1D118E40000F5EFB /* MHDPersistentStoreDescription.h in Headers */,
 				EC67591C1DB06BB900838798 /* MHFError_Internal.h in Headers */,
+				EC6759541DB13FC600838798 /* MHFoundation_Private.h in Headers */,
 				EC3145081D073EA30025F669 /* MHDDefines.h in Headers */,
 				EC3145141D073EA30025F669 /* NSManagedObject+MHD.h in Headers */,
 				EC6759361DB0F86700838798 /* MHDContextOperation_Internal.h in Headers */,

@@ -7,7 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <MHFoundation/MHFoundation.h>
+#import <MHFoundation/MHFoundation_Private.h>
 #import <MHData/MHDDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN

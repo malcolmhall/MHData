@@ -9,10 +9,8 @@
 #import "MHDContextOperation_Internal.h"
 #import "MHDError.h"
 #import "NSError+MHD.h"
-#import "NSError+MHF.h"
 #import "MHDError.h"
 #import "NSManagedObjectContext+MHD.h"
-#import "MHFAsyncOperation_Private.h"
 
 @interface MHDContextOperation()
 
