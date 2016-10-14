@@ -29,6 +29,10 @@
     @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
 }
 
+- (void)finishWithError:(NSError * __nullable)error{
+    @throw [NSException exceptionWithName:NSObjectInaccessibleException reason:nil userInfo:nil];
+}
+
 @end
 
 @implementation MHDBackgroundOperation

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)performAsyncOperation;
 
-
+- (void)finishWithError:(NSError * __nullable)error NS_REQUIRES_SUPER;
 
 @end
 
