@@ -94,10 +94,8 @@
 }
 
 - (void)loadPersistentStoresWithCompletionHandler:(void (^)(MHDPersistentStoreDescription *, NSError * _Nullable))block{
-    for(MHDPersistentStoreDescription* sd in _persistentStoreDescriptions){
-        [_persistentStoreCoordinator mhd_addPersistentStoreWithDescription:sd completionHandler:^(MHDPersistentStoreDescription *storeDescription, NSError *error) {
-            block(storeDescription, error);
-        }];
+    for(MHDPersistentStoreDescription *sd in _persistentStoreDescriptions){
+        [_persistentStoreCoordinator mhd_addPersistentStoreWithDescription:sd completionHandler:block];
     }
 }
 
@@ -105,8 +103,8 @@
     NSError* error;
     NSManagedObjectContext* context = [self.viewContext mhd_newBackgroundContextWithError:&error];
     if(!context){
-        NSLog(@"%@", error.description);
-        abort();
+        // shouldn't happen
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Failed to create background context" userInfo:error.userInfo];
     }
     return context;
 }
