@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 // setter
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)key;
 
--(instancetype)mhd_initWithContext:(NSManagedObjectContext*)context;
+// finds the entity that has this class's name as its managedObjectClassName.
+- (instancetype)mhd_initWithContext:(NSManagedObjectContext *)context;
 
 @end
 

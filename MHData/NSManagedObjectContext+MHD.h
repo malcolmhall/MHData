@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, setter=mhd_setAutomaticallyMergesChangesFromParent:) BOOL mhd_automaticallyMergesChangesFromParent;
 
-- (NSOperation *)mhd_performBlockAndWaitOperation:(void (^)())block;
+- (NSOperation *)mhd_operationPerformingBlockAndWait:(void (^)())block;
 
 @end
 

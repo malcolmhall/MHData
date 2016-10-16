@@ -19,20 +19,20 @@
     [self setValue:object forKey:(NSString*)key];
 }
 
--(instancetype)mhd_initWithContext:(NSManagedObjectContext*)context{
+- (instancetype)mhd_initWithContext:(NSManagedObjectContext *)context{
     // search for this class in the model to find the entity
     NSEntityDescription* entity;
     NSString* className = NSStringFromClass(self.class);
-    for(NSEntityDescription* e in context.persistentStoreCoordinator.managedObjectModel.entities){
-        if([entity.managedObjectClassName isEqualToString:className]){
+    NSPersistentStoreCoordinator *psc = context.persistentStoreCoordinator;
+    for(NSEntityDescription* e in psc.managedObjectModel.entities){
+        if([e.managedObjectClassName isEqualToString:className]){
             entity = e;
             break;
         }
-        // we won't check if there are any more
+        // we won't check if there are any more matches
     }
     if(!entity){
-        NSLog(@"Could not find an entity for this class");
-        abort();
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Could not find an entity for this class" userInfo:nil];
     }
     return [self initWithEntity:entity insertIntoManagedObjectContext:context];
 }
