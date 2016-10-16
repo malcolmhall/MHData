@@ -43,64 +43,45 @@
 
 - (NSManagedObjectContext *)mhd_newBackgroundContextWithError:(NSError **)error {
     
-    // It uses the same store and model, but a new persistent store coordinator and context.
+    // Use the same store and model, but for maximum performance use a new persistent store coordinator for the context.
     NSPersistentStoreCoordinator *coordinator;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
-    coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
-
     NSPersistentStore* store = self.persistentStoreCoordinator.persistentStores.firstObject;
-    
     NSURL* storeURL = store.URL;
     if(!storeURL){
         if(error){
-            *error = [NSError errorWithDomain:MHDataErrorDomain code:101 userInfo:@{NSLocalizedDescriptionKey : @"Could not find the coordinator's first store URL",
+            *error = [NSError errorWithDomain:MHDataErrorDomain code:MHDErrorInvalidArguments userInfo:@{NSLocalizedDescriptionKey : @"This context's coordinator store did not have a URL",
                                                                               NSLocalizedFailureReasonErrorKey : @"It was nil."}];
         }
         return nil;
     }
     
-    if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:store.configurationName
+    coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
+    
+    if (![coordinator addPersistentStoreWithType:store.type
+                                   configuration:store.configurationName
                                                   URL:storeURL
                                               options:store.options
                                                 error:error]) {
         return nil;
     }
 #else
+    // Since iOS 10 there is now a propert connection pool.
+    // https://developer.apple.com/library/content/releasenotes/General/WhatNewCoreData2016/ReleaseNotes.html
     coordinator = self.persistentStoreCoordinator;
 #endif
     NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     
+    // Contrary to the Earthquakes populating from background queue example:
+    // "Setter methods on queue-based managed object contexts are thread-safe. You can invoke these methods directly on any thread." From:
     // https://developer.apple.com/library/mac/documentation/Cocoa/Reference/CoreDataFramework/Classes/NSManagedObjectContext_Class/index.html
-    // Setter methods on queue-based managed object contexts are thread-safe. You can invoke these methods directly on any thread.
-    
     context.persistentStoreCoordinator = coordinator;
-    
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
-    // Avoid using default merge policy in multi-threading environment:
-    // when we delete (and save) a record in one context,
-    // and try to save edits on the same record in the other context before merging the changes,
-    // an exception will be thrown because Core Data by default uses NSErrorMergePolicy.
-    // Setting a reasonable mergePolicy is a good practice to avoid that kind of exception.
-    //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-#endif
-    
-    // In OS X (pre-Sierra), a context provides an undo manager by default
-    // Disable it for performance benefit
-#if __MAC_OS_X_VERSION_MIN_REQUIRED < 101100
+
+    // Pre-sierra OS X had an undo manager, ensure it's off for a performance benefit. On iOS its always been nil.
     context.undoManager = nil;
-#endif
+
     return context;
 }
-
-/*
--(NSManagedObject*)mhd_insertNewObjectForEntityName:(NSString*)entityName{
-    return [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
-}
-
--(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name{
-    return [NSEntityDescription entityForName:name inManagedObjectContext:self];
-}
-*/
 
 -(NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
