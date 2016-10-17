@@ -19,4 +19,6 @@
 
 - (BOOL)mhd_isValidation;
 
+- (BOOL)mhd_isConstraintMergeError;
+
 @end

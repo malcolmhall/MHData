@@ -18,6 +18,36 @@
     return self.code >= 1550 && self.code <= 1680;
 }
 
+- (BOOL)mhd_isConstraintMergeError{
+    if(self.domain != NSCocoaErrorDomain){
+        return NO;
+    }
+    
+    return self.code == NSManagedObjectConstraintMergeError;
+}
+
+- (NSDictionary *)mhd_constraintConflictsByConstraint{
+    if(!self.mhd_isConstraintMergeError){
+        return nil;
+    }
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    
+    NSArray *conflictList = [self.userInfo objectForKey:@"conflictList"];
+    
+    for (NSConstraintConflict * conflict in conflictList) {
+        NSString *constraint = [conflict.constraint componentsJoinedByString:@", "];
+        NSString *msg = [NSString stringWithFormat:@"%ld conflicted objects", conflict.conflictingObjects.count];
+        NSArray* messageArray = dict[constraint];
+        if(!messageArray){
+            messageArray = [NSArray arrayWithObject:msg];
+        }else{
+            messageArray = [messageArray arrayByAddingObject:msg];
+        }
+        dict[constraint] = messageArray;
+    }
+    return dict.copy;
+}
+
 - (NSDictionary *)mhd_validationDescriptionsByEntityName{
     if(!self.mhd_isValidation){
         return nil;
@@ -107,13 +137,20 @@
 - (NSString *)mhd_displayDescription{
     
     NSString *description;
-    
+    NSDictionary *dict;
     if(self.mhd_isValidation){
-        NSDictionary *validationDescriptionsByEntityName = self.mhd_validationDescriptionsByEntityName;
+        dict = self.mhd_validationDescriptionsByEntityName;
+    }
+    else if(self.mhd_isConstraintMergeError){
+        // e.g. id: 4 conflicted objects
+        dict = self.mhd_constraintConflictsByConstraint;
+    }
+    
+    if(dict){
         NSMutableArray* messages = [NSMutableArray array];
-        for(NSString *entityName in validationDescriptionsByEntityName.allKeys){
-            NSArray* validationDescriptions = validationDescriptionsByEntityName[entityName];
-            NSString* message = [NSString stringWithFormat:@"%@: %@", entityName, [validationDescriptions componentsJoinedByString:@" "]];
+        for(NSString *key in dict.allKeys){
+            NSArray* value = dict[key];
+            NSString* message = [NSString stringWithFormat:@"%@: %@", key, [value componentsJoinedByString:@" "]];
             [messages addObject:message];
         }
         description = [messages componentsJoinedByString:@"\n"];
