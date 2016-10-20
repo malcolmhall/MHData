@@ -1,8 +1,8 @@
 //
-//  MHDNamespaceDefines.h
+//  MHDDefines+Namespace.h
 //  MHData
 //
-//  Generated using MHNamespaceGenerator on 14/10/2016
+//  Generated using MHNamespaceGenerator on 20/10/2016
 //
 
 #if !defined(__MHDATA_NS_SYMBOL) && defined(MHDATA_NAMESPACE)
@@ -10,13 +10,12 @@
     #define __MHDATA_NS_BRIDGE(ns, symbol) __MHDATA_NS_REWRITE(ns, symbol)
     #define __MHDATA_NS_SYMBOL(symbol) __MHDATA_NS_BRIDGE(MHDATA_NAMESPACE, symbol)
 // Classes
-    #define MHDBackgroundContextOperation __MHDATA_NS_SYMBOL(MHDBackgroundContextOperation)
-    #define MHDSaveContextOperation __MHDATA_NS_SYMBOL(MHDSaveContextOperation)
     #define MHDFetchedResultsController __MHDATA_NS_SYMBOL(MHDFetchedResultsController)
     #define MHDFetchedResultsViewController __MHDATA_NS_SYMBOL(MHDFetchedResultsViewController)
     #define MHDPersistentContainer __MHDATA_NS_SYMBOL(MHDPersistentContainer)
     #define MHDPersistentStoreBridge __MHDATA_NS_SYMBOL(MHDPersistentStoreBridge)
     #define MHDPersistentStoreDescription __MHDATA_NS_SYMBOL(MHDPersistentStoreDescription)
+    #define MHDSaveContextOperation __MHDATA_NS_SYMBOL(MHDSaveContextOperation)
     #define MHDStackManager __MHDATA_NS_SYMBOL(MHDStackManager)
     #define MHData_MHFAsyncOperation __MHDATA_NS_SYMBOL(MHData_MHFAsyncOperation)
     #define MHData_MHFError __MHDATA_NS_SYMBOL(MHData_MHFError)
@@ -46,6 +45,7 @@
     #define mhd_isValidation __MHDATA_NS_SYMBOL(mhd_isValidation)
     #define mhd_modelNamed __MHDATA_NS_SYMBOL(mhd_modelNamed)
     #define mhd_newBackgroundContextWithError __MHDATA_NS_SYMBOL(mhd_newBackgroundContextWithError)
+    #define mhd_operationPerformingBlockAndWait __MHDATA_NS_SYMBOL(mhd_operationPerformingBlockAndWait)
     #define mhd_propertyNameForToManyRelation __MHDATA_NS_SYMBOL(mhd_propertyNameForToManyRelation)
     #define mhd_relationshipsWithManagedObjectClass __MHDATA_NS_SYMBOL(mhd_relationshipsWithManagedObjectClass)
     #define mhd_save __MHDATA_NS_SYMBOL(mhd_save)

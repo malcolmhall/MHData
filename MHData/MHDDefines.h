@@ -6,8 +6,6 @@
 //
 //
 
-#import <MHData/MHDNamespaceDefines.h>
-
 #ifndef MHDATA_EXTERN
     #ifdef __cplusplus
         #define MHDATA_EXTERN   extern "C" __attribute__((visibility ("default")))
@@ -15,3 +13,5 @@
         #define MHDATA_EXTERN   extern __attribute__((visibility ("default")))
     #endif
 #endif
+
+#import <MHData/MHDDefines+Namespace.h>
