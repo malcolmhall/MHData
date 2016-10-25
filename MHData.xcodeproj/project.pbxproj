@@ -26,8 +26,6 @@
 		EC3144E51D073E010025F669 /* MHData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3144DA1D073E010025F669 /* MHData.framework */; };
 		EC3144EA1D073E010025F669 /* MHDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144E91D073E010025F669 /* MHDataTests.m */; };
 		EC3145081D073EA30025F669 /* MHDDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F41D073EA30025F669 /* MHDDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC31450A1D073EA30025F669 /* MHDFetchedResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F61D073EA30025F669 /* MHDFetchedResultsController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC31450B1D073EA30025F669 /* MHDFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F71D073EA30025F669 /* MHDFetchedResultsController.m */; };
 		EC31450C1D073EA30025F669 /* MHDFetchedResultsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F81D073EA30025F669 /* MHDFetchedResultsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31450D1D073EA30025F669 /* MHDFetchedResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F91D073EA30025F669 /* MHDFetchedResultsViewController.m */; };
 		EC31450E1D073EA30025F669 /* MHDPersistentStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FA1D073EA30025F669 /* MHDPersistentStoreBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,8 +98,6 @@
 		EC3144E91D073E010025F669 /* MHDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHDataTests.m; sourceTree = "<group>"; };
 		EC3144EB1D073E010025F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC3144F41D073EA30025F669 /* MHDDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDDefines.h; sourceTree = "<group>"; };
-		EC3144F61D073EA30025F669 /* MHDFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDFetchedResultsController.h; sourceTree = "<group>"; };
-		EC3144F71D073EA30025F669 /* MHDFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDFetchedResultsController.m; sourceTree = "<group>"; };
 		EC3144F81D073EA30025F669 /* MHDFetchedResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDFetchedResultsViewController.h; sourceTree = "<group>"; };
 		EC3144F91D073EA30025F669 /* MHDFetchedResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDFetchedResultsViewController.m; sourceTree = "<group>"; };
 		EC3144FA1D073EA30025F669 /* MHDPersistentStoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDPersistentStoreBridge.h; sourceTree = "<group>"; };
@@ -195,8 +191,6 @@
 				ECD142D01DB922F8000B38AC /* MHDDefines+Namespace.h */,
 				EC6023961D313FD200ACE8B0 /* MHDError.h */,
 				EC6023971D313FD200ACE8B0 /* MHDError.m */,
-				EC3144F61D073EA30025F669 /* MHDFetchedResultsController.h */,
-				EC3144F71D073EA30025F669 /* MHDFetchedResultsController.m */,
 				EC3144F81D073EA30025F669 /* MHDFetchedResultsViewController.h */,
 				EC3144F91D073EA30025F669 /* MHDFetchedResultsViewController.m */,
 				EC3144FA1D073EA30025F669 /* MHDPersistentStoreBridge.h */,
@@ -300,7 +294,6 @@
 				EC31451A1D073EA30025F669 /* NSPersistentStoreCoordinator+MHD.h in Headers */,
 				EC31450E1D073EA30025F669 /* MHDPersistentStoreBridge.h in Headers */,
 				EC6759281DB06C1C00838798 /* MHFNamespaceDefines.h in Headers */,
-				EC31450A1D073EA30025F669 /* MHDFetchedResultsController.h in Headers */,
 				EC6759231DB06BCB00838798 /* MHFAsyncOperation.h in Headers */,
 				EC6023981D313FD200ACE8B0 /* MHDError.h in Headers */,
 				EC6759171DB06B4600838798 /* NSError+MHF.h in Headers */,
@@ -429,7 +422,6 @@
 				EC67591E1DB06BB900838798 /* MHFError.m in Sources */,
 				EC6759661DB142F700838798 /* NSOperationQueue+MHF.m in Sources */,
 				ECB213771D872F2400246A1F /* NSError+MHD.m in Sources */,
-				EC31450B1D073EA30025F669 /* MHDFetchedResultsController.m in Sources */,
 				EC31450F1D073EA30025F669 /* MHDPersistentStoreBridge.m in Sources */,
 				EC6759181DB06B4600838798 /* NSError+MHF.m in Sources */,
 				ECC991CD1D118E40000F5EFB /* MHDPersistentStoreDescription.m in Sources */,
