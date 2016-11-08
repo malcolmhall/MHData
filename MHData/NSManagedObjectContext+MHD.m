@@ -83,25 +83,20 @@
     return context;
 }
 
--(NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
+- (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.predicate = predicate;
     return [self executeFetchRequest:fetchRequest error:error];
 }
 
-- (id)mhd_fetchObjectWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
-    NSArray* objects = [self mhd_fetchObjectsWithEntityName:entityName predicate:predicate error:error];
-    return objects.firstObject;
-}
-
--(NSManagedObject*)mhd_fetchObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
+- (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
     // build the and predicate using the dict that also checks nulls.
     NSMutableArray* array = [NSMutableArray array];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [array addObject:[NSPredicate predicateWithFormat:@"%K = %@", key, obj]];
     }];
     NSCompoundPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
-    return [self mhd_fetchObjectWithEntityName:entityName predicate:predicate error:error];
+    return [self mhd_fetchObjectsWithEntityName:entityName predicate:predicate error:error];
 }
 
 -(NSManagedObject*)mhd_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
@@ -112,15 +107,16 @@
         *inserted = NO;
     }
     
-    NSManagedObject* object = [self mhd_fetchObjectWithEntityName:entityName dictionary:dictionary error:&e];
-    if(e){
+    NSArray* objects = [self mhd_fetchObjectsWithEntityName:entityName dictionary:dictionary error:&e];
+    if(!objects){
         // nil pointer check
         if(error){
             *error = e;
         }
         return nil;
     }
-    else if(!object){
+    NSManagedObject *object = objects.firstObject;
+    if(!object){
         object = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self];
         [object setValuesForKeysWithDictionary:dictionary];
         // nil pointer check
@@ -165,6 +161,28 @@
     BOOL result = [self save:error];
     if(!result){
         [self rollback];
+    }
+    return result;
+}
+
+- (BOOL)mhd_save:(NSError**)error undoParentOnError:(BOOL)undoParentOnError{
+    NSUndoManager *undoManager;
+    if(undoParentOnError){
+        if(!self.parentContext.undoManager){
+            undoManager = [[NSUndoManager alloc] init];
+            self.parentContext.undoManager = undoManager;
+        }
+        [self.parentContext.undoManager beginUndoGrouping];
+    }
+    BOOL result = [self save:error];
+    if(!result){
+        if(undoParentOnError){
+            [self.parentContext.undoManager endUndoGrouping];
+            [self.parentContext.undoManager undo];
+            if(undoManager){
+                self.parentContext.undoManager = nil;
+            }
+        }
     }
     return result;
 }

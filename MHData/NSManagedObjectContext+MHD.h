@@ -29,12 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 //-(NSEntityDescription*)mhd_entityDescriptionForName:(NSString*)name;
 
-- (NSArray*)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
-
-- (id)mhd_fetchObjectWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
+// check for nil array on error.
+- (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
 
 // dictionary of keys and values that an and predicate will be used. Include NSNull for null values in the query.
-- (NSManagedObject*)mhd_fetchObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error;
+- (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error;
 
 // If there was an error fetching the error is set and nil is returned. If in an insert is required an object will always be returned with no error.
 - (NSManagedObject*)mhd_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error;
@@ -47,6 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, setter=mhd_setAutomaticallyMergesChangesFromParent:) BOOL mhd_automaticallyMergesChangesFromParent;
 
 - (NSOperation *)mhd_operationPerformingBlockAndWait:(void (^)())block;
+
+// when saving a context into its parent, if it errors this method allows you to automatically undo the changes.
+- (BOOL)mhd_save:(NSError**)error undoParentOnError:(BOOL)undoParentOnError;
 
 @end
 
