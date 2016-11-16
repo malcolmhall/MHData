@@ -35,7 +35,7 @@
     #define mhd_defaultModel __MHDATA_NS_SYMBOL(mhd_defaultModel)
     #define mhd_defaultStoreFilename __MHDATA_NS_SYMBOL(mhd_defaultStoreFilename)
     #define mhd_defaultStoreURLWithError __MHDATA_NS_SYMBOL(mhd_defaultStoreURLWithError)
-    #define mhd_displayDescription __MHDATA_NS_SYMBOL(mhd_displayDescription)
+    #define mhd_readableDescription __MHDATA_NS_SYMBOL(mhd_readableDescription)
     #define mhd_entityNamed __MHDATA_NS_SYMBOL(mhd_entityNamed)
     #define mhd_fetchObjectWithEntityName __MHDATA_NS_SYMBOL(mhd_fetchObjectWithEntityName)
     #define mhd_fetchObjectsWithEntityName __MHDATA_NS_SYMBOL(mhd_fetchObjectsWithEntityName)

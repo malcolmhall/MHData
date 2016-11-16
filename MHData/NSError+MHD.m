@@ -36,7 +36,7 @@
     
     for (NSConstraintConflict * conflict in conflictList) {
         NSString *constraint = [conflict.constraint componentsJoinedByString:@", "];
-        NSString *msg = [NSString stringWithFormat:@"%ld conflicted objects", conflict.conflictingObjects.count];
+        NSString *msg = [NSString stringWithFormat:@"%ld conflicts of \"%@\".", conflict.conflictingObjects.count, [conflict.constraintValues.allValues componentsJoinedByString:@", " ]];
         NSArray* messageArray = dict[constraint];
         if(!messageArray){
             messageArray = [NSArray arrayWithObject:msg];
@@ -134,7 +134,7 @@
     return dict.copy;
 }
 
-- (NSString *)mhd_displayDescription{
+- (NSString *)mhd_readableDescription{
     
     NSString *description;
     NSDictionary *dict;

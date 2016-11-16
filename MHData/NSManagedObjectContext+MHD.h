@@ -38,17 +38,24 @@ NS_ASSUME_NONNULL_BEGIN
 // If there was an error fetching the error is set and nil is returned. If in an insert is required an object will always be returned with no error.
 - (NSManagedObject*)mhd_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error;
 
-- (BOOL)mhd_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError;
+// errors if not found
+- (NSManagedObject *)mhd_existingObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary *)dictionary error:(NSError**)error;
+
+// errors if not found
+- (NSManagedObject *)mhd_existingObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate *)predicate error:(NSError**)error;
+
+- (BOOL)mhd_saveRollbackOnError:(NSError**)error;
 
 // function is one of the predefined NSExpression functions, e.g. max: sum: etc. Returns nil if there is no value.
 - (id)mhd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error;
 
 @property (nonatomic, setter=mhd_setAutomaticallyMergesChangesFromParent:) BOOL mhd_automaticallyMergesChangesFromParent;
 
+// This wait so that the next operation in the queue doesn't start too soon.
 - (NSOperation *)mhd_operationPerformingBlockAndWait:(void (^)())block;
 
 // when saving a context into its parent, if it errors this method allows you to automatically undo the changes.
-- (BOOL)mhd_save:(NSError**)error undoParentOnError:(BOOL)undoParentOnError;
+//- (BOOL)mhd_saveUndoParentOnError:(NSError**)error;
 
 @end
 

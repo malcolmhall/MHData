@@ -83,23 +83,49 @@
     return context;
 }
 
+- (NSManagedObject *)mhd_existingObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary *)dictionary error:(NSError**)error{
+    NSPredicate *predicate = [self mhd_predicateWithDictionary:dictionary];
+    return [self mhd_existingObjectWithEntityName:entityName predicate:predicate error:error];
+}
+
+- (NSManagedObject *)mhd_existingObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate *)predicate error:(NSError**)error{
+    NSArray *objects = [self mhd_fetchObjectsWithEntityName:@"Venue" predicate:predicate error:error];
+    if(!objects){
+        return nil;
+    }
+    else if(!objects.count){
+        if(error){
+            *error = [NSError errorWithDomain:MHDataErrorDomain code:MHDErrorInvalidArguments userInfo:@{NSLocalizedDescriptionKey : @"Existing object not found",
+                                                                                                        NSLocalizedFailureReasonErrorKey : @"No object matched the predicate."}];
+        }
+        return nil;
+    }
+    else{
+        return objects.firstObject;
+    }
+}
+
 - (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.predicate = predicate;
     return [self executeFetchRequest:fetchRequest error:error];
 }
 
-- (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
-    // build the and predicate using the dict that also checks nulls.
+-(NSPredicate *)mhd_predicateWithDictionary:(NSDictionary *)dictionary{
     NSMutableArray* array = [NSMutableArray array];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [array addObject:[NSPredicate predicateWithFormat:@"%K = %@", key, obj]];
     }];
-    NSCompoundPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:array];
+    return [NSCompoundPredicate andPredicateWithSubpredicates:array];
+}
+
+- (NSArray *)mhd_fetchObjectsWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
+    // build the and predicate using the dict that also checks nulls.
+    NSPredicate *predicate = [self mhd_predicateWithDictionary:dictionary];
     return [self mhd_fetchObjectsWithEntityName:entityName predicate:predicate error:error];
 }
 
--(NSManagedObject*)mhd_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
+-(NSManagedObject *)mhd_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
     NSError* e;
     
     // initialize inserted
@@ -157,7 +183,7 @@
     return [[fetchResults lastObject] valueForKey:resultKey];
 }
 
-- (BOOL)mhd_save:(NSError**)error rollbackOnError:(BOOL)rollbackOnError{
+- (BOOL)mhd_saveRollbackOnError:(NSError**)error{
     BOOL result = [self save:error];
     if(!result){
         [self rollback];
@@ -165,27 +191,25 @@
     return result;
 }
 
-- (BOOL)mhd_save:(NSError**)error undoParentOnError:(BOOL)undoParentOnError{
-    NSUndoManager *undoManager;
-    if(undoParentOnError){
-        if(!self.parentContext.undoManager){
-            undoManager = [[NSUndoManager alloc] init];
-            self.parentContext.undoManager = undoManager;
-        }
-        [self.parentContext.undoManager beginUndoGrouping];
-    }
-    BOOL result = [self save:error];
-    if(!result){
-        if(undoParentOnError){
-            [self.parentContext.undoManager endUndoGrouping];
-            [self.parentContext.undoManager undo];
-            if(undoManager){
-                self.parentContext.undoManager = nil;
-            }
-        }
-    }
-    return result;
-}
+//- (BOOL)mhd_saveUndoParentOnError:(NSError**)error {
+//    NSUndoManager *undoManager;
+//    
+//    if(!self.parentContext.undoManager){
+//        undoManager = [[NSUndoManager alloc] init];
+//        self.parentContext.undoManager = undoManager;
+//    }
+//    [self.parentContext.undoManager beginUndoGrouping];
+//    
+//    BOOL result = [self save:error];
+//    if(!result){
+//        [self.parentContext.undoManager endUndoGrouping];
+//        [self.parentContext.undoManager undo];
+//        if(undoManager){
+//            self.parentContext.undoManager = nil;
+//        }
+//    }
+//    return result;
+//}
 
 - (void)mhd_setAutomaticallyMergesChangesFromParent:(BOOL)automatically {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000

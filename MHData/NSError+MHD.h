@@ -15,7 +15,7 @@
 - (NSDictionary *)mhd_validationDescriptionsByEntityName;
 
 // shows validation errors as messages, otherwise defaults to localizedDescription.
-- (NSString *)mhd_displayDescription;
+- (NSString *)mhd_readableDescription;
 
 - (BOOL)mhd_isValidation;
 
