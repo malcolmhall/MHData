@@ -12,7 +12,7 @@
 
 @interface MCDStackManager()
 
-@property (nonatomic, readwrite) NSManagedObjectContext* mainContext;
+@property (nonatomic, readwrite) NSManagedObjectContext *mainContext;
 
 @end
 
@@ -38,7 +38,7 @@
 
 - (NSURL *)storeURL {
     if (!_storeURL) {
-        NSError* error;
+        NSError *error;
         _storeURL = [NSPersistentStoreCoordinator mcd_defaultStoreURLWithError:&error];
         if(!_storeURL){
             [NSException raise:NSInternalInconsistencyException format:@"Failed to create store path %@", error];
@@ -49,7 +49,7 @@
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (!_persistentStoreCoordinator) {
-        NSError* error;
+        NSError *error;
         _persistentStoreCoordinator = [NSPersistentStoreCoordinator mcd_coordinatorWithManagedObjectModel:self.managedObjectModel storeURL:self.storeURL error:&error];
         if(!_persistentStoreCoordinator){
             [NSException raise:NSInternalInconsistencyException format:@"Failed to create store %@", error];
@@ -58,7 +58,7 @@
     return _persistentStoreCoordinator;
 }
 
--(NSManagedObjectContext*)mainContext{
+- (NSManagedObjectContext *)mainContext{
     if(!_mainContext){
         _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         _mainContext.persistentStoreCoordinator = self.persistentStoreCoordinator;

@@ -150,7 +150,7 @@
         NSMutableArray* messages = [NSMutableArray array];
         for(NSString *key in dict.allKeys){
             NSArray* value = dict[key];
-            NSString* message = [NSString stringWithFormat:@"%@: %@", key, [value componentsJoinedByString:@" "]];
+            NSString * message = [NSString stringWithFormat:@"%@: %@", key, [value componentsJoinedByString:@" "]];
             [messages addObject:message];
         }
         description = [messages componentsJoinedByString:@"\n"];

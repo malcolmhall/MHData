@@ -10,19 +10,19 @@
 
 @implementation NSManagedObject (MCD)
 
-- (id)objectForKeyedSubscript:(NSString*)key {
+- (id)objectForKeyedSubscript:(NSString *)key {
     return [self valueForKey:key];
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)key {
     NSParameterAssert([(id<NSObject>)key isKindOfClass:[NSString class]]);
-    [self setValue:object forKey:(NSString*)key];
+    [self setValue:object forKey:(NSString *)key];
 }
 
 - (instancetype)mcd_initWithContext:(NSManagedObjectContext *)context{
     // search for this class in the model to find the entity
     NSEntityDescription* entity;
-    NSString* className = NSStringFromClass(self.class);
+    NSString * className = NSStringFromClass(self.class);
     NSPersistentStoreCoordinator *psc = context.persistentStoreCoordinator;
     for(NSEntityDescription* e in psc.managedObjectModel.entities){
         if([e.managedObjectClassName isEqualToString:className]){

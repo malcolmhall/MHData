@@ -15,14 +15,14 @@
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-+(BOOL)classAvailable{
++ (BOOL)classAvailable{
     // if the class exists and we linked against the SDK it became available in.
-    NSString* sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
-    NSString* sdkVersion = [sdkName stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
+    NSString * sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
+    NSString * sdkVersion = [sdkName stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
     return sdkVersion.integerValue >= 10;
 }
 
-+(id)alloc{
++ (id)alloc{
     if([self classAvailable]){
         return [NSPersistentStoreDescription alloc];
     }

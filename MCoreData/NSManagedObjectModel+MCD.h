@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSManagedObjectModel*)mcd_defaultModel;
 
 // Easily load a model from a model file and caches it. Do not include any file extension.
-+ (NSManagedObjectModel*)mcd_modelNamed:(NSString*)name;
++ (NSManagedObjectModel*)mcd_modelNamed:(NSString *)name;
 
 // Returns the entity in the model without copying it which is what entityByName does, this allows it to be mutated.
-- (NSEntityDescription*)mcd_entityNamed:(NSString*)entityName;
+- (NSEntityDescription*)mcd_entityNamed:(NSString *)entityName;
 
 @end
 

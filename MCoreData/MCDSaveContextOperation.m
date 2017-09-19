@@ -36,12 +36,12 @@
     return [super asyncOperationShouldRun:error];
 }
 
--(void)performAsyncOperation{
+- (void)performAsyncOperation{
     [super performAsyncOperation]; // starts the queue asyncronously
     
     NSBlockOperation* saveOperation = [NSBlockOperation blockOperationWithBlock:^{
         [self.context performBlockAndWait:^{
-            NSError* error;
+            NSError *error;
             if(![self.context save:&error]){
                 [self finishWithError:error];
             }
@@ -50,7 +50,7 @@
     [self addOperation:saveOperation];
 }
 
--(void)finishOnCallbackQueueWithError:(NSError *)error{
+- (void)finishOnCallbackQueueWithError:(NSError *)error{
     if(self.saveContextCompletionBlock){
         self.saveContextCompletionBlock(error);
     }

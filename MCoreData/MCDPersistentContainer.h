@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (copy) NSArray<MCDPersistentStoreDescription *> *persistentStoreDescriptions;
 
--(instancetype)init NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 // Creates a container using the model named `name` in the main bundle, or the merged model (from the main bundle) if no match was found.
 - (instancetype)initWithName:(NSString *)name;

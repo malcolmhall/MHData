@@ -12,7 +12,7 @@
 
 @implementation NSPersistentStoreCoordinator (MCD)
 
-+(NSPersistentStoreCoordinator*)mcd_defaultCoordinatorWithError:(NSError**)error{
++ (NSPersistentStoreCoordinator*)mcd_defaultCoordinatorWithError:(NSError **)error{
     static NSPersistentStoreCoordinator* psc = nil;
     if(!psc){
         NSURL* url = [NSPersistentStoreCoordinator mcd_defaultStoreURLWithError:error];
@@ -31,7 +31,7 @@
 //    return [self mcd_coordinatorWithManagedObjectModel:model storeURL:[self mcd_def] error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>]
 //}
 
-+ (NSPersistentStoreCoordinator*)mcd_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError**)error{
++ (NSPersistentStoreCoordinator*)mcd_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError **)error{
     NSPersistentStoreCoordinator* psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     if(![psc mcd_addStoreWithURL:storeURL error:error]){
         return nil;
@@ -39,7 +39,7 @@
     return psc;
 }
 
-//+(NSPersistentStoreCoordinator*)mcd_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
+//+ (NSPersistentStoreCoordinator*)mcd_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
 //
 //    static NSMutableDictionary* _persistentStoreCoordinators;
 //
@@ -58,7 +58,7 @@
 //}
 
 
--(NSPersistentStore*)mcd_addStoreWithURL:(NSURL*)storeURL error:(NSError**)error{
+- (NSPersistentStore*)mcd_addStoreWithURL:(NSURL*)storeURL error:(NSError **)error{
     
     NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     @YES, NSMigratePersistentStoresAutomaticallyOption,
@@ -87,21 +87,21 @@
     return store;
 }
 
-+(NSString*)mcd_defaultStoreFilename{
++ (NSString *)mcd_defaultStoreFilename{
     return [[NSBundle mainBundle].bundleIdentifier stringByAppendingString:@".sqlite"];
 }
 
-+(NSURL *)mcd_defaultStoreURLWithError:(NSError**)error{
++ (NSURL *)mcd_defaultStoreURLWithError:(NSError **)error{
     NSURL* dir = [self mcd_applicationSupportDirectoryWithError:error]; // if nil then method returns nil.
     return [dir URLByAppendingPathComponent:[self mcd_defaultStoreFilename]];
 }
 
-+ (NSURL *)mcd_applicationSupportDirectoryWithError:(NSError**)error{
++ (NSURL *)mcd_applicationSupportDirectoryWithError:(NSError **)error{
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *URL = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
     
-    NSError* e;
+    NSError *e;
     NSDictionary *properties = [URL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&e];
     if (!properties) {
         // creates the folder if doesn't exist

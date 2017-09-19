@@ -13,8 +13,8 @@
 
 @implementation NSManagedObjectContext (MCD)
 
-+ (instancetype)mcd_defaultContextWithError:(NSError**)error{
-    static NSManagedObjectContext* _defaultManagedObjectContext;
++ (instancetype)mcd_defaultContextWithError:(NSError **)error{
+    static NSManagedObjectContext * _defaultManagedObjectContext;
     if(!_defaultManagedObjectContext){
         NSPersistentStoreCoordinator* psc = [NSPersistentStoreCoordinator mcd_defaultCoordinatorWithError:error];
         if(!psc){
@@ -27,8 +27,8 @@
 }
 
 + (instancetype)mcd_defaultContext{
-    NSError* error;
-    NSManagedObjectContext* context = [self mcd_defaultContextWithError:&error];
+    NSError *error;
+    NSManagedObjectContext * context = [self mcd_defaultContextWithError:&error];
     if(error){
         [NSException raise:NSInternalInconsistencyException format:@"Failed to create default context %@", error];
     }
@@ -83,12 +83,12 @@
     return context;
 }
 
-- (NSManagedObject *)mcd_existingObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary *)dictionary error:(NSError**)error{
+- (NSManagedObject *)mcd_existingObjectWithEntityName:(NSString *)entityName dictionary:(NSDictionary *)dictionary error:(NSError **)error{
     NSPredicate *predicate = [self mcd_predicateWithDictionary:dictionary];
     return [self mcd_existingObjectWithEntityName:entityName predicate:predicate error:error];
 }
 
-- (NSManagedObject *)mcd_existingObjectWithEntityName:(NSString*)entityName predicate:(NSPredicate *)predicate error:(NSError**)error{
+- (NSManagedObject *)mcd_existingObjectWithEntityName:(NSString *)entityName predicate:(NSPredicate *)predicate error:(NSError **)error{
     NSArray *objects = [self mcd_fetchObjectsWithEntityName:@"Venue" predicate:predicate error:error];
     if(!objects){
         return nil;
@@ -105,13 +105,13 @@
     }
 }
 
-- (NSArray *)mcd_fetchObjectsWithEntityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
+- (NSArray *)mcd_fetchObjectsWithEntityName:(NSString *)entityName predicate:(nullable NSPredicate*)predicate error:(NSError **)error{
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.predicate = predicate;
     return [self executeFetchRequest:fetchRequest error:error];
 }
 
--(NSPredicate *)mcd_predicateWithDictionary:(NSDictionary *)dictionary{
+- (NSPredicate *)mcd_predicateWithDictionary:(NSDictionary *)dictionary{
     NSMutableArray* array = [NSMutableArray array];
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [array addObject:[NSPredicate predicateWithFormat:@"%K = %@", key, obj]];
@@ -119,14 +119,14 @@
     return [NSCompoundPredicate andPredicateWithSubpredicates:array];
 }
 
-- (NSArray *)mcd_fetchObjectsWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary error:(NSError**)error{
+- (NSArray *)mcd_fetchObjectsWithEntityName:(NSString *)entityName dictionary:(NSDictionary*)dictionary error:(NSError **)error{
     // build the and predicate using the dict that also checks nulls.
     NSPredicate *predicate = [self mcd_predicateWithDictionary:dictionary];
     return [self mcd_fetchObjectsWithEntityName:entityName predicate:predicate error:error];
 }
 
--(NSManagedObject *)mcd_fetchOrInsertObjectWithEntityName:(NSString*)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError**)error{
-    NSError* e;
+- (NSManagedObject *)mcd_fetchOrInsertObjectWithEntityName:(NSString *)entityName dictionary:(NSDictionary*)dictionary inserted:(BOOL*)inserted error:(NSError **)error{
+    NSError *e;
     
     // initialize inserted
     if(inserted){
@@ -153,7 +153,7 @@
     return object;
 }
 
--(id)mcd_fetchValueForAggregateFunction:(NSString*)function attributeName:(NSString*)attributeName entityName:(NSString*)entityName predicate:(nullable NSPredicate*)predicate error:(NSError**)error{
+- (id)mcd_fetchValueForAggregateFunction:(NSString *)function attributeName:(NSString *)attributeName entityName:(NSString *)entityName predicate:(nullable NSPredicate*)predicate error:(NSError **)error{
     // todo validate these
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self];
     NSAttributeDescription *attribute = entity.attributesByName[attributeName];
@@ -164,7 +164,7 @@
                                    expressionForFunction:function
                                    arguments:@[keyPathExpression]];
     
-    NSString* resultKey = @"resultKey";
+    NSString * resultKey = @"resultKey";
     
     NSExpressionDescription *description = [[NSExpressionDescription alloc] init];
     description.name = resultKey;
@@ -183,7 +183,7 @@
     return [[fetchResults lastObject] valueForKey:resultKey];
 }
 
-- (BOOL)mcd_saveRollbackOnError:(NSError**)error{
+- (BOOL)mcd_saveRollbackOnError:(NSError **)error{
     BOOL result = [self save:error];
     if(!result){
         [self rollback];
@@ -191,7 +191,7 @@
     return result;
 }
 
-//- (BOOL)mcd_saveUndoParentOnError:(NSError**)error {
+//- (BOOL)mcd_saveUndoParentOnError:(NSError **)error {
 //    NSUndoManager *undoManager;
 //    
 //    if(!self.parentContext.undoManager){

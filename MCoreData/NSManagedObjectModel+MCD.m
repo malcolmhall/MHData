@@ -10,7 +10,7 @@
 
 @implementation NSManagedObjectModel (MCD)
 
-+(NSManagedObjectModel*)mcd_defaultModel{
++ (NSManagedObjectModel*)mcd_defaultModel{
     static NSManagedObjectModel* _defaultModel = nil;
     if(!_defaultModel){
         NSManagedObjectModel* mom = [NSManagedObjectModel mergedModelFromBundles:nil];
@@ -23,8 +23,8 @@
 }
 
 //helper for load model files
-+(NSManagedObjectModel*)mcd_modelNamed:(NSString *)name{
-    NSString* s = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
++ (NSManagedObjectModel*)mcd_modelNamed:(NSString *)name{
+    NSString * s = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
     if(!s){
         s = [[NSBundle mainBundle] pathForResource:name ofType:@"mom"]; // mom is what it gets compiled to on the phone.
     }
@@ -35,7 +35,7 @@
     return [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
 }
 
-- (NSEntityDescription *)mcd_entityNamed:(NSString*)entityName{
+- (NSEntityDescription *)mcd_entityNamed:(NSString *)entityName{
     for(NSEntityDescription* entity in self.entities){
         if([entity.name isEqualToString:entityName]){
             return entity;

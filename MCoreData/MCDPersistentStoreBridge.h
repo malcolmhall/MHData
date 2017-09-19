@@ -19,7 +19,7 @@ extern NSString * const MCDContextKey;
 
 @interface MCDPersistentStoreBridge : NSIncrementalStore
 
-+(NSString*)type;
++ (NSString *)type;
 
 @end
 

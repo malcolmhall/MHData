@@ -40,8 +40,8 @@
 - (void)insertNewObject:(id)sender {
     //NSManagedObjectContext *context = self.persistentContainer.viewContext;
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-   //NSManagedObjectContext* context = self.persistentContainer.newBackgroundContext;
-    ///NSManagedObjectContext* context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+   //NSManagedObjectContext * context = self.persistentContainer.newBackgroundContext;
+    ///NSManagedObjectContext * context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     //context.parentContext = self.fetchedResultsController.managedObjectContext;
     //context.mcd_automaticallyMergesChangesFromParent = YES;
     //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
@@ -128,8 +128,8 @@
         return _fetchedResultsController;
     }
     
-    NSManagedObjectContext* context = self.persistentContainer.viewContext;
-    //NSManagedObjectContext* context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    NSManagedObjectContext * context = self.persistentContainer.viewContext;
+    //NSManagedObjectContext * context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     //context.parentContext = self.persistentContainer.viewContext;
     //context.mcd_automaticallyMergesChangesFromParent = YES;
     

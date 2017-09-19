@@ -16,18 +16,18 @@
 @implementation MCDPersistentContainer
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-+(BOOL)classAvailable{
-    static NSString* sdkVersion = nil;
++ (BOOL)classAvailable{
+    static NSString * sdkVersion = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // if the class exists and we linked against the SDK it became available in.
-        NSString* sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
+        NSString * sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
         sdkVersion = [sdkName stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
     });
     return sdkVersion.integerValue >= 10;
 }
 
-+(id)alloc{
++ (id)alloc{
     if([self classAvailable]){
         return [NSPersistentContainer alloc];
     }
@@ -42,7 +42,7 @@
     }
     #endif
     
-    NSError* error;
+    NSError *error;
     NSURL* URL = [NSPersistentStoreCoordinator mcd_applicationSupportDirectoryWithError:&error];
     if(!URL){
         NSLog(@"%@", error.description);
@@ -73,7 +73,7 @@
     return self;
 }
 
--(NSManagedObjectModel*)managedObjectModel{
+- (NSManagedObjectModel*)managedObjectModel{
     return _persistentStoreCoordinator.managedObjectModel;
 }
 
@@ -100,8 +100,8 @@
 }
 
 - (NSManagedObjectContext *)newBackgroundContext{
-    NSError* error;
-    NSManagedObjectContext* context = [self.viewContext mcd_newBackgroundContextWithError:&error];
+    NSError *error;
+    NSManagedObjectContext * context = [self.viewContext mcd_newBackgroundContextWithError:&error];
     if(!context){
         // shouldn't happen
         @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Failed to create background context" userInfo:error.userInfo];
@@ -110,7 +110,7 @@
 }
 
 - (void)performBackgroundTask:(void (^)(NSManagedObjectContext *))block{
-    NSManagedObjectContext* bc = [self newBackgroundContext];
+    NSManagedObjectContext * bc = [self newBackgroundContext];
     [bc performBlock:^{
         block(bc);
     }];

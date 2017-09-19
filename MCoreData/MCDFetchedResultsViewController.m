@@ -13,14 +13,14 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 
 @implementation MCDFetchedResultsViewController
 
--(void)awakeFromNib{
+- (void)awakeFromNib{
     [super awakeFromNib];
     // set the default cell reuse identifer here so we can use it internally without copying.
     self.cellReuseIdentifier = kDefaultCellReuseIdentifier;
     self.messageWhenNoRows = kDefaultmessageWhenNoRows;
 }
 
--(void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
+- (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
     _fetchedResultsController = fetchedResultsController;
     // ensure we are the delegate
     _fetchedResultsController.delegate = self;
@@ -55,7 +55,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
         tableView.backgroundView = nil;
     } else {
         // Display a message when the table is empty (doesn't work if multiple sections)
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        UILabel *messageLabel = [UILabel.alloc initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         
         messageLabel.text = self.messageWhenNoRows;
         messageLabel.numberOfLines = 0;
@@ -71,7 +71,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -86,7 +86,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
     if(!cell){
         //todo cell style default might not be right, untested
-        cell = [[UITableViewCell alloc] initWithStyle:_defaultCellStyle reuseIdentifier:_cellReuseIdentifier];
+        cell = [UITableViewCell.alloc initWithStyle:_defaultCellStyle reuseIdentifier:_cellReuseIdentifier];
     }
     return cell;
 }
@@ -98,14 +98,14 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 }
 
 //default to yes to match normal.
--(BOOL)canEditObject:(NSManagedObject*)managedObject{
+- (BOOL)canEditObject:(NSManagedObject*)managedObject{
     return YES;
 }
 
--(void)deleteObject:(NSManagedObject*)managedObject{
+- (void)deleteObject:(NSManagedObject*)managedObject{
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     [context deleteObject:managedObject];
-    NSError* error;
+    NSError *error;
     if(![context save:&error]){
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -116,7 +116,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     }
 }
 
--(void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject*)object{
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject*)object{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self deleteObject:object];
     }
@@ -161,7 +161,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-    if(controller!=self.fetchedResultsController){
+    if(controller != self.fetchedResultsController){
         return;
     }
     switch(type) {
@@ -215,6 +215,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 //                    [tableView reloadRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 //                });
                 // test
+                // todo think there was another way to do this in another project.
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 

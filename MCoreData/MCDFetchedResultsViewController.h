@@ -41,12 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
  }
 */
 
--(BOOL)canEditObject:(NSManagedObject *)managedObject;
+- (BOOL)canEditObject:(NSManagedObject *)managedObject;
 
--(void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject *)object;
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject *)object;
 
 /*
--(void)viewDidLoad{
+- (void)viewDidLoad{
     [super viewDidLoad];
      NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([StoreApp class])];
      // Set the batch size to a suitable number.
@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // the default implementation is to delete the object from the context and save it, and abort if it fails. Override for a different behavior.
 // returns NO and sets error if fails to save. Doesn't any more.
--(void)deleteObject:(NSManagedObject *)managedObject;
+- (void)deleteObject:(NSManagedObject *)managedObject;
 
 @end
 

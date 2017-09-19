@@ -17,23 +17,23 @@ NSString * const MCDContextKey = @"MCDContextKey";
     NSIncrementalStore* _destinationPersistentStore;
 }
 
-+(void)initialize{
-    if(self == [MCDPersistentStoreBridge class]){
++ (void)initialize{
+    if(self == MCDPersistentStoreBridge.class){
         [NSPersistentStoreCoordinator registerStoreClass:self forStoreType:self.type];
     }
 }
 
-+(NSString*)type{
++ (NSString *)type{
     return NSStringFromClass(self);
 }
 
--(BOOL)loadMetadata:(NSError **)error{
+- (BOOL)loadMetadata:(NSError **)error{
     self.metadata = @{NSStoreUUIDKey : [NSProcessInfo processInfo].globallyUniqueString,
                       NSStoreTypeKey : self.class.type};
     
     _destinationPersistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
     
-    NSString* storeType = self.options[NSStoreTypeKey];
+    NSString * storeType = self.options[NSStoreTypeKey];
     //TODO: error if NSStoreKey not in options dictionary.
     
     _destinationPersistentStore = (NSIncrementalStore*)[_destinationPersistentStoreCoordinator addPersistentStoreWithType:storeType configuration:self.configurationName URL:self.URL options:self.options error:error];
@@ -41,7 +41,7 @@ NSString * const MCDContextKey = @"MCDContextKey";
     return _destinationPersistentStore != nil;
 }
 
-- (id)executeRequest:(NSPersistentStoreRequest *)persistentStoreRequest withContext:(NSManagedObjectContext*)context error:(NSError **)error{
+- (id)executeRequest:(NSPersistentStoreRequest *)persistentStoreRequest withContext:(NSManagedObjectContext *)context error:(NSError **)error{
     NSDictionary* userInfo = @{MCDRequestKey : persistentStoreRequest,
                                MCDContextKey : context};
     [[NSNotificationCenter defaultCenter] postNotificationName:MCDPersistentStoreBridgeWillExecuteRequestNotification object:self userInfo:userInfo];
@@ -49,11 +49,11 @@ NSString * const MCDContextKey = @"MCDContextKey";
     return [_destinationPersistentStore executeRequest:persistentStoreRequest withContext:context error:error];
 }
 
-- (NSIncrementalStoreNode *)newValuesForObjectWithID:(NSManagedObjectID*)objectID withContext:(NSManagedObjectContext*)context error:(NSError**)error{
+- (NSIncrementalStoreNode *)newValuesForObjectWithID:(NSManagedObjectID *)objectID withContext:(NSManagedObjectContext *)context error:(NSError **)error{
     return [_destinationPersistentStore newValuesForObjectWithID:objectID withContext:context error:error];
 }
 
-- (id)newValueForRelationship:(NSRelationshipDescription*)relationship forObjectWithID:(NSManagedObjectID*)objectID withContext:(NSManagedObjectContext *)context error:(NSError **)error{
+- (id)newValueForRelationship:(NSRelationshipDescription*)relationship forObjectWithID:(NSManagedObjectID *)objectID withContext:(NSManagedObjectContext *)context error:(NSError **)error{
     return [_destinationPersistentStore newValueForRelationship:relationship forObjectWithID:objectID withContext:context error:error];
 }
 

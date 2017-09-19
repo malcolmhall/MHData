@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSManagedObject (MCD)
 
 // getter
-- (id)objectForKeyedSubscript:(NSString*)key;
+- (id)objectForKeyedSubscript:(NSString *)key;
 
 // setter
 - (void)setObject:(id)object forKeyedSubscript:(id<NSCopying>)key;

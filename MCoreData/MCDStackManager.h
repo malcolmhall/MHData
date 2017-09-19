@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSURL *storeURL;
 
 // Main context for the application, calls each of the above properties in turn.
-@property (nonatomic, strong, readonly) NSManagedObjectContext* mainContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *mainContext;
 
 @end
 
