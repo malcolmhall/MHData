@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // returns a shared instance of a coordinator using the mcd_defaultManagedObjectModel and mcd_defaultSQLiteStoreURL.
 
-+ (NSPersistentStoreCoordinator*)mcd_defaultCoordinatorWithError:(NSError **)error;
++ (NSPersistentStoreCoordinator *)mcd_defaultCoordinatorWithError:(NSError **)error;
 
 // returns a new instance of a coordinator using the mcd_defaultManagedObjectModel and mcd_defaultSQLiteStoreURL.
 //+ (NSPersistentStoreCoordinator*)mcd_coordinator;
@@ -26,16 +26,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 // convenience for creating a coordinator with a sqlite store already added.
 
-+ (NSPersistentStoreCoordinator*)mcd_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError **)error;
++ (NSPersistentStoreCoordinator *)mcd_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL *)storeURL error:(NSError **)error;
 
 // Adds a sqlite store at the url with default options.
-- (NSPersistentStore*)mcd_addStoreWithURL:(NSURL*)storeURL error:(NSError **)error;
+- (NSPersistentStore *)mcd_addStoreWithURL:(NSURL *)storeURL error:(NSError **)error;
 
 // Returns a URL path within Application Support/Executable Name/Bundle ID.sqlite creating directories as necessary.
 + (NSURL *)mcd_defaultStoreURLWithError:(NSError **)error;
 
 // Returns the Bundle ID.sqlite
-+ (NSString *)mcd_defaultStoreFilename;
+@property (class, readonly, strong) NSString *mcd_defaultStoreFilename;
 
 // Returns the path to Application Support/Executable Name creating directories as necessary.
 + (NSURL *)mcd_applicationSupportDirectoryWithError:(NSError **)error;

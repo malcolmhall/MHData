@@ -20,7 +20,7 @@
         if(!psc){
             return nil;
         }
-        _defaultManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _defaultManagedObjectContext = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
         _defaultManagedObjectContext.persistentStoreCoordinator = psc;
     };
     return _defaultManagedObjectContext;
@@ -36,18 +36,17 @@
 }
 
 - (NSManagedObjectContext *)mcd_createChildContext{
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:self.concurrencyType];
+    NSManagedObjectContext *context = [NSManagedObjectContext.alloc initWithConcurrencyType:self.concurrencyType];
     context.parentContext = self;
     return context;
 }
 
 - (NSManagedObjectContext *)mcd_newBackgroundContextWithError:(NSError **)error {
-    
     // Use the same store and model, but for maximum performance use a new persistent store coordinator for the context.
     NSPersistentStoreCoordinator *coordinator;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
     NSPersistentStore* store = self.persistentStoreCoordinator.persistentStores.firstObject;
-    NSURL* storeURL = store.URL;
+    NSURL *storeURL = store.URL;
     if(!storeURL){
         if(error){
             *error = [NSError errorWithDomain:MCoreDataErrorDomain code:MCDErrorInvalidArguments userInfo:@{NSLocalizedDescriptionKey : @"This context's coordinator store did not have a URL",
@@ -55,9 +54,7 @@
         }
         return nil;
     }
-    
-    coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
-    
+    coordinator = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
     if (![coordinator addPersistentStoreWithType:store.type
                                    configuration:store.configurationName
                                                   URL:storeURL
@@ -70,16 +67,13 @@
     // https://developer.apple.com/library/content/releasenotes/General/WhatNewCoreData2016/ReleaseNotes.html
     coordinator = self.persistentStoreCoordinator;
 #endif
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    
+    NSManagedObjectContext *context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     // Contrary to the Earthquakes populating from background queue example:
     // "Setter methods on queue-based managed object contexts are thread-safe. You can invoke these methods directly on any thread." From:
     // https://developer.apple.com/library/mac/documentation/Cocoa/Reference/CoreDataFramework/Classes/NSManagedObjectContext_Class/index.html
     context.persistentStoreCoordinator = coordinator;
-
     // Pre-sierra OS X had an undo manager, ensure it's off for a performance benefit. On iOS its always been nil.
     context.undoManager = nil;
-
     return context;
 }
 
@@ -133,7 +127,7 @@
         *inserted = NO;
     }
     
-    NSArray* objects = [self mcd_fetchObjectsWithEntityName:entityName dictionary:dictionary error:&e];
+    NSArray *objects = [self mcd_fetchObjectsWithEntityName:entityName dictionary:dictionary error:&e];
     if(!objects){
         // nil pointer check
         if(error){
@@ -157,30 +151,23 @@
     // todo validate these
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self];
     NSAttributeDescription *attribute = entity.attributesByName[attributeName];
-    
     NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:attribute.name];
-    
     NSExpression *maxExpression = [NSExpression
                                    expressionForFunction:function
                                    arguments:@[keyPathExpression]];
-    
     NSString * resultKey = @"resultKey";
-    
-    NSExpressionDescription *description = [[NSExpressionDescription alloc] init];
+    NSExpressionDescription *description = [NSExpressionDescription.alloc init];
     description.name = resultKey;
     description.expression = maxExpression;
     description.expressionResultType = attribute.attributeType;
-    
     // find highest recordChangeTag
-    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    NSFetchRequest* fetchRequest = [NSFetchRequest.alloc init];
     fetchRequest.entity = entity;
     fetchRequest.propertiesToFetch = @[description];
     fetchRequest.resultType = NSDictionaryResultType;
     fetchRequest.predicate = predicate;
-    
-    NSArray* fetchResults = [self executeFetchRequest:fetchRequest error:error];
-    
-    return [[fetchResults lastObject] valueForKey:resultKey];
+    NSArray *fetchResults = [self executeFetchRequest:fetchRequest error:error];
+    return [fetchResults.lastObject valueForKey:resultKey];
 }
 
 - (BOOL)mcd_saveRollbackOnError:(NSError **)error{

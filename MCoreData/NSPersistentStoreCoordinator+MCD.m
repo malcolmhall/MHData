@@ -15,11 +15,11 @@
 + (NSPersistentStoreCoordinator*)mcd_defaultCoordinatorWithError:(NSError **)error{
     static NSPersistentStoreCoordinator* psc = nil;
     if(!psc){
-        NSURL* url = [NSPersistentStoreCoordinator mcd_defaultStoreURLWithError:error];
+        NSURL *url = [NSPersistentStoreCoordinator mcd_defaultStoreURLWithError:error];
         if(!url){
             return nil;
         }
-        psc = [NSPersistentStoreCoordinator mcd_coordinatorWithManagedObjectModel:[NSManagedObjectModel mcd_defaultModel] storeURL:url error:error];
+        psc = [NSPersistentStoreCoordinator mcd_coordinatorWithManagedObjectModel:NSManagedObjectModel.mcd_defaultModel storeURL:url error:error];
         if(!psc){
             return nil;
         }
@@ -31,8 +31,8 @@
 //    return [self mcd_coordinatorWithManagedObjectModel:model storeURL:[self mcd_def] error:<#(NSError * _Nullable __autoreleasing * _Nullable)#>]
 //}
 
-+ (NSPersistentStoreCoordinator*)mcd_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL*)storeURL error:(NSError **)error{
-    NSPersistentStoreCoordinator* psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
++ (NSPersistentStoreCoordinator *)mcd_coordinatorWithManagedObjectModel:(NSManagedObjectModel *)model storeURL:(NSURL *)storeURL error:(NSError **)error{
+    NSPersistentStoreCoordinator *psc = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:model];
     if(![psc mcd_addStoreWithURL:storeURL error:error]){
         return nil;
     }
@@ -40,21 +40,19 @@
 }
 
 //+ (NSPersistentStoreCoordinator*)mcd_sharedPersistentStoreCoordinatorWithSQLiteStoreURL:(NSURL*)SQLiteStoreURL{
-//
-//    static NSMutableDictionary* _persistentStoreCoordinators;
-//
+//    static NSMutableDictionary *persistentStoreCoordinators;
 //    static dispatch_once_t onceToken;
 //    dispatch_once(&onceToken, ^{
-//        _persistentStoreCoordinators = [[NSMutableDictionary alloc] init];
+//        persistentStoreCoordinators = NSMutableDictionary.new;
 //    });
-//
-//    NSPersistentStoreCoordinator* psc = [_persistentStoreCoordinators objectForKey:SQLiteStoreURL];
-//    if(!psc){
-//        psc = [self mcd_persistentStoreCoordinatorWithSQLiteStoreURL:SQLiteStoreURL managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
-//        [_persistentStoreCoordinators setObject:psc forKey:SQLiteStoreURL];
-//    }
-//
-//    return psc;
+//    @synchronized(persistentStoreCoordinators){
+//        NSPersistentStoreCoordinator* psc = [persistentStoreCoordinators objectForKey:SQLiteStoreURL];
+//        if(!psc){
+//              psc = [self mcd_persistentStoreCoordinatorWithSQLiteStoreURL:SQLiteStoreURL managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
+//             [persistentStoreCoordinators setObject:psc forKey:SQLiteStoreURL];
+//        }
+//        return psc;
+//     }
 //}
 
 
@@ -78,7 +76,7 @@
 #ifdef DEBUG
         //todo: show modal uialert to delete it
         NSLog(@"Deleting old store because we are in debug anyway.");
-        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        [NSFileManager.defaultManager removeItemAtURL:storeURL error:nil];
         
         // try again
         store = [self addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:error];
@@ -92,13 +90,13 @@
 }
 
 + (NSURL *)mcd_defaultStoreURLWithError:(NSError **)error{
-    NSURL* dir = [self mcd_applicationSupportDirectoryWithError:error]; // if nil then method returns nil.
-    return [dir URLByAppendingPathComponent:[self mcd_defaultStoreFilename]];
+    NSURL *dir = [self mcd_applicationSupportDirectoryWithError:error]; // if nil then method returns nil.
+    return [dir URLByAppendingPathComponent:self.mcd_defaultStoreFilename];
 }
 
 + (NSURL *)mcd_applicationSupportDirectoryWithError:(NSError **)error{
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSFileManager *fileManager = NSFileManager.defaultManager;
     NSURL *URL = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
     
     NSError *e;
@@ -124,8 +122,8 @@
     NSNumber *isDirectoryNumber = properties[NSURLIsDirectoryKey];
     if (isDirectoryNumber && !isDirectoryNumber.boolValue) {
         if(error){
-            *error = [NSError errorWithDomain:MCoreDataErrorDomain code:101 userInfo:@{NSLocalizedDescriptionKey : @"Could not access the application data folder",
-                                                                              NSLocalizedFailureReasonErrorKey : @"Found a file in its place"}];
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Could not access the application data folder", NSLocalizedFailureReasonErrorKey : @"Found a file in its place"};
+            *error = [NSError errorWithDomain:MCoreDataErrorDomain code:101 userInfo:userInfo];
         }
         return nil;
     }

@@ -31,9 +31,9 @@ NSString * const MCDContextKey = @"MCDContextKey";
     self.metadata = @{NSStoreUUIDKey : [NSProcessInfo processInfo].globallyUniqueString,
                       NSStoreTypeKey : self.class.type};
     
-    _destinationPersistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
+    _destinationPersistentStoreCoordinator = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:self.persistentStoreCoordinator.managedObjectModel];
     
-    NSString * storeType = self.options[NSStoreTypeKey];
+    NSString *storeType = self.options[NSStoreTypeKey];
     //TODO: error if NSStoreKey not in options dictionary.
     
     _destinationPersistentStore = (NSIncrementalStore*)[_destinationPersistentStoreCoordinator addPersistentStoreWithType:storeType configuration:self.configurationName URL:self.URL options:self.options error:error];
@@ -42,7 +42,7 @@ NSString * const MCDContextKey = @"MCDContextKey";
 }
 
 - (id)executeRequest:(NSPersistentStoreRequest *)persistentStoreRequest withContext:(NSManagedObjectContext *)context error:(NSError **)error{
-    NSDictionary* userInfo = @{MCDRequestKey : persistentStoreRequest,
+    NSDictionary *userInfo = @{MCDRequestKey : persistentStoreRequest,
                                MCDContextKey : context};
     [[NSNotificationCenter defaultCenter] postNotificationName:MCDPersistentStoreBridgeWillExecuteRequestNotification object:self userInfo:userInfo];
 

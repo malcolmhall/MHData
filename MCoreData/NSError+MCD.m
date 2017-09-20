@@ -11,7 +11,7 @@
 
 @implementation NSError (MCD)
 
-- (BOOL)mcd_isValidation{
+- (BOOL)mcd_isValidationError{
     if(self.domain != NSCocoaErrorDomain){
         return NO;
     }
@@ -37,7 +37,7 @@
     for (NSConstraintConflict * conflict in conflictList) {
         NSString *constraint = [conflict.constraint componentsJoinedByString:@", "];
         NSString *msg = [NSString stringWithFormat:@"%ld conflicts of \"%@\".", conflict.conflictingObjects.count, [conflict.constraintValues.allValues componentsJoinedByString:@", " ]];
-        NSArray* messageArray = dict[constraint];
+        NSArray *messageArray = dict[constraint];
         if(!messageArray){
             messageArray = [NSArray arrayWithObject:msg];
         }else{
@@ -49,7 +49,8 @@
 }
 
 - (NSDictionary *)mcd_validationDescriptionsByEntityName{
-    if(!self.mcd_isValidation){
+    if(!self.mcd_isValidationError){
+        NSLog(@"Not a validation error");
         return nil;
     }
     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -123,7 +124,7 @@
                 msg = [NSString stringWithFormat:@"Unknown error code %ld.", (long)error.code];
                 break;
         }
-        NSArray* messageArray = dict[entityName];
+        NSArray *messageArray = dict[entityName];
         if(!messageArray){
             messageArray = [NSArray arrayWithObject:msg];
         }else{
@@ -135,21 +136,19 @@
 }
 
 - (NSString *)mcd_readableDescription{
-    
     NSString *description;
     NSDictionary *dict;
-    if(self.mcd_isValidation){
+    if(self.mcd_isValidationError){
         dict = self.mcd_validationDescriptionsByEntityName;
     }
     else if(self.mcd_isConstraintMergeError){
         // e.g. id: 4 conflicted objects
         dict = self.mcd_constraintConflictsByConstraint;
     }
-    
     if(dict){
-        NSMutableArray* messages = [NSMutableArray array];
+        NSMutableArray* messages = NSMutableArray.new;
         for(NSString *key in dict.allKeys){
-            NSArray* value = dict[key];
+            NSArray *value = dict[key];
             NSString * message = [NSString stringWithFormat:@"%@: %@", key, [value componentsJoinedByString:@" "]];
             [messages addObject:message];
         }

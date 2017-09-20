@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 // An instance of MCDPersistentStoreDescription encapsulates all information needed to describe a persistent store.
 @interface MCDPersistentStoreDescription : NSObject //<NSCopying>
 
-+ (instancetype)persistentStoreDescriptionWithURL:(NSURL *)URL;
++ (id)persistentStoreDescriptionWithURL:(NSURL *)URL;
 
 @property (copy) NSString *type;
 @property (copy, nullable) NSString *configuration;

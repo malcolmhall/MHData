@@ -21,11 +21,9 @@
 + (instancetype)sharedManager {
     static MCDStackManager *sharedManager = nil;
     static dispatch_once_t once;
-    
     dispatch_once(&once, ^{
-        sharedManager = [[self alloc] init];
+        sharedManager = [self.alloc init];
     });
-    
     return sharedManager;
 }
 
@@ -60,7 +58,7 @@
 
 - (NSManagedObjectContext *)mainContext{
     if(!_mainContext){
-        _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _mainContext = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
         _mainContext.persistentStoreCoordinator = self.persistentStoreCoordinator;
     }
     return _mainContext;

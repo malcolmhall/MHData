@@ -10,29 +10,29 @@
 
 @implementation NSManagedObjectModel (MCD)
 
-+ (NSManagedObjectModel*)mcd_defaultModel{
-    static NSManagedObjectModel* _defaultModel = nil;
-    if(!_defaultModel){
++ (NSManagedObjectModel *)mcd_defaultModel{
+    static NSManagedObjectModel *defaultModel = nil;
+    if(!defaultModel){
         NSManagedObjectModel* mom = [NSManagedObjectModel mergedModelFromBundles:nil];
         if(!mom.entities.count){
             [NSException raise:NSInternalInconsistencyException format:@"No entities found in default model."];
         }
-        _defaultModel = mom;
+        defaultModel = mom;
     }
-    return _defaultModel;
+    return defaultModel;
 }
 
 //helper for load model files
-+ (NSManagedObjectModel*)mcd_modelNamed:(NSString *)name{
-    NSString * s = [[NSBundle mainBundle] pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
++ (NSManagedObjectModel *)mcd_modelNamed:(NSString *)name{
+    NSString *s = [NSBundle.mainBundle pathForResource:name ofType:@"momd"]; // mom is what it gets compiled to on the phone.
     if(!s){
-        s = [[NSBundle mainBundle] pathForResource:name ofType:@"mom"]; // mom is what it gets compiled to on the phone.
+        s = [NSBundle.mainBundle pathForResource:name ofType:@"mom"]; // mom is what it gets compiled to on the phone.
     }
     if(!s){
         [NSException raise:@"Invalid model name" format:@"model named %@ is invalid", name];
     }
-    NSURL* url = [NSURL fileURLWithPath:s];
-    return [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+    NSURL *url = [NSURL fileURLWithPath:s];
+    return [NSManagedObjectModel.alloc initWithContentsOfURL:url];
 }
 
 - (NSEntityDescription *)mcd_entityNamed:(NSString *)entityName{

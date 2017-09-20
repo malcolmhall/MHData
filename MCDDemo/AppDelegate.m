@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //NSURL* url = [MCDPersistentContainer defaultDirectoryURL];
+    //NSURL *url = [MCDPersistentContainer defaultDirectoryURL];
     
     //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
@@ -83,7 +83,7 @@
 
 - (NSURL *)applicationDocumentsDirectory {
     // The directory the application uses to store the Core Data store file. This code uses a directory named "com.malhal.MCoreDataDemo" in the application's documents directory.
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    return [[NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 /*
@@ -99,7 +99,7 @@
         return _managedObjectModel;
     }
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MCoreDataDemo" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    _managedObjectModel = [NSManagedObjectModel.alloc initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
 
@@ -111,7 +111,7 @@
     
     // Create the coordinator and store
     
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    _persistentStoreCoordinator = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:[self managedObjectModel]];
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"MCoreDataDemo.sqlite"];
     NSError *error = nil;
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
@@ -142,7 +142,7 @@
     if (!coordinator) {
         return nil;
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    _managedObjectContext = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     return _managedObjectContext;
 }
@@ -156,8 +156,8 @@
     // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            //NSURL* def = [MCDPersistentContainer defaultDirectoryURL];
-            _persistentContainer = [[MCDPersistentContainer alloc] initWithName:@"MCoreDataDemo"];
+            //NSURL *def = [MCDPersistentContainer defaultDirectoryURL];
+            _persistentContainer = [MCDPersistentContainer.alloc initWithName:@"MCoreDataDemo"];
             NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
             MCDPersistentStoreDescription* d = [MCDPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
             _persistentContainer.persistentStoreDescriptions = @[d];

@@ -2,18 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:README.md">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/mh/Development/Open Source/MHData/MCoreData.podspec">
-   </FileRef>
-   <FileRef
       location = "group:LICENSE">
    </FileRef>
    <FileRef
-      location = "group:/Users/mh/Development/Open Source/MHData/MCDDemo.xcodeproj">
+      location = "group:MCoreData.podspec">
    </FileRef>
    <FileRef
-      location = "group:/Users/mh/Development/Open Source/MHData/MCoreData.xcodeproj">
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:MCDDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MCoreData.xcodeproj">
    </FileRef>
 </Workspace>

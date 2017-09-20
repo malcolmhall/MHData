@@ -21,14 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSRelationshipDescription *> *)mcd_relationshipsWithManagedObjectClass:(Class)managedObjectClass;
 
 // convenience for getting only relations that have toMany true.
-- (NSArray*)mcd_toManyRelationships;
+- (NSArray *)mcd_toManyRelationships;
 
-- (NSArray*)mcd_toOneRelationships;
+- (NSArray *)mcd_toOneRelationships;
 
 // e.g. if this entity is FruitType it would return fruitTypes. It lowercases first letter and appends an 's'. Todo move to camelCaseAndPluralize
 - (NSString *)mcd_propertyNameForToManyRelation;
 
-- (NSArray*)mcd_transientProperties;
+- (NSArray *)mcd_transientProperties;
 
 @end
 

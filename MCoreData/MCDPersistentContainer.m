@@ -17,11 +17,11 @@
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 + (BOOL)classAvailable{
-    static NSString * sdkVersion = nil;
+    static NSString *sdkVersion = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // if the class exists and we linked against the SDK it became available in.
-        NSString * sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
+        NSString *sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
         sdkVersion = [sdkName stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
     });
     return sdkVersion.integerValue >= 10;
@@ -29,9 +29,12 @@
 
 + (id)alloc{
     if([self classAvailable]){
-        return [NSPersistentContainer alloc];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types"
+        return NSPersistentContainer.alloc;
+#pragma clang diagnostic pop
     }
-    return [super alloc];
+    return super.alloc;
 }
 #endif
 
@@ -43,7 +46,7 @@
     #endif
     
     NSError *error;
-    NSURL* URL = [NSPersistentStoreCoordinator mcd_applicationSupportDirectoryWithError:&error];
+    NSURL *URL = [NSPersistentStoreCoordinator mcd_applicationSupportDirectoryWithError:&error];
     if(!URL){
         NSLog(@"%@", error.description);
         abort();
@@ -52,11 +55,11 @@
 }
 
 + (instancetype)persistentContainerWithName:(NSString *)name{
-    return [[self alloc] initWithName:name];
+    return [self.alloc initWithName:name];
 }
 
 + (instancetype)persistentContainerWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model{
-    return [[self alloc] initWithName:name managedObjectModel:model];
+    return [self.alloc initWithName:name managedObjectModel:model];
 }
 
 - (instancetype)initWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model
@@ -64,10 +67,10 @@
     self = [super init];
     if (self) {
         _name = name.copy; // copy on way in?
-        _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-        _viewContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _persistentStoreCoordinator = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:model];
+        _viewContext = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
         _viewContext.persistentStoreCoordinator = _persistentStoreCoordinator;
-        NSURL* URL = [[[self class] defaultDirectoryURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", name]];
+        NSURL *URL = [[[self class] defaultDirectoryURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", name]];
         _persistentStoreDescriptions = @[[MCDPersistentStoreDescription persistentStoreDescriptionWithURL:URL]];
     }
     return self;
@@ -78,14 +81,14 @@
 }
 
 - (instancetype)initWithName:(NSString *)name{
-    NSURL* modelURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"momd"];
     if(!modelURL){
         modelURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"mom"]; // mom is what it gets compiled to on the phone.
     }
     
     NSManagedObjectModel* model;
     if(modelURL){
-        model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+        model = [NSManagedObjectModel.alloc initWithContentsOfURL:modelURL];
     }
     else{
         model = [NSManagedObjectModel mergedModelFromBundles:nil];
