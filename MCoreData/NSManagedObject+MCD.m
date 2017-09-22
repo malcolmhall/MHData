@@ -7,7 +7,9 @@
 //
 
 #import "NSManagedObject+MCD.h"
-#import <MHFoundation/MHFoundation.h>
+#import "NSArray+MHF.h"
+#import "NSException+MHF.h"
+#import "MHFUtilities.h"
 
 @implementation NSManagedObject (MCD)
 
@@ -46,11 +48,11 @@
     }
     NSError *error;
     NSManagedObject *object = [context existingObjectWithID:objectID error:&error];
-    //object = MHFCheckedDynamicCast(self.class, object);
-    if(![object isKindOfClass:[self class]]){
-        NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
-        object = nil;
-    }
+    object = MHFCheckedDynamicCast(self.class, object);
+//    if(![object isKindOfClass:[self class]]){
+//        NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
+//        object = nil;
+//    }
     if(error){
         if(error.code == NSManagedObjectReferentialIntegrityError){
             NSLog(@"Unable to find object from objectID: %@", objectID);
