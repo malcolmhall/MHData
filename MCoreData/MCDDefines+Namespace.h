@@ -15,7 +15,6 @@
     #define MCDPersistentContainer __MCOREDATA_NAMESPACE_APPLY(MCDPersistentContainer)
     #define MCDPersistentStoreBridge __MCOREDATA_NAMESPACE_APPLY(MCDPersistentStoreBridge)
     #define MCDPersistentStoreDescription __MCOREDATA_NAMESPACE_APPLY(MCDPersistentStoreDescription)
-    #define MCDSaveContextOperation __MCOREDATA_NAMESPACE_APPLY(MCDSaveContextOperation)
     #define MCDStackManager __MCOREDATA_NAMESPACE_APPLY(MCDStackManager)
 // Categories
     #define MCD __MCOREDATA_NAMESPACE_APPLY(MCD)

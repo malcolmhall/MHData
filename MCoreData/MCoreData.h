@@ -12,7 +12,6 @@
 #import <MCoreData/MCDStackManager.h>
 #import <MCoreData/MCDPersistentStoreBridge.h>
 #import <MCoreData/MCDFetchedResultsViewController.h>
-#import <MCoreData/MCDSaveContextOperation.h>
 #import <MCoreData/MCDPersistentContainer.h>
 #import <MCoreData/MCDPersistentStoreDescription.h>
 
