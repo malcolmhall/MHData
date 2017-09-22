@@ -12,13 +12,13 @@
 
 @interface NSError (MCD)
 
-@property (strong, nonatomic) NSDictionary *mcd_validationDescriptionsByEntityName;
+@property (strong, nonatomic, readonly) NSDictionary *mcd_validationDescriptionsByEntityName;
 
 // shows validation errors as messages, otherwise defaults to localizedDescription.
-@property (strong, nonatomic) NSString *mcd_readableDescription;
+@property (strong, nonatomic, readonly) NSString *mcd_readableDescription;
 
-@property (assign, nonatomic) BOOL mcd_isValidationError;
+@property (assign, nonatomic, readonly) BOOL mcd_isValidationError;
 
-@property (assign, nonatomic) BOOL mcd_isConstraintMergeError;
+@property (assign, nonatomic, readonly) BOOL mcd_isConstraintMergeError;
 
 @end

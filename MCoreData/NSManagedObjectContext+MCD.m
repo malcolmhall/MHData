@@ -257,10 +257,32 @@
 }
 #endif
 
-- (NSOperation *)mcd_operationPerformingBlockAndWait:(void (^)())block{
+- (NSOperation *)mcd_operationPerformingBlockAndWait:(void (^)(void))block{
     return [NSBlockOperation blockOperationWithBlock:^{
         [self performBlockAndWait:block];
     }];
 }
+
+- (BOOL)mcd_save{
+    return [self mcd_saveWithLogDescription:nil];
+}
+
+// missing stuff
+- (BOOL)mcd_saveWithLogDescription:(nullable NSString *)format, ... {
+    BOOL result = YES;
+    if(self.hasChanges){
+        NSError *error;
+        result = [self save:&error];
+        if(!result){
+            //if(!format){
+            //NSString *s = [[NSString alloc] initWithFormat:format arguments:<#(struct __va_list_tag *)#>
+            //}else{
+            NSLog(@"Error saving context: %@", error);
+            //}
+        }
+    }
+    return result;
+}
+
 
 @end

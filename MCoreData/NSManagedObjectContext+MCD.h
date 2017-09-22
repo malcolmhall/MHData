@@ -57,6 +57,10 @@ NS_ASSUME_NONNULL_BEGIN
 // when saving a context into its parent, if it errors this method allows you to automatically undo the changes.
 //- (BOOL)mcd_saveUndoParentOnError:(NSError **)error;
 
+//@property (strong, nonatomic) NSString *debugName;
+- (BOOL)mcd_save;
+- (BOOL)mcd_saveWithLogDescription:(nullable NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+
 @end
 
 NS_ASSUME_NONNULL_END

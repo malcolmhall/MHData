@@ -2,7 +2,7 @@
 //  MCDDefines+Namespace.h
 //  MCoreData
 //
-//  Generated using MHNamespaceGenerator on 20/09/2017
+//  Generated using MHNamespaceGenerator on 22/09/2017
 //
 
 #if !defined(__MCOREDATA_NAMESPACE_APPLY) && defined(MCOREDATA_NAMESPACE) && defined(MCOREDATA_NAMESPACE_LOWER)
@@ -42,12 +42,25 @@
     #define mcd_isValidationError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_isValidationError)
     #define mcd_modelNamed __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_modelNamed)
     #define mcd_newBackgroundContextWithError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_newBackgroundContextWithError)
+    #define mcd_objectFromObjectID __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_objectFromObjectID)
+    #define mcd_objectIDsFromObjects __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_objectIDsFromObjects)
+    #define mcd_objectIDsMatchingPredicate __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_objectIDsMatchingPredicate)
+    #define mcd_objectsFromObjectIDs __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_objectsFromObjectIDs)
+    #define mcd_objectsMatchingPredicate __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_objectsMatchingPredicate)
+    #define mcd_obtainPermanentObjectIDIfNecessary __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_obtainPermanentObjectIDIfNecessary)
     #define mcd_operationPerformingBlockAndWait __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_operationPerformingBlockAndWait)
+    #define mcd_permanentObjectID __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_permanentObjectID)
+    #define mcd_permanentObjectIDsFromObjects __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_permanentObjectIDsFromObjects)
+    #define mcd_postNotificationOnMainThreadAfterSaveWithName __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_postNotificationOnMainThreadAfterSaveWithName)
+    #define mcd_postNotificationOnMainThreadWithName __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_postNotificationOnMainThreadWithName)
     #define mcd_predicateWithDictionary __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_predicateWithDictionary)
     #define mcd_propertyNameForToManyRelation __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_propertyNameForToManyRelation)
     #define mcd_readableDescription __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_readableDescription)
     #define mcd_relationshipsWithManagedObjectClass __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_relationshipsWithManagedObjectClass)
+    #define mcd_resultsMatchingPredicate __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_resultsMatchingPredicate)
+    #define mcd_save __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_save)
     #define mcd_saveRollbackOnError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_saveRollbackOnError)
+    #define mcd_saveWithLogDescription __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_saveWithLogDescription)
     #define mcd_setAutomaticallyMergesChangesFromParent __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_setAutomaticallyMergesChangesFromParent)
     #define mcd_toManyRelationships __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_toManyRelationships)
     #define mcd_toManyRelationshipsByName __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_toManyRelationshipsByName)
