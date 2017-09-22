@@ -6,16 +6,7 @@
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-#import <MCoreData/MCDDefines.h>
-
-#import <MCoreData/NSManagedObjectContext+MCD.h>
-#import <MCoreData/NSManagedObjectModel+MCD.h>
-#import <MCoreData/NSPersistentStoreCoordinator+MCD.h>
-#import <MCoreData/NSManagedObject+MCD.h>
-#import <MCoreData/NSEntityDescription+MCD.h>
-#import <MCoreData/NSError+MCD.h>
+#import <CoreData/CoreData.h>
 
 #import <MCoreData/MCDError.h>
 #import <MCoreData/MCDStackManager.h>
@@ -25,3 +16,9 @@
 #import <MCoreData/MCDPersistentContainer.h>
 #import <MCoreData/MCDPersistentStoreDescription.h>
 
+#import <MCoreData/NSManagedObjectContext+MCD.h>
+#import <MCoreData/NSManagedObjectModel+MCD.h>
+#import <MCoreData/NSPersistentStoreCoordinator+MCD.h>
+#import <MCoreData/NSManagedObject+MCD.h>
+#import <MCoreData/NSEntityDescription+MCD.h>
+#import <MCoreData/NSError+MCD.h>

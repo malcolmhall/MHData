@@ -7,7 +7,6 @@
 //
 //  A back-port of NSPersistentStoreDescription from the iOS 10 SDK
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
 

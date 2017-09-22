@@ -7,12 +7,12 @@
 //
 //  A back-port of NSPersistentContainer from the iOS 10 SDK
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
-#import <MCoreData/MCDPersistentStoreDescription.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class MCDPersistentStoreDescription;
 
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 

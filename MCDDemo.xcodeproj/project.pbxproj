@@ -35,19 +35,12 @@
 			remoteGlobalIDString = EC3144E41D073E010025F669;
 			remoteInfo = MCoreDataTests;
 		};
-		EC507BF01F71C733003940EB /* PBXContainerItemProxy */ = {
+		EC5D1C111F748C0B008BC02E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC507BDF1F71C718003940EB /* MCoreData.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = EC3144D91D073E010025F669;
-			remoteInfo = MCoreData;
-		};
-		EC507BF71F71C73D003940EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC507BDF1F71C718003940EB /* MCoreData.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3144D91D073E010025F669;
-			remoteInfo = MCoreData;
+			remoteGlobalIDString = EC67598D1DB15D7A00838798;
+			remoteInfo = Namespace;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -173,8 +166,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				EC507BF11F71C733003940EB /* PBXTargetDependency */,
-				EC507BF81F71C73D003940EB /* PBXTargetDependency */,
+				EC5D1C121F748C0B008BC02E /* PBXTargetDependency */,
 			);
 			name = MCDDemo;
 			productName = MHDataDemo;
@@ -267,15 +259,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EC507BF11F71C733003940EB /* PBXTargetDependency */ = {
+		EC5D1C121F748C0B008BC02E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = MCoreData;
-			targetProxy = EC507BF01F71C733003940EB /* PBXContainerItemProxy */;
-		};
-		EC507BF81F71C73D003940EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MCoreData;
-			targetProxy = EC507BF71F71C73D003940EB /* PBXContainerItemProxy */;
+			name = Namespace;
+			targetProxy = EC5D1C111F748C0B008BC02E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

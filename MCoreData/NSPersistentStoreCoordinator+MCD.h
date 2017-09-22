@@ -8,9 +8,10 @@
 
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
-#import <MCoreData/MCDPersistentStoreDescription.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class MCDPersistentStoreDescription;
 
 @interface NSPersistentStoreCoordinator (MCD)
 

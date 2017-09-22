@@ -9,7 +9,6 @@
 // Everything is lazy loaded and exceptions are raised on failures.
 // Inspired by AAPLCoreDataStackManager.h from Earthquake.
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
 

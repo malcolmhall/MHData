@@ -6,7 +6,6 @@
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
 

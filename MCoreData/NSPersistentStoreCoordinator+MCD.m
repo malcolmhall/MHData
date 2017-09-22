@@ -9,6 +9,7 @@
 #import "NSPersistentStoreCoordinator+MCD.h"
 #import "MCDError.h"
 #import "NSManagedObjectModel+MCD.h"
+#import "MCDPersistentStoreDescription.h"
 
 @implementation NSPersistentStoreCoordinator (MCD)
 
