@@ -7,9 +7,6 @@
 //
 
 #import "NSManagedObject+MCD.h"
-#import "NSArray+MHF.h"
-#import "NSException+MHF.h"
-#import "MHFUtilities.h"
 
 @implementation NSManagedObject (MCD)
 
@@ -40,7 +37,6 @@
     return [self initWithEntity:entity insertIntoManagedObjectContext:context];
 }
 
-
 + (NSManagedObject *)mcd_objectFromObjectID:(NSManagedObjectID *)objectID context:(NSManagedObjectContext *)context{
     if(!objectID){
         NSLog(@"Trying to get an object from a nil object ID: %@", [NSThread callStackSymbols]);
@@ -48,11 +44,10 @@
     }
     NSError *error;
     NSManagedObject *object = [context existingObjectWithID:objectID error:&error];
-    object = MHFCheckedDynamicCast(self.class, object);
-//    if(![object isKindOfClass:[self class]]){
-//        NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
-//        object = nil;
-//    }
+    if(![object isKindOfClass:[self class]]){
+        NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
+        object = nil;
+    }
     if(error){
         if(error.code == NSManagedObjectReferentialIntegrityError){
             NSLog(@"Unable to find object from objectID: %@", objectID);
@@ -76,11 +71,11 @@
 }
 
 + (NSArray *)mcd_objectIDsMatchingPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context{
-    @throw [NSException mhf_notImplementedException];
+    return [self mcd_objectIDsMatchingPredicate:predicate sortDescriptors:nil context:context];
 }
 
-+ (NSArray *)mcd_objectIDsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors context:(NSManagedObjectContext *)context{
-    @throw [NSException mhf_notImplementedException];
++ (NSArray *)mcd_objectIDsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors context:(NSManagedObjectContext *)context{
+    return [self mcd_resultsMatchingPredicate:predicate sortDescriptors:sortDescriptors resultType:NSManagedObjectIDResultType relationshipKeyPathsForPrefetching:nil context:context];
 }
 
 + (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs context:(NSManagedObjectContext *)context{
@@ -94,8 +89,17 @@
     return objects;
 }
 
-+ (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs relationshipKeyPathsForPrefetching:(NSArray *)relationshipKeyPaths context:(NSManagedObjectContext *)context{
-    @throw [NSException mhf_notImplementedException];
++ (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
+    NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:self.entity.name];
+    fr.includesSubentities = YES;
+    fr.predicate = [NSPredicate predicateWithFormat:@"SELF in %@", objectIDs];
+    fr.relationshipKeyPathsForPrefetching = keyPaths;
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:fr error:&error];
+    if(error){
+        NSLog(@"Error fetching objects from (%ld) object IDs: %@", (unsigned long)objectIDs.count, error);
+    }
+    return objects;
 }
 
 + (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context{
@@ -122,25 +126,26 @@
     return results;
 }
 
-+ (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors relationshipKeyPathsForPrefetching:(NSArray *)relationshipKeyPathsForPrefetching context:(NSManagedObjectContext *)context{
-    return [self mcd_resultsMatchingPredicate:predicate sortDescriptors:sortDescriptors resultType:0 relationshipKeyPathsForPrefetching:relationshipKeyPathsForPrefetching context:context];
++ (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
+    return [self mcd_resultsMatchingPredicate:predicate sortDescriptors:sortDescriptors resultType:0 relationshipKeyPathsForPrefetching:keyPaths context:context];
 }
 
 + (NSArray *)mcd_permanentObjectIDsFromObjects:(NSArray *)objects{
     NSManagedObject *object = objects.firstObject;
     if(object){
-        NSArray *a = [objects mhf_objectsPassingTest:^BOOL(NSManagedObject *obj, NSUInteger idx, BOOL *stop) {
+        NSIndexSet *set = [objects indexesOfObjectsPassingTest:^BOOL(NSManagedObject *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             return obj.objectID.isTemporaryID;
         }];
+        NSArray *objectsWithTemporaryIDs = [objects objectsAtIndexes:set];
         NSError *error;
-        if(![object.managedObjectContext obtainPermanentIDsForObjects:a error:&error]){
+        if(![object.managedObjectContext obtainPermanentIDsForObjects:objectsWithTemporaryIDs error:&error]){
             NSLog(@"Error obtaining permanent object ID for objects with error: %@", error);
         }
     }
     return [self mcd_objectIDsFromObjects:objects];
 }
 
-+ (NSArray *)mcd_resultsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors resultType:(NSFetchRequestResultType)resultType relationshipKeyPathsForPrefetching:(NSArray *)relationshipKeyPathsForPrefetching context:(NSManagedObjectContext *)context{
++ (NSArray *)mcd_resultsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors resultType:(NSFetchRequestResultType)resultType relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
     __block NSFetchRequest *fetchRequest = [self fetchRequest];
     if(!fetchRequest){
         [context performBlockAndWait:^{
@@ -150,7 +155,7 @@
     fetchRequest.predicate = predicate;
     fetchRequest.resultType = resultType;
     fetchRequest.sortDescriptors = sortDescriptors;
-    fetchRequest.relationshipKeyPathsForPrefetching = relationshipKeyPathsForPrefetching;
+    fetchRequest.relationshipKeyPathsForPrefetching = keyPaths;
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
     if(error){
@@ -180,11 +185,31 @@
 }
 
 - (void)mcd_postNotificationOnMainThreadAfterSaveWithName:(NSString *)name{
-    @throw [NSException mhf_notImplementedException];
+    __weak typeof(self) weakSelf = self;
+    [NSNotificationCenter.defaultCenter addObserverForName:NSManagedObjectContextDidSaveNotification object:self.managedObjectContext queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        NSManagedObjectID *objectID = strongSelf.mcd_permanentObjectID;
+        if(objectID){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [NSNotificationCenter.defaultCenter postNotificationName:name object:objectID];
+            });
+        }
+        [NSNotificationCenter.defaultCenter removeObserver:strongSelf];
+    }];
 }
 
 - (void)mcd_postNotificationOnMainThreadWithName:(NSString *)name{
-    @throw [NSException mhf_notImplementedException];
+    NSManagedObjectContext *context = self.managedObjectContext;
+    __weak typeof(self) weakSelf = self;
+    [context performBlock:^{
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        NSManagedObjectID *objectID = strongSelf.mcd_permanentObjectID;
+        if(objectID){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [NSNotificationCenter.defaultCenter postNotificationName:name object:objectID];
+            });
+        }
+    }];
 }
 
 @end
