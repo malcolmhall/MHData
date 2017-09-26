@@ -37,7 +37,7 @@
     return [self initWithEntity:entity insertIntoManagedObjectContext:context];
 }
 
-+ (NSManagedObject *)mcd_objectFromObjectID:(NSManagedObjectID *)objectID context:(NSManagedObjectContext *)context{
++ (instancetype)mcd_objectFromObjectID:(NSManagedObjectID *)objectID context:(NSManagedObjectContext *)context{
     if(!objectID){
         NSLog(@"Trying to get an object from a nil object ID: %@", [NSThread callStackSymbols]);
         return nil;
