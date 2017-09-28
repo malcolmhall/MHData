@@ -90,7 +90,7 @@
 }
 
 + (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
-    NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:self.entity.name];
+    NSFetchRequest *fr = self.fetchRequest;//[NSFetchRequest fetchRequestWithEntityName:self.entity.name];
     fr.includesSubentities = YES;
     fr.predicate = [NSPredicate predicateWithFormat:@"SELF in %@", objectIDs];
     fr.relationshipKeyPathsForPrefetching = keyPaths;
@@ -146,7 +146,7 @@
 }
 
 + (NSArray *)mcd_resultsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors resultType:(NSFetchRequestResultType)resultType relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
-    __block NSFetchRequest *fetchRequest = [self fetchRequest];
+    __block NSFetchRequest *fetchRequest = self.fetchRequest;
     if(!fetchRequest){
         [context performBlockAndWait:^{
             fetchRequest = self.fetchRequest;
@@ -210,6 +210,18 @@
             });
         }
     }];
+}
+
++ (NSUInteger)mcd_countOfObjectsMatchingPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context{
+    NSFetchRequest *fetchRequest = self.fetchRequest;
+    fetchRequest.predicate = predicate;
+    NSError *error;
+    NSUInteger result = [context countForFetchRequest:fetchRequest error:&error];
+    if(result == NSNotFound){
+        NSLog(@"Error counting objects matching predicate %@: %@", predicate, error);
+        result = 0;
+    }
+    return result;
 }
 
 @end

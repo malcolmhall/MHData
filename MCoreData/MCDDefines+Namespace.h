@@ -2,7 +2,7 @@
 //  MCDDefines+Namespace.h
 //  MCoreData
 //
-//  Generated using MHNamespaceGenerator on 26/09/2017
+//  Generated using MHNamespaceGenerator on 28/09/2017
 //
 
 #if !defined(__MCOREDATA_NAMESPACE_APPLY) && defined(MCOREDATA_NAMESPACE) && defined(MCOREDATA_NAMESPACE_LOWER)
@@ -24,6 +24,7 @@
     #define mcd_automaticallyMergesChangesFromParent __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_automaticallyMergesChangesFromParent)
     #define mcd_constraintConflictsByConstraint __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_constraintConflictsByConstraint)
     #define mcd_coordinatorWithManagedObjectModel __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_coordinatorWithManagedObjectModel)
+    #define mcd_countOfObjectsMatchingPredicate __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_countOfObjectsMatchingPredicate)
     #define mcd_createChildContext __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_createChildContext)
     #define mcd_defaultContext __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_defaultContext)
     #define mcd_defaultContextWithError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_defaultContextWithError)

@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSManagedObjectID *)mcd_permanentObjectID;
 - (void)mcd_postNotificationOnMainThreadAfterSaveWithName:(NSString *)name;
 - (void)mcd_postNotificationOnMainThreadWithName:(NSString *)name;
++ (NSUInteger)mcd_countOfObjectsMatchingPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context;
 
 @end
 
