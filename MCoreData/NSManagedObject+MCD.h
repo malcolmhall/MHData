@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)mcd_objectIDsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors context:(NSManagedObjectContext *)context;
 + (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs context:(NSManagedObjectContext *)context;
 + (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context;
-+ (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context;
-+ (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors context:(NSManagedObjectContext *)context;
-+ (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context;
++ (NSArray *)mcd_objectsMatchingPredicate:(nullable NSPredicate *)predicate context:(NSManagedObjectContext *)context;
++ (NSArray *)mcd_objectsMatchingPredicate:(nullable NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors context:(NSManagedObjectContext *)context;
++ (NSArray *)mcd_objectsMatchingPredicate:(nullable NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context;
 + (NSArray *)mcd_permanentObjectIDsFromObjects:(NSArray *)objects;
 + (NSArray *)mcd_resultsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(nullable NSArray *)sortDescriptors resultType:(NSFetchRequestResultType)resultType relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context;
 - (BOOL)mcd_obtainPermanentObjectIDIfNecessary;
