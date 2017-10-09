@@ -11,26 +11,46 @@
 static NSString * const kDefaultCellReuseIdentifier = @"Cell";
 static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 
-@implementation MCDFetchedResultsViewController
+@implementation MCDFetchedResultsViewController{
+    NSString *_cellReuseIdentifier;
+}
 
 - (void)awakeFromNib{
     [super awakeFromNib];
     // set the default cell reuse identifer here so we can use it internally without copying.
-    self.cellReuseIdentifier = kDefaultCellReuseIdentifier;
+    //self.cellReuseIdentifier = kDefaultCellReuseIdentifier;
     self.messageWhenNoRows = kDefaultmessageWhenNoRows;
 }
 
+- (NSString *)cellReuseIdentifier{
+    if(!_cellReuseIdentifier){
+        _cellReuseIdentifier = kDefaultCellReuseIdentifier;
+    }
+    return _cellReuseIdentifier;
+}
+
+- (void)setCellReuseIdentifier:(NSString *)cellReuseIdentifier{
+    if(!cellReuseIdentifier){
+        cellReuseIdentifier = kDefaultCellReuseIdentifier;
+    }
+    _cellReuseIdentifier = cellReuseIdentifier.copy;
+}
+
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
+    if(fetchedResultsController == _fetchedResultsController){
+        return;
+    }
     _fetchedResultsController = fetchedResultsController;
-    // ensure we are the delegate
-    _fetchedResultsController.delegate = self;
-    
-    NSError *error = nil;
-    if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-        abort();
+    if(fetchedResultsController){
+        // ensure we are the delegate
+        fetchedResultsController.delegate = self;
+        NSError *error = nil;
+        if (![fetchedResultsController performFetch:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+            abort();
+        }
     }
     [self.tableView reloadData];
 }
@@ -39,12 +59,11 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger numberOfSections = [[self.fetchedResultsController sections] count];
+    NSInteger numberOfSections = self.fetchedResultsController.sections.count;
     // when set to nil they dont want this feature.
     if(!self.messageWhenNoRows){
         return numberOfSections;
     }
-    
     // calc total rows across all sections.
     NSInteger totalNumberOfRows = 0;
     for(NSInteger i = 0; i < numberOfSections; i++){
@@ -72,29 +91,30 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-    return [sectionInfo numberOfObjects];
+    return sectionInfo.numberOfObjects;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    return [self cellForRowAtIndexPath:indexPath withObject:object];
-}
-
-- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object{
-    //if using a storyboard this should always get a cell
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:_cellReuseIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellReuseIdentifier forIndexPath:indexPath];
     if(!cell){
         //todo cell style default might not be right, untested
-        cell = [UITableViewCell.alloc initWithStyle:_defaultCellStyle reuseIdentifier:_cellReuseIdentifier];
+        cell = [UITableViewCell.alloc initWithStyle:self.defaultCellStyle reuseIdentifier:self.cellReuseIdentifier];
     }
+    NSManagedObject *object = [self objectAtIndexPath:indexPath];
+    [self configureCell:cell withObject:object];
     return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object{
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return [self canEditObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    NSManagedObject *object = [self objectAtIndexPath:indexPath];
+    return [self canEditObject:object];
 }
 
 //default to yes to match normal.
@@ -102,21 +122,22 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     return YES;
 }
 
+- (NSManagedObject *)objectAtIndexPath:(NSIndexPath *)indexPath{
+    return [self.fetchedResultsController objectAtIndexPath:indexPath];
+}
+
 - (void)deleteObject:(NSManagedObject*)managedObject{
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
     [context deleteObject:managedObject];
     NSError *error;
     if(![context save:&error]){
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//#ifdef DEBUG
-        abort();
-//#endif
     }
 }
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject*)object{
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject *)object{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self deleteObject:object];
     }
@@ -131,6 +152,22 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 {
     // The table view should not be re-orderable.
     return NO;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (self.fetchedResultsController.sections.count > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+        return sectionInfo.name;
+    } else
+        return nil;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return self.fetchedResultsController.sectionIndexTitles;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
 }
 
 /*
@@ -155,6 +192,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     if(controller != self.fetchedResultsController){
         return;
     }
+    NSLog(@"Begin Updates");
     [self.tableView beginUpdates];
 }
 
@@ -166,14 +204,18 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     }
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSLog(@"Section Insert");
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSLog(@"Section Delete");
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeMove:
+            NSLog(@"Section Move");
+            break;
         case NSFetchedResultsChangeUpdate:
+            NSLog(@"Section Update");
             break;
     }
 }
@@ -182,22 +224,36 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-    if(controller!=self.fetchedResultsController){
+    if(controller != self.fetchedResultsController){
         return;
     }
     UITableView *tableView = self.tableView;
 
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            NSLog(@"Insert");
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSLog(@"Insert %@", newIndexPath);
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            NSLog(@"Delete");
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSLog(@"Delete %@", indexPath);
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
+        case NSFetchedResultsChangeMove:
+            NSLog(@"Move %@ to %@", indexPath, newIndexPath);
+            // Can't use the tableView move method becasue its animation does not play with section inserts/deletes.
+            // Also if we used move would need to update the cell manually which might use the wrong index.
+            // Even if old and new indices are the same we still need to call the methods.
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            //[tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            NSLog(@"Update %@ to %@", indexPath, newIndexPath);
+            //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            /*
         case NSFetchedResultsChangeUpdate:
             NSLog(@"Update");
             // previously we called configure cell but that didn't allow an update to change cell type.
@@ -226,17 +282,22 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
             }
             break;
         }
+             */
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    if(controller!=self.fetchedResultsController){
+    if(controller != self.fetchedResultsController){
         return;
     }
+    NSLog(@"End Updates");
     [self.tableView endUpdates];
 }
 
-
+- (void)dealloc{
+    self.fetchedResultsController.delegate = nil;
+    self.fetchedResultsController = nil;
+}
 
 @end

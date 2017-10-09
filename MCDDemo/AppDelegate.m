@@ -158,9 +158,9 @@
         if (_persistentContainer == nil) {
             //NSURL *def = [MCDPersistentContainer defaultDirectoryURL];
             _persistentContainer = [MCDPersistentContainer.alloc initWithName:@"MCoreDataDemo"];
-            NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
-            MCDPersistentStoreDescription* d = [MCDPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
-            _persistentContainer.persistentStoreDescriptions = @[d];
+            //NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
+           // MCDPersistentStoreDescription* d = [MCDPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
+            //_persistentContainer.persistentStoreDescriptions = @[d];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(MCDPersistentStoreDescription * _Nonnull storeDescription, NSError * _Nullable error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.

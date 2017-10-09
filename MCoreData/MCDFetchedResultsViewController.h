@@ -14,32 +14,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 
-@interface MCDFetchedResultsViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface MCDFetchedResultsViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
-@property (retain, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic, nullable) NSFetchedResultsController *fetchedResultsController;
 
 // Defaults to "Cell"
-@property (copy, nonatomic) NSString *cellReuseIdentifier;
+@property (copy, nonatomic, null_resettable) NSString *cellReuseIdentifier;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
-@property (copy, nonatomic) NSString *messageWhenNoRows;
+@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
+// cell style to use when no prototype is found.
 @property (assign, nonatomic) UITableViewCellStyle defaultCellStyle;
 
-// subclass and override 2 methods
-
-- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject *)object;
-/*
-- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withObject:(NSManagedObject*)object{
- {
-    UITableViewCell* cell = [super cellForRowAtIndexPath:indexPath withObject:object];
-    StoreApp* storeApp  = (StoreApp*) object;
-    cell.textLabel.text = storeApp.name;
-    cell.imageView.image = storeApp.icon;
-    return cell;
- }
-*/
+- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object;
 
 - (BOOL)canEditObject:(NSManagedObject *)managedObject;
 
@@ -64,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 // the default implementation is to delete the object from the context and save it, and abort if it fails. Override for a different behavior.
 // returns NO and sets error if fails to save. Doesn't any more.
 - (void)deleteObject:(NSManagedObject *)managedObject;
+
+- (NSManagedObject *)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

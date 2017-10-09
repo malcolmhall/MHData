@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC507BF51F71C73D003940EB /* MCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC507BE61F71C718003940EB /* MCoreData.framework */; };
 		EC507BF61F71C73D003940EB /* MCoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC507BE61F71C718003940EB /* MCoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EC5F680D1D1C091D004B84F2 /* MHDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A41D118968000F5EFB /* MHDataDemo.xcdatamodeld */; };
+		EC5F680D1D1C091D004B84F2 /* MCoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A41D118968000F5EFB /* MCoreDataDemo.xcdatamodeld */; };
 		ECC991A01D118968000F5EFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC9919F1D118968000F5EFB /* main.m */; };
 		ECC991A31D118968000F5EFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A21D118968000F5EFB /* AppDelegate.m */; };
 		ECC991A91D118968000F5EFB /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A81D118968000F5EFB /* MasterViewController.m */; };
@@ -128,7 +128,7 @@
 				ECC991B01D118968000F5EFB /* Assets.xcassets */,
 				ECC991B21D118968000F5EFB /* LaunchScreen.storyboard */,
 				ECC991B51D118968000F5EFB /* Info.plist */,
-				ECC991A41D118968000F5EFB /* MHDataDemo.xcdatamodeld */,
+				ECC991A41D118968000F5EFB /* MCoreDataDemo.xcdatamodeld */,
 				ECC9919E1D118968000F5EFB /* Supporting Files */,
 			);
 			path = MCDDemo;
@@ -250,7 +250,7 @@
 			files = (
 				ECC991AC1D118968000F5EFB /* DetailViewController.m in Sources */,
 				ECC991A91D118968000F5EFB /* MasterViewController.m in Sources */,
-				EC5F680D1D1C091D004B84F2 /* MHDataDemo.xcdatamodeld in Sources */,
+				EC5F680D1D1C091D004B84F2 /* MCoreDataDemo.xcdatamodeld in Sources */,
 				ECC991A31D118968000F5EFB /* AppDelegate.m in Sources */,
 				ECC991A01D118968000F5EFB /* main.m in Sources */,
 			);
@@ -331,7 +331,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -378,7 +377,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -432,13 +430,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		ECC991A41D118968000F5EFB /* MHDataDemo.xcdatamodeld */ = {
+		ECC991A41D118968000F5EFB /* MCoreDataDemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				ECC991A51D118968000F5EFB /* MHDataDemo.xcdatamodel */,
 			);
 			currentVersion = ECC991A51D118968000F5EFB /* MHDataDemo.xcdatamodel */;
-			path = MHDataDemo.xcdatamodeld;
+			path = MCoreDataDemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

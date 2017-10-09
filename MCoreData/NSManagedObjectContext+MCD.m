@@ -50,7 +50,7 @@
     if(!storeURL){
         if(error){
             *error = [NSError errorWithDomain:MCoreDataErrorDomain code:MCDErrorInvalidArguments userInfo:@{NSLocalizedDescriptionKey : @"This context's coordinator store did not have a URL",
-                                                                              NSLocalizedFailureReasonErrorKey : @"It was nil."}];
+                                                                                                            NSLocalizedFailureReasonErrorKey : @"It was nil."}];
         }
         return nil;
     }
@@ -83,14 +83,14 @@
 }
 
 - (NSManagedObject *)mcd_existingObjectWithEntityName:(NSString *)entityName predicate:(NSPredicate *)predicate error:(NSError **)error{
-    NSArray *objects = [self mcd_fetchObjectsWithEntityName:@"Venue" predicate:predicate error:error];
+    NSArray *objects = [self mcd_fetchObjectsWithEntityName:entityName predicate:predicate error:error];
     if(!objects){
         return nil;
     }
     else if(!objects.count){
         if(error){
             *error = [NSError errorWithDomain:MCoreDataErrorDomain code:MCDErrorInvalidArguments userInfo:@{NSLocalizedDescriptionKey : @"Existing object not found",
-                                                                                                        NSLocalizedFailureReasonErrorKey : @"No object matched the predicate."}];
+                                                                                                            NSLocalizedFailureReasonErrorKey : @"No object matched the predicate."}];
         }
         return nil;
     }

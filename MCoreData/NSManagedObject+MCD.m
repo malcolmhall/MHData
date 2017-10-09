@@ -79,14 +79,7 @@
 }
 
 + (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs context:(NSManagedObjectContext *)context{
-    NSMutableArray *objects = [NSMutableArray array];
-    for(NSManagedObjectID *objectID in objectIDs){
-        NSManagedObject* object = [self mcd_objectFromObjectID:objectID context:context];
-        if(object){
-            [objects addObject:object];
-        }
-    }
-    return objects;
+    return [self mcd_objectsFromObjectIDs:objectIDs relationshipKeyPathsForPrefetching:nil context:context];
 }
 
 + (NSArray *)mcd_objectsFromObjectIDs:(NSArray *)objectIDs relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
