@@ -11,6 +11,12 @@
 static NSString * const kDefaultCellReuseIdentifier = @"Cell";
 static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 
+@interface MCDFetchedResultsViewController()
+
+@property (nonatomic) BOOL sectionsCountChanged;
+
+@end
+
 @implementation MCDFetchedResultsViewController{
     NSString *_cellReuseIdentifier;
 }
@@ -206,10 +212,12 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
         case NSFetchedResultsChangeInsert:
             NSLog(@"Section Insert");
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            self.sectionsCountChanged = YES;
             break;
         case NSFetchedResultsChangeDelete:
             NSLog(@"Section Delete");
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            self.sectionsCountChanged = YES;
             break;
         case NSFetchedResultsChangeMove:
             NSLog(@"Section Move");
@@ -244,14 +252,18 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
             // Can't use the tableView move method becasue its animation does not play with section inserts/deletes.
             // Also if we used move would need to update the cell manually which might use the wrong index.
             // Even if old and new indices are the same we still need to call the methods.
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            //[tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+            if(!self.sectionsCountChanged && indexPath.section == newIndexPath.section){
+                [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+            }
+            else{
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
             break;
         case NSFetchedResultsChangeUpdate:
             NSLog(@"Update %@ to %@", indexPath, newIndexPath);
             //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
-            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            //[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             /*
         case NSFetchedResultsChangeUpdate:
@@ -291,6 +303,7 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     if(controller != self.fetchedResultsController){
         return;
     }
+    self.sectionsCountChanged = NO;
     NSLog(@"End Updates");
     [self.tableView endUpdates];
 }
