@@ -38,10 +38,18 @@
     //controller.managedObjectContext = self.managedObjectContext;
     controller.persistentContainer = self.persistentContainer;
     
+   // controller.fetchItem = [@{@"sectionKey" : @"a"} mutableCopy];
+   // [self performSelector:@selector(malc:) withObject:controller afterDelay:1];
     
     //NSManagedObjectContext * c1 = self.persistentContainer.newBackgroundContext;
     
     return YES;
+}
+
+- (void)malc:(MasterViewController *)controller{
+    NSMutableDictionary *d = controller.fetchItem;
+    //d[@"sectionKey"] = @"b";
+    [d setValue:@"b" forKeyPath:@"sectionKey"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

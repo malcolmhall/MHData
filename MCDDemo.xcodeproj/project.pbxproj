@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC171BDD1F8FCF8300EFF892 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC171BDC1F8FCF8300EFF892 /* EventTableViewCell.m */; };
 		EC507BF51F71C73D003940EB /* MCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC507BE61F71C718003940EB /* MCoreData.framework */; };
 		EC507BF61F71C73D003940EB /* MCoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC507BE61F71C718003940EB /* MCoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC5F680D1D1C091D004B84F2 /* MCoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A41D118968000F5EFB /* MCoreDataDemo.xcdatamodeld */; };
@@ -21,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		EC171BE01F90E4EB00EFF892 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC507BDF1F71C718003940EB /* MCoreData.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3144D91D073E010025F669;
+			remoteInfo = MCoreData;
+		};
 		EC507BE51F71C718003940EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC507BDF1F71C718003940EB /* MCoreData.xcodeproj */;
@@ -59,6 +67,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC171BDB1F8FCF8300EFF892 /* EventTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventTableViewCell.h; sourceTree = "<group>"; };
+		EC171BDC1F8FCF8300EFF892 /* EventTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventTableViewCell.m; sourceTree = "<group>"; };
 		EC507BDF1F71C718003940EB /* MCoreData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MCoreData.xcodeproj; sourceTree = "<group>"; };
 		ECC9919B1D118968000F5EFB /* MCDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC9919F1D118968000F5EFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,6 +130,8 @@
 			children = (
 				ECC991A11D118968000F5EFB /* AppDelegate.h */,
 				ECC991A21D118968000F5EFB /* AppDelegate.m */,
+				EC171BDB1F8FCF8300EFF892 /* EventTableViewCell.h */,
+				EC171BDC1F8FCF8300EFF892 /* EventTableViewCell.m */,
 				ECC991A71D118968000F5EFB /* MasterViewController.h */,
 				ECC991A81D118968000F5EFB /* MasterViewController.m */,
 				ECC991AA1D118968000F5EFB /* DetailViewController.h */,
@@ -166,6 +178,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EC171BE11F90E4EB00EFF892 /* PBXTargetDependency */,
 				EC5D1C121F748C0B008BC02E /* PBXTargetDependency */,
 			);
 			name = MCDDemo;
@@ -250,6 +263,7 @@
 			files = (
 				ECC991AC1D118968000F5EFB /* DetailViewController.m in Sources */,
 				ECC991A91D118968000F5EFB /* MasterViewController.m in Sources */,
+				EC171BDD1F8FCF8300EFF892 /* EventTableViewCell.m in Sources */,
 				EC5F680D1D1C091D004B84F2 /* MCoreDataDemo.xcdatamodeld in Sources */,
 				ECC991A31D118968000F5EFB /* AppDelegate.m in Sources */,
 				ECC991A01D118968000F5EFB /* main.m in Sources */,
@@ -259,6 +273,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		EC171BE11F90E4EB00EFF892 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MCoreData;
+			targetProxy = EC171BE01F90E4EB00EFF892 /* PBXContainerItemProxy */;
+		};
 		EC5D1C121F748C0B008BC02E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Namespace;

@@ -1,64 +1,112 @@
 //
-//  MCDFetchedResultsViewController.m
+//  MCDResultsTableViewController.m
 //  MCoreData
 //
 //  Created by Malcolm Hall on 7/12/13.
 //  Copyright (c) 2013 MAlcolm Hall. All rights reserved.
 //
 
-#import "MCDFetchedResultsViewController.h"
+#import "MCDResultsTableViewController.h"
+#import "MCDResultTableViewCell.h"
 
-static NSString * const kDefaultCellReuseIdentifier = @"Cell";
 static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
+static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResultsTableViewControllerKVOContext;
 
-@interface MCDFetchedResultsViewController()
+@interface MCDResultsTableViewController()
 
 @property (nonatomic) BOOL sectionsCountChanged;
+@property (strong, nonatomic, readwrite) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
-@implementation MCDFetchedResultsViewController{
-    NSString *_cellReuseIdentifier;
+@implementation MCDResultsTableViewController{
+    NSString *_messageWhenNoRows;
 }
 
-- (void)awakeFromNib{
-    [super awakeFromNib];
-    // set the default cell reuse identifer here so we can use it internally without copying.
-    //self.cellReuseIdentifier = kDefaultCellReuseIdentifier;
-    self.messageWhenNoRows = kDefaultmessageWhenNoRows;
-}
-
-- (NSString *)cellReuseIdentifier{
-    if(!_cellReuseIdentifier){
-        _cellReuseIdentifier = kDefaultCellReuseIdentifier;
-    }
-    return _cellReuseIdentifier;
-}
-
-- (void)setCellReuseIdentifier:(NSString *)cellReuseIdentifier{
-    if(!cellReuseIdentifier){
-        cellReuseIdentifier = kDefaultCellReuseIdentifier;
-    }
-    _cellReuseIdentifier = cellReuseIdentifier.copy;
-}
-
-- (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
-    if(fetchedResultsController == _fetchedResultsController){
+- (void)setFetchItem:(id)fetchItem{
+    if(_fetchItem == fetchItem){
         return;
     }
-    _fetchedResultsController = fetchedResultsController;
-    if(fetchedResultsController){
-        // ensure we are the delegate
-        fetchedResultsController.delegate = self;
+    [self stopObservingFetchItem];
+    _fetchItem = fetchItem;
+    if(fetchItem){
+        [self startObservingFetchItem];
+    }
+    [self fetchItemDidChange];
+}
+
+- (void)startObservingFetchItem{
+    for(NSString *key in self.keyPathsForObservingFetchItem){
+        [self.fetchItem addObserver:self forKeyPath:key options:0 context:kMCDResultsTableViewControllerKVOContext];
+    }
+}
+
+- (void)stopObservingFetchItem{
+    for(NSString *key in self.keyPathsForObservingFetchItem){
+        [self.fetchItem removeObserver:self forKeyPath:key context:kMCDResultsTableViewControllerKVOContext];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if(context != kMCDResultsTableViewControllerKVOContext){
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+    [self fetchItemKeyPathDidChange:keyPath];
+}
+
+- (void)fetchItemKeyPathDidChange:(NSString *)keyPath{
+    return;
+}
+    
+- (void)fetchItemDidChange{
+    [self recreateFetchedResultsControllerPerformFetch:YES];
+}
+
+- (void)recreateFetchedResultsController{
+    [self recreateFetchedResultsControllerPerformFetch:YES];
+}
+
+- (void)recreateFetchedResultsControllerPerformFetch:(BOOL)performFetch{
+    [self tearDownFetchedResultsController];
+    self.fetchedResultsController = self.newFetchedResultsController;
+    // ensure we are the delegate
+    self.fetchedResultsController.delegate = self;
+    if(performFetch){
         NSError *error = nil;
-        if (![fetchedResultsController performFetch:&error]) {
+        if (![self.fetchedResultsController performFetch:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, error.userInfo);
             abort();
         }
     }
-    [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if(!self.fetchedResultsController){
+        [self recreateFetchedResultsController];
+    }
+}
+
+- (void)tearDownFetchedResultsController{
+    self.fetchedResultsController.delegate = nil;
+    self.fetchedResultsController = nil;
+}
+
+- (NSString *)messageWhenNoRows{
+    if(!_messageWhenNoRows){
+        _messageWhenNoRows = kDefaultmessageWhenNoRows;
+    }
+    return _messageWhenNoRows;
+}
+
+- (void)setMessageWhenNoRows:(NSString *)messageWhenNoRows{
+    if(!messageWhenNoRows){
+        messageWhenNoRows = kDefaultmessageWhenNoRows;
+    }
+    _messageWhenNoRows = messageWhenNoRows.copy;
 }
 
 #pragma mark - Table View
@@ -102,39 +150,33 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.cellReuseIdentifier forIndexPath:indexPath];
-    if(!cell){
-        //todo cell style default might not be right, untested
-        cell = [UITableViewCell.alloc initWithStyle:self.defaultCellStyle reuseIdentifier:self.cellReuseIdentifier];
+    NSManagedObject *resultObject = [self resultObjectAtIndexPath:indexPath];
+    UITableViewCell *cell = [self cellForResultObject:resultObject];
+    if([cell isKindOfClass:MCDResultTableViewCell.class]){
+        MCDResultTableViewCell *resultCell = (MCDResultTableViewCell *)cell;
+        resultCell.resultObject = resultObject;
     }
-    NSManagedObject *object = [self objectAtIndexPath:indexPath];
-    [self configureCell:cell withObject:object];
     return cell;
-}
-
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object{
-    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    NSManagedObject *object = [self objectAtIndexPath:indexPath];
-    return [self canEditObject:object];
+    return [self canEditResultObject:[self resultObjectAtIndexPath:indexPath]];
 }
 
 //default to yes to match normal.
-- (BOOL)canEditObject:(NSManagedObject*)managedObject{
+- (BOOL)canEditResultObject:(NSManagedObject*)resultObject{
     return YES;
 }
 
-- (NSManagedObject *)objectAtIndexPath:(NSIndexPath *)indexPath{
+- (NSManagedObject *)resultObjectAtIndexPath:(NSIndexPath *)indexPath{
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
-- (void)deleteObject:(NSManagedObject*)managedObject{
+- (void)deleteResultObject:(NSManagedObject*)resultObject{
     NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
-    [context deleteObject:managedObject];
+    [context deleteObject:resultObject];
     NSError *error;
     if(![context save:&error]){
         // Replace this implementation with code to handle the error appropriately.
@@ -143,15 +185,15 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
     }
 }
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject *)object{
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self deleteObject:object];
+        [self deleteResultObject:resultObject];
     }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self commitEditingStyle:editingStyle forObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    return [self commitEditingStyle:editingStyle forResultObject:[self resultObjectAtIndexPath:indexPath]];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -174,6 +216,14 @@ static NSString * const kDefaultmessageWhenNoRows = @"There is no data available
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self didSelectResultObject:[self resultObjectAtIndexPath:indexPath]];
+}
+
+- (void)didSelectResultObject:(NSManagedObject *)resultObject{
+    [self.tableView deselectRowAtIndexPath:[self.fetchedResultsController indexPathForObject:resultObject] animated:YES];
 }
 
 /*

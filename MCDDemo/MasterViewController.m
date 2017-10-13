@@ -8,6 +8,7 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "EventTableViewCell.h"
 
 @interface MasterViewController ()
 
@@ -28,15 +29,10 @@
     
     self.persistentContainer.viewContext.mcd_automaticallyMergesChangesFromParent = YES;
     self.messageWhenNoRows = @"Sorry there are no rows";
+    self.keyPathsForObservingFetchItem = @[@"sectionKey"];
     
     _sectionKeys = @[@"a", @"b", @"c", @"d", @"e"];
-    
-    [self createFetchedResultsController];
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];
-}
-
-- (void)test{
-    self.fetchedResultsController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -110,14 +106,19 @@
 //    return cell;
 //}
 
+- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    return cell;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSManagedObject *object = [self objectAtIndexPath:indexPath];
+    NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
     [object setValue:NSDate.date forKey:@"timestamp"];
     int i = arc4random_uniform(_sectionKeys.count);
     NSString *curr = [object valueForKey:@"sectionKey"];
     NSString *n = _sectionKeys[i];
     if(![curr isEqualToString:n]){
-        [object setValue:n forKey:@"sectionKey"];
+     //   [object setValue:n forKey:@"sectionKey"];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -148,13 +149,19 @@
 //    }
 //}
 
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object{
-    cell.textLabel.text = [[object valueForKey:@"timestamp"] description];
+//- (void)configureCell:(EventTableViewCell *)cell withObject:(NSManagedObject *)object{
+//    //cell.textLabel.text = [[object valueForKey:@"timestamp"] description];
+//    cell.fetchedResult = object;
+//}
+
+- (void)observedChangeOfFetchItemKeyPath:(NSString *)keyPath{
+    NSDictionary *d = self.fetchItem;
+    self.navigationItem.title = d[@"sectionKey"];
 }
 
 #pragma mark - Fetched results controller
 
-- (void)createFetchedResultsController{
+- (NSFetchedResultsController *)newFetchedResultsController{
 //- (NSFetchedResultsController *)fetchedResultsController
 //{
 //    if (_fetchedResultsController != nil) {
@@ -167,10 +174,11 @@
     //context.mcd_automaticallyMergesChangesFromParent = YES;
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    
+    NSDictionary *d = self.fetchItem;
+    //fetchRequest.predicate = [NSPredicate predicateWithFormat:@"sectionKey = %@", d[@"sectionKey"]];
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
-    
+   
     // Edit the sort key as appropriate.
     
     NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
@@ -180,9 +188,9 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:@"sectionKey" cacheName:nil];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    return [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:@"sectionKey" cacheName:nil];
+    //aFetchedResultsController.delegate = self;
+   // self.fetchedResultsController = aFetchedResultsController;
     
 //    NSError *error = nil;
 //    if (![self.fetchedResultsController performFetch:&error]) {

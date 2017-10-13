@@ -1,5 +1,5 @@
 //
-//  MCDFetchedResultsViewController.h
+//  MCDResultsTableViewController.h
 //  MCoreData
 //
 //  Created by Malcolm Hall on 7/12/13.
@@ -14,25 +14,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 
-@interface MCDFetchedResultsViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MCDResultsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
-@property (strong, nonatomic, nullable) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
-// Defaults to "Cell"
-@property (copy, nonatomic, null_resettable) NSString *cellReuseIdentifier;
+- (NSFetchedResultsController *)newFetchedResultsController;
+
+- (void)recreateFetchedResultsController;
+
+- (void)recreateFetchedResultsControllerPerformFetch:(BOOL)performFetch;
+
+// the item that affects the fetch, when set the fetch will be recreated and can take into account the new item.
+@property (strong, nonatomic) id fetchItem;
+
+@property (strong, nonatomic) NSArray<NSString *> *keyPathsForObservingFetchItem;
+
+- (void)observedChangeOfFetchItemKeyPath:(NSString *)keyPath;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
-@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
+@property (copy, nonatomic, null_resettable) NSString *messageWhenNoRows;
 
 // cell style to use when no prototype is found.
 @property (assign, nonatomic) UITableViewCellStyle defaultCellStyle;
 
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object;
+- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject;
 
-- (BOOL)canEditObject:(NSManagedObject *)managedObject;
+- (BOOL)canEditResultObject:(NSManagedObject *)resultObject;
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(NSManagedObject *)object;
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject;
 
 /*
 - (void)viewDidLoad{
@@ -52,9 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // the default implementation is to delete the object from the context and save it, and abort if it fails. Override for a different behavior.
 // returns NO and sets error if fails to save. Doesn't any more.
-- (void)deleteObject:(NSManagedObject *)managedObject;
+- (void)deleteResultObject:(NSManagedObject *)resultObject;
 
-- (NSManagedObject *)objectAtIndexPath:(NSIndexPath *)indexPath;
+- (NSManagedObject *)resultObjectAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

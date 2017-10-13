@@ -12,7 +12,7 @@
 
 @class DetailViewController;
 
-@interface MasterViewController : MCDFetchedResultsViewController // UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MasterViewController : MCDResultsTableViewController // UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 
