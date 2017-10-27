@@ -47,9 +47,9 @@
 }
 
 - (void)malc:(MasterViewController *)controller{
-    NSMutableDictionary *d = controller.fetchItem;
+ //   NSMutableDictionary *d = controller.fetchItem;
     //d[@"sectionKey"] = @"b";
-    [d setValue:@"b" forKeyPath:@"sectionKey"];
+ //   [d setValue:@"b" forKeyPath:@"sectionKey"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -23,46 +23,6 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
     NSString *_messageWhenNoRows;
 }
 
-- (void)setFetchItem:(id)fetchItem{
-    if(_fetchItem == fetchItem){
-        return;
-    }
-    [self stopObservingFetchItem];
-    _fetchItem = fetchItem;
-    if(fetchItem){
-        [self startObservingFetchItem];
-    }
-    [self fetchItemDidChange];
-}
-
-- (void)startObservingFetchItem{
-    for(NSString *key in self.keyPathsForObservingFetchItem){
-        [self.fetchItem addObserver:self forKeyPath:key options:0 context:kMCDResultsTableViewControllerKVOContext];
-    }
-}
-
-- (void)stopObservingFetchItem{
-    for(NSString *key in self.keyPathsForObservingFetchItem){
-        [self.fetchItem removeObserver:self forKeyPath:key context:kMCDResultsTableViewControllerKVOContext];
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
-    if(context != kMCDResultsTableViewControllerKVOContext){
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
-    [self fetchItemKeyPathDidChange:keyPath];
-}
-
-- (void)fetchItemKeyPathDidChange:(NSString *)keyPath{
-    return;
-}
-    
-- (void)fetchItemDidChange{
-    [self recreateFetchedResultsControllerPerformFetch:YES];
-}
-
 - (void)recreateFetchedResultsController{
     [self recreateFetchedResultsControllerPerformFetch:YES];
 }
@@ -157,6 +117,10 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
         resultCell.resultObject = resultObject;
     }
     return cell;
+}
+
+- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
+    return nil;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

@@ -29,7 +29,7 @@
     
     self.persistentContainer.viewContext.mcd_automaticallyMergesChangesFromParent = YES;
     self.messageWhenNoRows = @"Sorry there are no rows";
-    self.keyPathsForObservingFetchItem = @[@"sectionKey"];
+ //   self.keyPathsForObservingFetchItem = @[@"sectionKey"];
     
     _sectionKeys = @[@"a", @"b", @"c", @"d", @"e"];
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];

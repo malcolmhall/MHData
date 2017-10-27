@@ -25,13 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)recreateFetchedResultsControllerPerformFetch:(BOOL)performFetch;
 
-// the item that affects the fetch, when set the fetch will be recreated and can take into account the new item.
-@property (strong, nonatomic) id fetchItem;
-
-@property (strong, nonatomic) NSArray<NSString *> *keyPathsForObservingFetchItem;
-
-- (void)observedChangeOfFetchItemKeyPath:(NSString *)keyPath;
-
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 @property (copy, nonatomic, null_resettable) NSString *messageWhenNoRows;
 

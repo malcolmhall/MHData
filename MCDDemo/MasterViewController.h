@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCoreData.h>
 
-@class DetailViewController;
+@class DetailViewController, Event;
 
 @interface MasterViewController : MCDResultsTableViewController // UITableViewController <NSFetchedResultsControllerDelegate>
 
@@ -19,6 +19,9 @@
 //@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 //@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) MCDPersistentContainer *persistentContainer;
+
+
+@property (strong, nonatomic) Event *fetchItem;
 
 @end
 
