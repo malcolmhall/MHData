@@ -13,29 +13,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
-
+// perform fetch is done in view will appear
 @interface MCDResultsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
-@property (strong, nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
-
-- (NSFetchedResultsController *)newFetchedResultsController;
-
-- (void)recreateFetchedResultsController;
-
-- (void)recreateFetchedResultsControllerPerformFetch:(BOOL)performFetch;
+// setting reloads the table but does not fetch.
+@property (strong, nonatomic, nullable) NSFetchedResultsController *fetchedResultsController;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
-@property (copy, nonatomic, null_resettable) NSString *messageWhenNoRows;
+//@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
-// cell style to use when no prototype is found.
-@property (assign, nonatomic) UITableViewCellStyle defaultCellStyle;
-
+// default implementation deques a ResultCell which should be a subclass of MCDResultTableViewCell and sets resultObject
 - (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject;
 
 - (BOOL)canEditResultObject:(NSManagedObject *)resultObject;
 
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject;
+
+- (void)tearDownFetchedResultsController;
 
 /*
 - (void)viewDidLoad{

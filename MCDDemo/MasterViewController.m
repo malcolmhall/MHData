@@ -18,6 +18,16 @@
     NSArray *_sectionKeys;
 }
 
+- (IBAction)teardownButtonTapped:(id)sender{
+    [self tearDownFetchedResultsController];
+}
+    
+- (IBAction)recreateButtonTapped:(id)sender{
+    [self newFetchedResultsController];
+    [self.fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -28,11 +38,13 @@
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     self.persistentContainer.viewContext.mcd_automaticallyMergesChangesFromParent = YES;
-    self.messageWhenNoRows = @"Sorry there are no rows";
+    //self.messageWhenNoRows = @"Sorry there are no rows";
  //   self.keyPathsForObservingFetchItem = @[@"sectionKey"];
     
     _sectionKeys = @[@"a", @"b", @"c", @"d", @"e"];
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];
+    
+    [self newFetchedResultsController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,16 +59,18 @@
 
 - (void)insertNewObject:(id)sender {
     //NSManagedObjectContext *context = self.persistentContainer.viewContext;
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
    //NSManagedObjectContext * context = self.persistentContainer.newBackgroundContext;
     ///NSManagedObjectContext * context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
     //context.parentContext = self.fetchedResultsController.managedObjectContext;
     //context.mcd_automaticallyMergesChangesFromParent = YES;
     //context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
     //[context performBlock:^{
-        
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    if(!context){
+        return;
+    }
+    NSEntityDescription *entity = self.fetchedResultsController.fetchRequest.entity;
+    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name inManagedObjectContext:context];
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
@@ -106,10 +120,10 @@
 //    return cell;
 //}
 
-- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    return cell;
-}
+//- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//    return cell;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
@@ -134,20 +148,20 @@
 //    return YES;
 //}
 
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-//        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-//
-//        NSError *error = nil;
-//        if (![context save:&error]) {
-//            // Replace this implementation with code to handle the error appropriately.
-//            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//            abort();
-//        }
-//    }
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
+        NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
+        [context deleteObject:object];
+        NSError *error = nil;
+        if (![context save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
 
 //- (void)configureCell:(EventTableViewCell *)cell withObject:(NSManagedObject *)object{
 //    //cell.textLabel.text = [[object valueForKey:@"timestamp"] description];
@@ -161,7 +175,7 @@
 
 #pragma mark - Fetched results controller
 
-- (NSFetchedResultsController *)newFetchedResultsController{
+- (void)newFetchedResultsController{
 //- (NSFetchedResultsController *)fetchedResultsController
 //{
 //    if (_fetchedResultsController != nil) {
@@ -188,7 +202,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    return [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:@"sectionKey" cacheName:nil];
+    self.fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:@"sectionKey" cacheName:nil];
     //aFetchedResultsController.delegate = self;
    // self.fetchedResultsController = aFetchedResultsController;
     

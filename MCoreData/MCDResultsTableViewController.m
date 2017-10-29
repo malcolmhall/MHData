@@ -9,96 +9,75 @@
 #import "MCDResultsTableViewController.h"
 #import "MCDResultTableViewCell.h"
 
-static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
+//static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResultsTableViewControllerKVOContext;
+static NSString * const kResultCellIdentifier = @"ResultCell";
 
 @interface MCDResultsTableViewController()
 
 @property (nonatomic) BOOL sectionsCountChanged;
-@property (strong, nonatomic, readwrite) NSFetchedResultsController *fetchedResultsController;
+//@property (strong, nonatomic, readwrite) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation MCDResultsTableViewController{
-    NSString *_messageWhenNoRows;
+    //NSString *_messageWhenNoRows;
 }
 
-- (void)recreateFetchedResultsController{
-    [self recreateFetchedResultsControllerPerformFetch:YES];
-}
-
-- (void)recreateFetchedResultsControllerPerformFetch:(BOOL)performFetch{
-    [self tearDownFetchedResultsController];
-    self.fetchedResultsController = self.newFetchedResultsController;
-    // ensure we are the delegate
-    self.fetchedResultsController.delegate = self;
-    if(performFetch){
-        NSError *error = nil;
-        if (![self.fetchedResultsController performFetch:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-            abort();
-        }
+- (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
+    if(fetchedResultsController == _fetchedResultsController){
+        return;
     }
+    _fetchedResultsController = fetchedResultsController;
+    fetchedResultsController.delegate = self;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    if(!self.fetchedResultsController){
-        [self recreateFetchedResultsController];
+    if(!self.fetchedResultsController.sections){
+        [self.fetchedResultsController performFetch:nil];
     }
+    [super viewWillAppear:animated]; // reloads table if there are no sections
 }
 
-- (void)tearDownFetchedResultsController{
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-}
-
-- (NSString *)messageWhenNoRows{
-    if(!_messageWhenNoRows){
-        _messageWhenNoRows = kDefaultmessageWhenNoRows;
-    }
-    return _messageWhenNoRows;
-}
-
-- (void)setMessageWhenNoRows:(NSString *)messageWhenNoRows{
-    if(!messageWhenNoRows){
-        messageWhenNoRows = kDefaultmessageWhenNoRows;
-    }
-    _messageWhenNoRows = messageWhenNoRows.copy;
-}
+//- (NSString *)messageWhenNoRows{
+//    if(!_messageWhenNoRows){
+//        _messageWhenNoRows = kDefaultmessageWhenNoRows;
+//    }
+//    return _messageWhenNoRows;
+//}
 
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     NSInteger numberOfSections = self.fetchedResultsController.sections.count;
-    // when set to nil they dont want this feature.
-    if(!self.messageWhenNoRows){
-        return numberOfSections;
-    }
-    // calc total rows across all sections.
-    NSInteger totalNumberOfRows = 0;
-    for(NSInteger i = 0; i < numberOfSections; i++){
-        totalNumberOfRows += [self tableView:tableView numberOfRowsInSection:i];
-    }
-    if (totalNumberOfRows > 0) {
-        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        tableView.backgroundView = nil;
-    } else {
-        // Display a message when the table is empty (doesn't work if multiple sections)
-        UILabel *messageLabel = [UILabel.alloc initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        
-        messageLabel.text = self.messageWhenNoRows;
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
-        [messageLabel sizeToFit];
-        
-        tableView.backgroundView = messageLabel;
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
+    
+    // todo: should be checking the model rather than the result of the view
+//    if(!self.messageWhenNoRows){
+//        return numberOfSections;
+//    }
+//    // calc total rows across all sections.
+//    NSInteger totalNumberOfRows = 0;
+//    for(NSInteger i = 0; i < numberOfSections; i++){
+//        totalNumberOfRows += [self tableView:tableView numberOfRowsInSection:i];
+//    }
+//    if (totalNumberOfRows > 0) {
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        tableView.backgroundView = nil;
+//    } else {
+//        // Display a message when the table is empty (doesn't work if multiple sections)
+//        UILabel *messageLabel = [UILabel.alloc initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//
+//        messageLabel.text = self.messageWhenNoRows;
+//        messageLabel.numberOfLines = 0;
+//        messageLabel.textAlignment = NSTextAlignmentCenter;
+//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+//        [messageLabel sizeToFit];
+//
+//        tableView.backgroundView = messageLabel;
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    }
     return numberOfSections;
 }
 
@@ -111,16 +90,13 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSManagedObject *resultObject = [self resultObjectAtIndexPath:indexPath];
-    UITableViewCell *cell = [self cellForResultObject:resultObject];
-    if([cell isKindOfClass:MCDResultTableViewCell.class]){
-        MCDResultTableViewCell *resultCell = (MCDResultTableViewCell *)cell;
-        resultCell.resultObject = resultObject;
-    }
-    return cell;
+    return [self cellForResultObject:resultObject];
 }
 
 - (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
-    return nil;
+    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kResultCellIdentifier];
+    cell.resultObject = resultObject;
+    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,21 +114,8 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
-- (void)deleteResultObject:(NSManagedObject*)resultObject{
-    NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
-    [context deleteObject:resultObject];
-    NSError *error;
-    if(![context save:&error]){
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
-}
-
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self deleteResultObject:resultObject];
-    }
+    return;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -275,7 +238,8 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
             }
             break;
         case NSFetchedResultsChangeUpdate:
-            NSLog(@"Update %@ to %@", indexPath, newIndexPath);
+            // Using KVO to optimise update of cells.
+            //NSLog(@"Update %@ to %@", indexPath, newIndexPath);
             //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withObject:anObject];
             //[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -322,9 +286,13 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
     [self.tableView endUpdates];
 }
 
-- (void)dealloc{
+- (void)tearDownFetchedResultsController{
     self.fetchedResultsController.delegate = nil;
     self.fetchedResultsController = nil;
+}
+
+- (void)dealloc{
+    [self tearDownFetchedResultsController];
 }
 
 @end

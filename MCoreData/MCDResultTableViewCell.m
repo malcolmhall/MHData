@@ -18,25 +18,13 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
 
 @implementation MCDResultTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 -(void)setResultObject:(NSManagedObject *)resultObject{
     if(_resultObject == resultObject){
         return;
     }
     else if(_resultObject){
-        [self stopObservingFetchResult];
+        [self stopObservingResultObject];
     }
-    //[self resetFolderNoteCountLabel];
     _resultObject = resultObject;
     if(resultObject){
         [self startObservingResultObject];
@@ -50,7 +38,7 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
     }
 }
 
-- (void)stopObservingFetchResult{
+- (void)stopObservingResultObject{
     for(NSString *key in self.keyPathsForUpdatingViews){
         [self.resultObject removeObserver:self forKeyPath:key context:kMCDResultTableViewCellKVOContext];
     }
@@ -59,6 +47,9 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
     if(context != kMCDResultTableViewCellKVOContext){
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+    else if(![self.keyPathsForUpdatingViews containsObject:keyPath]){
         return;
     }
     [self updateViewsForCurrentResultObjectIfNecessary];
@@ -85,6 +76,11 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
     if(newWindow && self.needsToUpdateViews){
         [self updateViewsForCurrentResultObject];
     }
+}
+
+- (void)dealloc
+{
+    self.resultObject = nil;
 }
 
 @end
