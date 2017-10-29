@@ -28,6 +28,7 @@ static NSString * const kResultCellIdentifier = @"ResultCell";
     if(fetchedResultsController == _fetchedResultsController){
         return;
     }
+    _fetchedResultsController.delegate = nil;
     _fetchedResultsController = fetchedResultsController;
     fetchedResultsController.delegate = self;
     [self.tableView reloadData];
@@ -150,7 +151,7 @@ static NSString * const kResultCellIdentifier = @"ResultCell";
 }
 
 - (void)didSelectResultObject:(NSManagedObject *)resultObject{
-    [self.tableView deselectRowAtIndexPath:[self.fetchedResultsController indexPathForObject:resultObject] animated:YES];
+    return;
 }
 
 /*
@@ -286,13 +287,8 @@ static NSString * const kResultCellIdentifier = @"ResultCell";
     [self.tableView endUpdates];
 }
 
-- (void)tearDownFetchedResultsController{
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
-}
-
 - (void)dealloc{
-    [self tearDownFetchedResultsController];
+    self.fetchedResultsController = nil;
 }
 
 @end

@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSManagedObject *)resultObjectAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)didSelectResultObject:(NSManagedObject *)resultObject;
+
 @end
 
 NS_ASSUME_NONNULL_END

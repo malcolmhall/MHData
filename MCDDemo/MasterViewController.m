@@ -19,7 +19,7 @@
 }
 
 - (IBAction)teardownButtonTapped:(id)sender{
-    [self tearDownFetchedResultsController];
+    self.fetchedResultsController = nil;
 }
     
 - (IBAction)recreateButtonTapped:(id)sender{
@@ -139,9 +139,9 @@
 }
 
 // testing
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    return NO;
-}
+//- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+//    return NO;
+//}
 
 //- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 //    // Return NO if you do not want the specified item to be editable.
