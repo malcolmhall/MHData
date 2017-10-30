@@ -95,17 +95,9 @@ static NSString * const kResultReuseIdentifier = @"Result";
 }
 
 - (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
-    NSString *reuseIdentifier = [self resultCellReuseIdentifierForResultObject:resultObject];
-    if(!reuseIdentifier){
-        return nil;
-    }
-    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kResultReuseIdentifier];
     cell.resultObject = resultObject;
     return cell;
-}
-
-- (NSString *)resultCellReuseIdentifierForResultObject:(NSManagedObject *)resultObject{
-    return @"Result";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
