@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectResultObject:(NSManagedObject *)resultObject;
 
+- (void)deselectResultObject:(NSManagedObject *)resultObject animated:(BOOL)animated;
+
 - (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject;
 
 @end

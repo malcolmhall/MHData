@@ -139,7 +139,7 @@
 }
 
 - (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject{
-    return [resultObject valueForKey:@"sectionKey"];
+    return resultObject[@"sectionKey"];
 }
 
 // testing

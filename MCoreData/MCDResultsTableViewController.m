@@ -115,6 +115,10 @@ static NSString * const kResultReuseIdentifier = @"Result";
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
+- (NSIndexPath *)indexPathForResultObject:(NSManagedObject *)resultObject{
+    return [self.fetchedResultsController indexPathForObject:resultObject];
+}
+
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject{
     return;
 }
@@ -160,6 +164,10 @@ static NSString * const kResultReuseIdentifier = @"Result";
 
 - (void)didSelectResultObject:(NSManagedObject *)resultObject{
     return;
+}
+
+- (void)deselectResultObject:(NSManagedObject *)resultObject animated:(BOOL)animated{
+    [self.tableView deselectRowAtIndexPath:[self indexPathForResultObject:resultObject] animated:animated];
 }
 
 /*
