@@ -131,11 +131,19 @@ static NSString * const kResultReuseIdentifier = @"Result";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.fetchedResultsController.sections.count > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-        return sectionInfo.name;
-    } else
-        return nil;
+//    if (self.fetchedResultsController.sections.count > 0) {
+//        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+//        return sectionInfo.name;
+//    }else{
+//        return nil;
+//    }
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section]; // bug its using collection view indexPathForItem
+    NSManagedObject *resultObject = [self resultObjectAtIndexPath:indexPath];
+    return [self sectionHeaderTitleForResultObject:resultObject];
+}
+
+- (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject{
+    return nil;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {

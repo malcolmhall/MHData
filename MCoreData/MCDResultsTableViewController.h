@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectResultObject:(NSManagedObject *)resultObject;
 
+- (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject;
+
 @end
 
 NS_ASSUME_NONNULL_END

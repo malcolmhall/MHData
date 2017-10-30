@@ -62,6 +62,7 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
 - (void)prepareForReuse{
     [super prepareForReuse];
+    self.resultObject = nil;
     self.needsToUpdateViews = YES;
 }
 

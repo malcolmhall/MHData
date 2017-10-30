@@ -138,6 +138,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject{
+    return [resultObject valueForKey:@"sectionKey"];
+}
+
 // testing
 //- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
 //    return NO;
