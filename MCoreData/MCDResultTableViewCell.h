@@ -18,12 +18,13 @@
 // when these keys change in the resultObject updateViews is called
 @property (strong, nonatomic) NSArray<NSString *> *keyPathsForUpdatingViews; // changing
 
+// the default implementation unsets needsToUpdateViews.
 - (void)updateViewsForCurrentResultObject NS_REQUIRES_SUPER;
 
-- (void)startObservingResultObject NS_REQUIRES_SUPER;
+// the default implementation adds observer for the keyPathsForUpdatingViews.
+- (void)startObservingCurrentResultObject NS_REQUIRES_SUPER;
 
-- (void)stopObservingResultObject NS_REQUIRES_SUPER;
-
-@property (class, readonly, strong) NSString *defaultResultCellIdentifier;
+// the default implementation removes observer for the keyPathsForUpdatingViews.
+- (void)stopObservingCurrentResultObject NS_REQUIRES_SUPER;
 
 @end

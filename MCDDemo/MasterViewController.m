@@ -163,6 +163,10 @@
     }
 }
 
+- (NSString *)resultCellReuseIdentifierForResultObject:(NSManagedObject *)resultObject{
+    return @"Event";
+}
+
 //- (void)configureCell:(EventTableViewCell *)cell withObject:(NSManagedObject *)object{
 //    //cell.textLabel.text = [[object valueForKey:@"timestamp"] description];
 //    cell.fetchedResult = object;

@@ -8,7 +8,7 @@
 
 #import "MCDResultTableViewCell.h"
 
-static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTableViewCellKVOContext;
+static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
 @interface MCDResultTableViewCell()
 
@@ -23,33 +23,30 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
         return;
     }
     else if(_resultObject){
-        [self stopObservingResultObject];
+        [self stopObservingCurrentResultObject];
     }
     _resultObject = resultObject;
     if(resultObject){
-        [self startObservingResultObject];
+        [self startObservingCurrentResultObject];
         [self updateViewsForCurrentResultObjectIfNecessary];
     }
 }
 
-- (void)startObservingResultObject{
+- (void)startObservingCurrentResultObject{
     for(NSString *key in self.keyPathsForUpdatingViews){
-        [self.resultObject addObserver:self forKeyPath:key options:0 context:kMCDResultTableViewCellKVOContext];
+        [self.resultObject addObserver:self forKeyPath:key options:0 context:kUpdateViewsContext];
     }
 }
 
-- (void)stopObservingResultObject{
+- (void)stopObservingCurrentResultObject{
     for(NSString *key in self.keyPathsForUpdatingViews){
-        [self.resultObject removeObserver:self forKeyPath:key context:kMCDResultTableViewCellKVOContext];
+        [self.resultObject removeObserver:self forKeyPath:key context:kUpdateViewsContext];
     }
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
-    if(context != kMCDResultTableViewCellKVOContext){
+    if(context != kUpdateViewsContext){
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
-    else if(![self.keyPathsForUpdatingViews containsObject:keyPath]){
         return;
     }
     [self updateViewsForCurrentResultObjectIfNecessary];
@@ -81,10 +78,6 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
 - (void)dealloc
 {
     self.resultObject = nil;
-}
-
-+ (NSString *)defaultResultCellIdentifier{
-    return @"ResultCell";
 }
 
 @end

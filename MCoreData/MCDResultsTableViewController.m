@@ -11,6 +11,7 @@
 
 //static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResultsTableViewControllerKVOContext;
+static NSString * const kResultReuseIdentifier = @"Result";
 
 @interface MCDResultsTableViewController()
 
@@ -94,9 +95,17 @@ static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResu
 }
 
 - (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
-    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:MCDResultTableViewCell.defaultResultCellIdentifier];
+    NSString *reuseIdentifier = [self resultCellReuseIdentifierForResultObject:resultObject];
+    if(!reuseIdentifier){
+        return nil;
+    }
+    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     cell.resultObject = resultObject;
     return cell;
+}
+
+- (NSString *)resultCellReuseIdentifierForResultObject:(NSManagedObject *)resultObject{
+    return @"Result";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

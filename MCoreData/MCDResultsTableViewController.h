@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 // default implementation deques a ResultCell which should be a subclass of MCDResultTableViewCell and sets resultObject
 - (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject;
 
+// return a identifier to deque the cell which is a subclass for result cell and set the object on it.
+- (NSString *)resultCellReuseIdentifierForResultObject:(NSManagedObject *)resultObject;
+
 - (BOOL)canEditResultObject:(NSManagedObject *)resultObject;
 
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject;
