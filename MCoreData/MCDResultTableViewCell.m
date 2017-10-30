@@ -83,4 +83,8 @@ static void * const kMCDResultTableViewCellKVOContext = (void *)&kMCDResultTable
     self.resultObject = nil;
 }
 
++ (NSString *)defaultResultCellIdentifier{
+    return @"ResultCell";
+}
+
 @end

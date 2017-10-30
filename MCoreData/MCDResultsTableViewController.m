@@ -11,7 +11,6 @@
 
 //static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResultsTableViewControllerKVOContext;
-static NSString * const kResultCellIdentifier = @"ResultCell";
 
 @interface MCDResultsTableViewController()
 
@@ -31,7 +30,7 @@ static NSString * const kResultCellIdentifier = @"ResultCell";
     _fetchedResultsController.delegate = nil;
     _fetchedResultsController = fetchedResultsController;
     fetchedResultsController.delegate = self;
-    [self.tableView reloadData];
+    [self.tableView reloadData]; // if the frc has been fetched it will load in, if not or its nil it will empty the table.
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -95,7 +94,7 @@ static NSString * const kResultCellIdentifier = @"ResultCell";
 }
 
 - (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
-    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kResultCellIdentifier];
+    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:MCDResultTableViewCell.defaultResultCellIdentifier];
     cell.resultObject = resultObject;
     return cell;
 }

@@ -24,4 +24,6 @@
 
 - (void)stopObservingResultObject NS_REQUIRES_SUPER;
 
+@property (class, readonly, strong) NSString *defaultResultCellIdentifier;
+
 @end

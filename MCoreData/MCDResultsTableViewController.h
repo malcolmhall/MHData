@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject;
 
-- (void)tearDownFetchedResultsController;
+//- (void)tearDownFetchedResultsController;
 
 /*
 - (void)viewDidLoad{
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // the default implementation is to delete the object from the context and save it, and abort if it fails. Override for a different behavior.
 // returns NO and sets error if fails to save. Doesn't any more.
-- (void)deleteResultObject:(NSManagedObject *)resultObject;
+//- (void)deleteResultObject:(NSManagedObject *)resultObject;
 
 - (NSManagedObject *)resultObjectAtIndexPath:(NSIndexPath *)indexPath;
 
