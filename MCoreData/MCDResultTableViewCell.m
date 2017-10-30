@@ -33,13 +33,13 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 }
 
 - (void)startObservingCurrentResultObject{
-    for(NSString *key in self.keyPathsForUpdatingViews){
+    for(NSString *key in self.resultObjectKeyPathsForViews){
         [self.resultObject addObserver:self forKeyPath:key options:0 context:kUpdateViewsContext];
     }
 }
 
 - (void)stopObservingCurrentResultObject{
-    for(NSString *key in self.keyPathsForUpdatingViews){
+    for(NSString *key in self.resultObjectKeyPathsForViews){
         [self.resultObject removeObserver:self forKeyPath:key context:kUpdateViewsContext];
     }
 }

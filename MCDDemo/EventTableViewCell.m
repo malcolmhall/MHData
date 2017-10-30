@@ -13,10 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.keyPathsForUpdatingViews = @[@"timestamp"];
+    self.resultObjectKeyPathsForViews = @[@"timestamp"];
 }
-
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

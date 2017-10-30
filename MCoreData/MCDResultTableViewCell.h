@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSManagedObject *resultObject;
 
 // when these keys change in the resultObject updateViews is called
-@property (strong, nonatomic) NSArray<NSString *> *keyPathsForUpdatingViews; // changing
+@property (strong, nonatomic) NSArray<NSString *> *resultObjectKeyPathsForViews;
 
 // the default implementation unsets needsToUpdateViews.
 - (void)updateViewsForCurrentResultObject NS_REQUIRES_SUPER;
