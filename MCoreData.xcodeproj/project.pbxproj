@@ -22,14 +22,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		EC171BD91F8FCC8A00EFF892 /* MCDResultTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = EC171BD71F8FCC8A00EFF892 /* MCDResultTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC171BDA1F8FCC8A00EFF892 /* MCDResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC171BD81F8FCC8A00EFF892 /* MCDResultTableViewCell.m */; };
+		EC171BD91F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = EC171BD71F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC171BDA1F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC171BD81F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.m */; };
 		EC3144DE1D073E010025F669 /* MCoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144DD1D073E010025F669 /* MCoreData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3144E51D073E010025F669 /* MCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3144DA1D073E010025F669 /* MCoreData.framework */; };
 		EC3144EA1D073E010025F669 /* MHDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144E91D073E010025F669 /* MHDataTests.m */; };
 		EC3145081D073EA30025F669 /* MCDDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F41D073EA30025F669 /* MCDDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC31450C1D073EA30025F669 /* MCDResultsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F81D073EA30025F669 /* MCDResultsTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC31450D1D073EA30025F669 /* MCDResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F91D073EA30025F669 /* MCDResultsTableViewController.m */; };
+		EC31450C1D073EA30025F669 /* MCDFetchedResultsTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144F81D073EA30025F669 /* MCDFetchedResultsTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC31450D1D073EA30025F669 /* MCDFetchedResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144F91D073EA30025F669 /* MCDFetchedResultsTableViewController.m */; };
 		EC31450E1D073EA30025F669 /* MCDPersistentStoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FA1D073EA30025F669 /* MCDPersistentStoreBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31450F1D073EA30025F669 /* MCDPersistentStoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144FB1D073EA30025F669 /* MCDPersistentStoreBridge.m */; };
 		EC3145101D073EA30025F669 /* MCDStackManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144FC1D073EA30025F669 /* MCDStackManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -73,8 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EC171BD71F8FCC8A00EFF892 /* MCDResultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDResultTableViewCell.h; sourceTree = "<group>"; };
-		EC171BD81F8FCC8A00EFF892 /* MCDResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDResultTableViewCell.m; sourceTree = "<group>"; };
+		EC171BD71F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDFetchedResultTableViewCell.h; sourceTree = "<group>"; };
+		EC171BD81F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDFetchedResultTableViewCell.m; sourceTree = "<group>"; };
 		EC3144DA1D073E010025F669 /* MCoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MCoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3144DD1D073E010025F669 /* MCoreData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCoreData.h; sourceTree = "<group>"; };
 		EC3144DF1D073E010025F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,8 +82,8 @@
 		EC3144E91D073E010025F669 /* MHDataTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MHDataTests.m; sourceTree = "<group>"; };
 		EC3144EB1D073E010025F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC3144F41D073EA30025F669 /* MCDDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDDefines.h; sourceTree = "<group>"; };
-		EC3144F81D073EA30025F669 /* MCDResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDResultsTableViewController.h; sourceTree = "<group>"; };
-		EC3144F91D073EA30025F669 /* MCDResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDResultsTableViewController.m; sourceTree = "<group>"; };
+		EC3144F81D073EA30025F669 /* MCDFetchedResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDFetchedResultsTableViewController.h; sourceTree = "<group>"; };
+		EC3144F91D073EA30025F669 /* MCDFetchedResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDFetchedResultsTableViewController.m; sourceTree = "<group>"; };
 		EC3144FA1D073EA30025F669 /* MCDPersistentStoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDPersistentStoreBridge.h; sourceTree = "<group>"; };
 		EC3144FB1D073EA30025F669 /* MCDPersistentStoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDPersistentStoreBridge.m; sourceTree = "<group>"; };
 		EC3144FC1D073EA30025F669 /* MCDStackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDStackManager.h; sourceTree = "<group>"; };
@@ -154,10 +154,10 @@
 				ECD142D01DB922F8000B38AC /* MCDDefines+Namespace.h */,
 				EC6023961D313FD200ACE8B0 /* MCDError.h */,
 				EC6023971D313FD200ACE8B0 /* MCDError.m */,
-				EC3144F81D073EA30025F669 /* MCDResultsTableViewController.h */,
-				EC3144F91D073EA30025F669 /* MCDResultsTableViewController.m */,
-				EC171BD71F8FCC8A00EFF892 /* MCDResultTableViewCell.h */,
-				EC171BD81F8FCC8A00EFF892 /* MCDResultTableViewCell.m */,
+				EC3144F81D073EA30025F669 /* MCDFetchedResultsTableViewController.h */,
+				EC3144F91D073EA30025F669 /* MCDFetchedResultsTableViewController.m */,
+				EC171BD71F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.h */,
+				EC171BD81F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.m */,
 				EC3144FA1D073EA30025F669 /* MCDPersistentStoreBridge.h */,
 				EC3144FB1D073EA30025F669 /* MCDPersistentStoreBridge.m */,
 				EC3144FC1D073EA30025F669 /* MCDStackManager.h */,
@@ -202,13 +202,13 @@
 				ECC991D31D11AD88000F5EFB /* MCDPersistentContainer.h in Headers */,
 				EC3145121D073EA30025F669 /* NSEntityDescription+MCD.h in Headers */,
 				ECB213761D872F2400246A1F /* NSError+MCD.h in Headers */,
-				EC31450C1D073EA30025F669 /* MCDResultsTableViewController.h in Headers */,
+				EC31450C1D073EA30025F669 /* MCDFetchedResultsTableViewController.h in Headers */,
 				EC3145181D073EA30025F669 /* NSManagedObjectModel+MCD.h in Headers */,
 				ECD142D11DB922F8000B38AC /* MCDDefines+Namespace.h in Headers */,
 				EC3145101D073EA30025F669 /* MCDStackManager.h in Headers */,
 				ECC991CC1D118E40000F5EFB /* MCDPersistentStoreDescription.h in Headers */,
 				EC3145081D073EA30025F669 /* MCDDefines.h in Headers */,
-				EC171BD91F8FCC8A00EFF892 /* MCDResultTableViewCell.h in Headers */,
+				EC171BD91F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.h in Headers */,
 				EC3145141D073EA30025F669 /* NSManagedObject+MCD.h in Headers */,
 				EC3145161D073EA30025F669 /* NSManagedObjectContext+MCD.h in Headers */,
 				EC31451A1D073EA30025F669 /* NSPersistentStoreCoordinator+MCD.h in Headers */,
@@ -337,10 +337,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECB213771D872F2400246A1F /* NSError+MCD.m in Sources */,
-				EC171BDA1F8FCC8A00EFF892 /* MCDResultTableViewCell.m in Sources */,
+				EC171BDA1F8FCC8A00EFF892 /* MCDFetchedResultTableViewCell.m in Sources */,
 				EC31450F1D073EA30025F669 /* MCDPersistentStoreBridge.m in Sources */,
 				ECC991CD1D118E40000F5EFB /* MCDPersistentStoreDescription.m in Sources */,
-				EC31450D1D073EA30025F669 /* MCDResultsTableViewController.m in Sources */,
+				EC31450D1D073EA30025F669 /* MCDFetchedResultsTableViewController.m in Sources */,
 				ECC991D41D11AD88000F5EFB /* MCDPersistentContainer.m in Sources */,
 				EC3145151D073EA30025F669 /* NSManagedObject+MCD.m in Sources */,
 				EC3145111D073EA30025F669 /* MCDStackManager.m in Sources */,

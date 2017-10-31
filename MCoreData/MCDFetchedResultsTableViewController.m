@@ -1,26 +1,24 @@
 //
-//  MCDResultsTableViewController.m
+//  MCDFetchedResultsTableViewController.m
 //  MCoreData
 //
 //  Created by Malcolm Hall on 7/12/13.
 //  Copyright (c) 2013 MAlcolm Hall. All rights reserved.
 //
 
-#import "MCDResultsTableViewController.h"
-#import "MCDResultTableViewCell.h"
+#import "MCDFetchedResultsTableViewController.h"
+#import "MCDFetchedResultTableViewCell.h"
 
 //static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
-static void * const kMCDResultsTableViewControllerKVOContext = (void *)&kMCDResultsTableViewControllerKVOContext;
-static NSString * const kResultReuseIdentifier = @"Result";
+static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&kMCDFetchedResultsTableViewControllerKVOContext;
 
-@interface MCDResultsTableViewController()
+@interface MCDFetchedResultsTableViewController()
 
 @property (nonatomic) BOOL sectionsCountChanged;
-//@property (strong, nonatomic, readwrite) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
-@implementation MCDResultsTableViewController{
+@implementation MCDFetchedResultsTableViewController{
     //NSString *_messageWhenNoRows;
 }
 
@@ -90,48 +88,46 @@ static NSString * const kResultReuseIdentifier = @"Result";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *resultObject = [self resultObjectAtIndexPath:indexPath];
-    return [self cellForResultObject:resultObject];
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    return [self cellForObject:object];
 }
 
-- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
-    MCDResultTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kResultReuseIdentifier];
-    cell.resultObject = resultObject;
-    return cell;
+- (UITableViewCell *)cellForObject:(id<NSFetchRequestResult>)object{
+    return nil;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return [self canEditResultObject:[self resultObjectAtIndexPath:indexPath]];
+    return [self canEditObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 //default to yes to match normal.
-- (BOOL)canEditResultObject:(NSManagedObject*)resultObject{
+- (BOOL)canEditObject:(id)object{
     return YES;
 }
 
-- (NSManagedObject *)resultObjectAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.fetchedResultsController objectAtIndexPath:indexPath];
-}
-
-- (NSIndexPath *)indexPathForResultObject:(NSManagedObject *)resultObject{
-    return [self.fetchedResultsController indexPathForObject:resultObject];
-}
-
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject{
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
     return;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self commitEditingStyle:editingStyle forResultObject:[self resultObjectAtIndexPath:indexPath]];
+    return [self commitEditingStyle:editingStyle forObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // The table view should not be re-orderable.
     return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [self shouldHighlightObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+}
+
+- (BOOL)shouldHighlightObject:(id)resultObject{
+    return YES;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -142,11 +138,10 @@ static NSString * const kResultReuseIdentifier = @"Result";
 //        return nil;
 //    }
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section]; // bug its using collection view indexPathForItem
-    NSManagedObject *resultObject = [self resultObjectAtIndexPath:indexPath];
-    return [self sectionHeaderTitleForResultObject:resultObject];
+    return [self sectionHeaderTitleForObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
-- (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject{
+- (NSString *)sectionHeaderTitleForObject:(id)object{
     return nil;
 }
 
@@ -159,15 +154,15 @@ static NSString * const kResultReuseIdentifier = @"Result";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self didSelectResultObject:[self resultObjectAtIndexPath:indexPath]];
+    [self didSelectObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
-- (void)didSelectResultObject:(NSManagedObject *)resultObject{
+- (void)didSelectObject:(id)object{
     return;
 }
 
-- (void)deselectResultObject:(NSManagedObject *)resultObject animated:(BOOL)animated{
-    [self.tableView deselectRowAtIndexPath:[self indexPathForResultObject:resultObject] animated:animated];
+- (void)deselectObject:(id)object animated:(BOOL)animated{
+    [self.tableView deselectRowAtIndexPath:[self.fetchedResultsController indexPathForObject:object] animated:animated];
 }
 
 /*

@@ -10,21 +10,20 @@
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
 
-@interface MCDResultTableViewCell : UITableViewCell
+@interface MCDFetchedResultTableViewCell<ResultType:id<NSFetchRequestResult>> : UITableViewCell
 
-// when set it starts observing too
-@property (strong, nonatomic) NSManagedObject *resultObject;
+@property (strong, nonatomic) ResultType fetchedObject;
 
 // when these keys change in the resultObject updateViews is called
-@property (strong, nonatomic) NSArray<NSString *> *resultObjectKeyPathsForViews;
+@property (strong, nonatomic) NSArray<NSString *> *objectKeyPathsForViews;
 
 // the default implementation unsets needsToUpdateViews.
-- (void)updateViewsForCurrentResultObject NS_REQUIRES_SUPER;
+- (void)updateViewsForCurrentObject NS_REQUIRES_SUPER;
 
 // the default implementation adds observer for the keyPathsForUpdatingViews.
-- (void)startObservingCurrentResultObject NS_REQUIRES_SUPER;
+- (void)startObservingCurrentObject NS_REQUIRES_SUPER;
 
 // the default implementation removes observer for the keyPathsForUpdatingViews.
-- (void)stopObservingCurrentResultObject NS_REQUIRES_SUPER;
+- (void)stopObservingCurrentObject NS_REQUIRES_SUPER;
 
 @end

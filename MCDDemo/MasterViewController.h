@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCoreData.h>
+#import "Event+CoreDataClass.h"
 
-@class DetailViewController, Event;
+@class DetailViewController;
 
-@interface MasterViewController : MCDResultsTableViewController // UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MasterViewController : MCDFetchedResultsTableViewController<Event *> // UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 
@@ -21,7 +22,7 @@
 @property (strong, nonatomic) MCDPersistentContainer *persistentContainer;
 
 
-@property (strong, nonatomic) Event *fetchItem;
+@property (strong, nonatomic) id fetchItem;
 
 @end
 

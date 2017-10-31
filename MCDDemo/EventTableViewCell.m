@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.resultObjectKeyPathsForViews = @[@"timestamp"];
+    self.objectKeyPathsForViews = @[@"timestamp"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,9 +22,9 @@
     // Configure the view for the selected state
 }
 
-- (void)updateViewsForCurrentResultObject{
-    [super updateViewsForCurrentResultObject];
-    self.textLabel.text = [[self.resultObject valueForKey:@"timestamp"] description];
+- (void)updateViewsForCurrentObject{
+    [super updateViewsForCurrentObject];
+    self.textLabel.text = [self.fetchedObject.timestamp description];
 }
 
 @end

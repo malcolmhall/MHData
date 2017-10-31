@@ -1,5 +1,5 @@
 //
-//  MCDResultsTableViewController.h
+//  MCDFetchedResultsTableViewController.h
 //  MCoreData
 //
 //  Created by Malcolm Hall on 7/12/13.
@@ -14,21 +14,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
-@interface MCDResultsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MCDFetchedResultsTableViewController<ResultType:id<NSFetchRequestResult>> : UITableViewController <NSFetchedResultsControllerDelegate>
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
 // setting reloads the table but does not fetch.
-@property (strong, nonatomic, nullable) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic, nullable) NSFetchedResultsController<ResultType> *fetchedResultsController;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
-// default implementation deques a ResultCell which should be a subclass of MCDResultTableViewCell and sets resultObject
-- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject;
+// create or dequeue a cell and set the object on it if necesseary.
+- (__kindof UITableViewCell *)cellForObject:(ResultType)object;
 
-- (BOOL)canEditResultObject:(NSManagedObject *)resultObject;
+- (BOOL)canEditObject:(ResultType)object;
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forResultObject:(NSManagedObject *)resultObject;
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(ResultType)object;
+
+- (BOOL)shouldHighlightObject:(ResultType)object;
 
 //- (void)tearDownFetchedResultsController;
 
@@ -52,13 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 // returns NO and sets error if fails to save. Doesn't any more.
 //- (void)deleteResultObject:(NSManagedObject *)resultObject;
 
-- (NSManagedObject *)resultObjectAtIndexPath:(NSIndexPath *)indexPath;
+- (void)didSelectObject:(ResultType)object;
 
-- (void)didSelectResultObject:(NSManagedObject *)resultObject;
+- (void)deselectObject:(ResultType)object animated:(BOOL)animated;
 
-- (void)deselectResultObject:(NSManagedObject *)resultObject animated:(BOOL)animated;
-
-- (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject;
+- (NSString *)sectionHeaderTitleForObject:(ResultType)object;
 
 @end
 

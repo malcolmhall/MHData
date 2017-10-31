@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -43,8 +44,13 @@
     
     _sectionKeys = @[@"a", @"b", @"c", @"d", @"e"];
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];
-    
+    self.tableView.allowsSelectionDuringEditing = YES;
     [self newFetchedResultsController];
+    [self performSelector:@selector(malc) withObject:nil afterDelay:2];
+}
+
+- (void)malc{
+   // [self performSegueWithIdentifier:@"showDetail" sender:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -125,8 +131,31 @@
 //    return cell;
 //}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
+- (UITableViewCell *)cellForObject:(Event *)event{
+    EventTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Event"];
+    cell.fetchedObject = event;
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(!tableView.isEditing){
+        return YES;
+    }
+    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
+//    if(![container isKindOfClass:[ICFolder class]] || !container.isDeletable){
+//        return NO;
+//    }
+//    return self.folderListMode == 0;
+    return NO;
+}
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+- (void)didSelectObject:(Event *)object{
     [object setValue:NSDate.date forKey:@"timestamp"];
     int i = arc4random_uniform(_sectionKeys.count);
     NSString *curr = [object valueForKey:@"sectionKey"];
@@ -134,12 +163,12 @@
     if(![curr isEqualToString:n]){
      //   [object setValue:n forKey:@"sectionKey"];
     }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[self deselectObject:object animated:YES];
 }
 
-- (NSString *)sectionHeaderTitleForResultObject:(NSManagedObject *)resultObject{
-    return resultObject[@"sectionKey"];
+- (NSString *)sectionHeaderTitleForObject:(Event *)event{
+    return event.sectionKey;
 }
 
 // testing
@@ -152,10 +181,11 @@
 //    return YES;
 //}
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(Event *)object{
+    if(editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
-        NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
+        //Event *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [context deleteObject:object];
         NSError *error = nil;
         if (![context save:&error]) {
@@ -165,10 +195,6 @@
             abort();
         }
     }
-}
-
-- (NSString *)resultCellReuseIdentifierForResultObject:(NSManagedObject *)resultObject{
-    return @"Event";
 }
 
 //- (void)configureCell:(EventTableViewCell *)cell withObject:(NSManagedObject *)object{
@@ -196,7 +222,7 @@
     //context.mcd_automaticallyMergesChangesFromParent = YES;
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    NSDictionary *d = self.fetchItem;
+   // NSDictionary *d = self.fetchItem;
     //fetchRequest.predicate = [NSPredicate predicateWithFormat:@"sectionKey = %@", d[@"sectionKey"]];
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
