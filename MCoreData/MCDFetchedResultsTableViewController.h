@@ -24,13 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
 // create or dequeue a cell and set the object on it if necesseary.
-- (__kindof UITableViewCell *)cellForObject:(ResultType)object;
+- (UITableViewCell *)cellForObject:(id)object;
 
-- (BOOL)canEditObject:(ResultType)object;
+- (BOOL)canEditObject:(id)object;
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(ResultType)object;
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object;
 
-- (BOOL)shouldHighlightObject:(ResultType)object;
+- (BOOL)shouldHighlightObject:(id)object;
 
 //- (void)tearDownFetchedResultsController;
 
@@ -54,11 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 // returns NO and sets error if fails to save. Doesn't any more.
 //- (void)deleteResultObject:(NSManagedObject *)resultObject;
 
-- (void)didSelectObject:(ResultType)object;
+- (void)didSelectObject:(id)object;
 
 - (void)deselectObject:(ResultType)object animated:(BOOL)animated;
 
-- (NSString *)sectionHeaderTitleForObject:(ResultType)object;
+- (NSString *)sectionHeaderTitleForObject:(id)object;
 
 @end
 
