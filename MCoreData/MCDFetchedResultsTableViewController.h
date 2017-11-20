@@ -58,7 +58,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)deselectObject:(ResultType)object animated:(BOOL)animated;
 
-- (NSString *)sectionHeaderTitleForObject:(id)object;
+// transaltes from table view index to fetch index and gets the object.
+- (ResultType)objectAtTableViewIndexPath:(NSIndexPath *)indexPath;
+
+- (NSIndexPath *)tableViewIndexPathForObject:(ResultType)object;
+
+// default implementation gets the section info name for the object.
+- (NSString *)sectionHeaderTitleForObject:(ResultType)object;
+
+// override to translate from the table to the fetch controller, return nil if it's a table only index.
+- (nullable NSIndexPath *)fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath;
+
+// override
+- (NSIndexPath *)tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

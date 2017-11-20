@@ -100,7 +100,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        NSManagedObject *object = [self objectAtTableViewIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -110,9 +110,9 @@
 
 #pragma mark - Table View
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return [[self.fetchedResultsController sections] count];
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [super numberOfSectionsInTableView:tableView] + 2;
+}
 
 //- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
@@ -131,6 +131,10 @@
 //    return cell;
 //}
 
+- (BOOL)canEditObject:(id)object{
+    return YES;
+}
+
 - (UITableViewCell *)cellForObject:(Event *)event{
     EventTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Event"];
     cell.fetchedObject = event;
@@ -144,14 +148,48 @@
     return [self tableView:tableView canEditRowAtIndexPath:indexPath];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     //NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
 //    if(![container isKindOfClass:[ICFolder class]] || !container.isDeletable){
 //        return NO;
 //    }
 //    return self.folderListMode == 0;
-    return NO;
+//    return NO;
+//}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section > 0 && indexPath.section < [self numberOfSectionsInTableView:tableView] - 1){
+        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    cell.textLabel.text = @"Malc";
+    return cell;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(section > 0 && section < [self numberOfSectionsInTableView:tableView] - 1){
+        return [super tableView:tableView numberOfRowsInSection:section];
+    }
+    return 2;
+}
+
+- (NSIndexPath *)fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
+        return nil;
+    }
+    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - 1];
+}
+
+- (NSIndexPath *)tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath{
+    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
+}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    if(section != 0){
+//        return [super tableView:tableView titleForHeaderInSection:section];
+//    }
+//    return nil;
+//}
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -167,9 +205,9 @@
     //[self deselectObject:object animated:YES];
 }
 
-- (NSString *)sectionHeaderTitleForObject:(Event *)event{
-    return event.sectionKey;
-}
+//- (NSString *)sectionHeaderTitleForObject:(Event *)event{
+//    return event.sectionKey;
+//}
 
 // testing
 //- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{

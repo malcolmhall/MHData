@@ -82,13 +82,17 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    NSIndexPath *indexPath = [self fetchedResultsControllerIndexPathFromTableViewIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[indexPath.section];
     return sectionInfo.numberOfObjects;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return nil;
+    }
     return [self cellForObject:object];
 }
 
@@ -99,10 +103,14 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return [self canEditObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return NO;
+    }
+    return [self canEditObject:object];
 }
 
-//default to yes to match normal.
+// default to yes to match normal.
 - (BOOL)canEditObject:(id)object{
     return YES;
 }
@@ -113,7 +121,11 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self commitEditingStyle:editingStyle forObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return;
+    }
+    return [self commitEditingStyle:editingStyle forObject:object];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,26 +135,30 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [self shouldHighlightObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return nil;
+    }
+    return [self shouldHighlightObject:object];
 }
 
 - (BOOL)shouldHighlightObject:(id)resultObject{
     return YES;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    if (self.fetchedResultsController.sections.count > 0) {
-//        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-//        return sectionInfo.name;
-//    }else{
-//        return nil;
-//    }
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section]; // bug its using collection view indexPathForItem
-    return [self sectionHeaderTitleForObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return nil;
+    }
+    return [self sectionHeaderTitleForObject:object];
 }
 
 - (NSString *)sectionHeaderTitleForObject:(id)object{
-    return nil;
+    NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:object];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:indexPath.section];
+    return sectionInfo.name;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -154,7 +170,11 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self didSelectObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return;
+    }
+    [self didSelectObject:object];
 }
 
 - (void)didSelectObject:(id)object{
@@ -162,7 +182,29 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 }
 
 - (void)deselectObject:(id)object animated:(BOOL)animated{
-    [self.tableView deselectRowAtIndexPath:[self.fetchedResultsController indexPathForObject:object] animated:animated];
+    NSIndexPath *indexPath = [self tableViewIndexPathForObject:object];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:animated];
+}
+
+- (NSIndexPath *)tableViewIndexPathForObject:(id)object{
+    NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:object];
+    return [self tableViewIndexPathFromFetchedResultsControllerIndexPath:indexPath];
+}
+
+- (id)objectAtTableViewIndexPath:(NSIndexPath *)indexPath{
+    indexPath = [self fetchedResultsControllerIndexPathFromTableViewIndexPath:indexPath];
+    if(indexPath.section >= self.fetchedResultsController.sections.count){
+        return nil;
+    }
+    return [self.fetchedResultsController objectAtIndexPath:indexPath];
+}
+
+- (NSIndexPath *)fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath{
+    return indexPath;
+}
+
+- (NSIndexPath *)tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath{
+    return indexPath;
 }
 
 /*
@@ -177,7 +219,7 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
  
  
  - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
- MyApp *myApp = (MyApp*) [self.fetchedResultsController objectAtIndexPath:indexPath];
+ MyApp *myApp = (MyApp*) [self objectAtIndexPath:indexPath];
  [UIPasteboard generalPasteboard].string = clip.text;
  }
  */
@@ -197,6 +239,10 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     if(controller != self.fetchedResultsController){
         return;
     }
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
+    indexPath = [self tableViewIndexPathFromFetchedResultsControllerIndexPath:indexPath];
+    sectionIndex = indexPath.section;
+    
     switch(type) {
         case NSFetchedResultsChangeInsert:
             NSLog(@"Section Insert");
@@ -225,7 +271,9 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
         return;
     }
     UITableView *tableView = self.tableView;
-
+    indexPath = [self tableViewIndexPathFromFetchedResultsControllerIndexPath:indexPath];
+    newIndexPath = [self tableViewIndexPathFromFetchedResultsControllerIndexPath:newIndexPath];
+    
     switch(type) {
         case NSFetchedResultsChangeInsert:
             NSLog(@"Insert %@", newIndexPath);
@@ -284,7 +332,7 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
             }
             break;
         }
-             */
+        */
     }
 }
 
