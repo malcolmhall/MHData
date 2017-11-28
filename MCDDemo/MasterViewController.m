@@ -32,8 +32,7 @@
     
 - (IBAction)recreateButtonTapped:(id)sender{
     [self recreateFetchedResultsController];
-    [self.fetchedResultsController performFetch:nil];
-    [self.tableView reloadData];
+    [self fetchAndReloadData];
 }
 
 - (void)viewDidLoad {

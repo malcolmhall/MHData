@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)canEditObject:(id)object;
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object;
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(ResultType)object;
 
 - (BOOL)shouldHighlightObject:(id)object;
 
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 // returns NO and sets error if fails to save. Doesn't any more.
 //- (void)deleteResultObject:(NSManagedObject *)resultObject;
 
-- (void)didSelectObject:(id)object;
+- (void)didSelectObject:(ResultType)object;
 
 - (void)deselectObject:(ResultType)object animated:(BOOL)animated;
 

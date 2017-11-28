@@ -2,7 +2,7 @@
 //  MCDDefines+Namespace.h
 //  MCoreData
 //
-//  Generated using MHNamespaceGenerator on 27/11/2017
+//  Generated using MHNamespaceGenerator on 28/11/2017
 //
 
 #if !defined(__MCOREDATA_NAMESPACE_APPLY) && defined(MCOREDATA_NAMESPACE) && defined(MCOREDATA_NAMESPACE_LOWER)
