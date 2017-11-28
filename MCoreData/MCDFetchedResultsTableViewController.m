@@ -217,7 +217,7 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     return [self tableViewIndexPathFromFetchedResultsControllerIndexPath:indexPath];
 }
 
-- (id)objectAtTableViewIndexPath:(NSIndexPath *)indexPath{
+- (id<NSFetchRequestResult>)objectAtTableViewIndexPath:(NSIndexPath *)indexPath{
     indexPath = [self fetchedResultsControllerIndexPathFromTableViewIndexPath:indexPath];
     if(indexPath.section >= self.fetchedResultsController.sections.count){
         return nil;
