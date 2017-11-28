@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 // setting reloads the table but does not fetch.
 @property (strong, nonatomic, nullable) NSFetchedResultsController<ResultType> *fetchedResultsController;
 
+// performs fetch and reloads the table, useful after changing the sort descriptor on the fetch request.
+- (void)fetchAndReloadData;
+
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 

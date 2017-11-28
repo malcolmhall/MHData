@@ -22,6 +22,11 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     //NSString *_messageWhenNoRows;
 }
 
+- (void)fetchAndReloadData{
+    [self.fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
+}
+
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
     if(fetchedResultsController == _fetchedResultsController){
         return;
@@ -33,10 +38,10 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    if(!self.fetchedResultsController.sections){
+    if(!self.fetchedResultsController.fetchedObjects){
         [self.fetchedResultsController performFetch:nil];
     }
-    [super viewWillAppear:animated]; // reloads table if there are no sections
+    [super viewWillAppear:animated]; // reloads table if there are currently no sections
 }
 
 //- (NSString *)messageWhenNoRows{

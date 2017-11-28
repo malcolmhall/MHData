@@ -20,10 +20,18 @@
 
 - (IBAction)teardownButtonTapped:(id)sender{
     self.fetchedResultsController = nil;
+    
+//    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
+//    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
+//
+//
+//    self.fetchedResultsController.fetchRequest.sortDescriptors = @[sortDescriptor1, sortDescriptor2];
+//    [self.fetchedResultsController performFetch:nil];
+//    [self.tableView reloadData];
 }
     
 - (IBAction)recreateButtonTapped:(id)sender{
-    [self newFetchedResultsController];
+    [self recreateFetchedResultsController];
     [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
@@ -45,7 +53,7 @@
     _sectionKeys = @[@"a", @"b", @"c", @"d", @"e"];
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];
     self.tableView.allowsSelectionDuringEditing = YES;
-    [self newFetchedResultsController];
+    [self recreateFetchedResultsController];
     [self performSelector:@selector(malc) withObject:nil afterDelay:2];
 }
 
@@ -247,7 +255,7 @@
 
 #pragma mark - Fetched results controller
 
-- (void)newFetchedResultsController{
+- (void)recreateFetchedResultsController{
 //- (NSFetchedResultsController *)fetchedResultsController
 //{
 //    if (_fetchedResultsController != nil) {
