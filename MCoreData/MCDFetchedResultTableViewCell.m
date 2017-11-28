@@ -58,7 +58,6 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
     }else{
         self.needsToUpdateViews = YES;
     }
-    // subclass configures cell
 }
 
 - (void)prepareForReuse{

@@ -17,6 +17,11 @@
 // when these keys change in the resultObject updateViews is called
 @property (strong, nonatomic) NSArray<NSString *> *objectKeyPathsForViews;
 
+// call to have update views for current object called and it'll only do it if visible.
+- (void)updateViewsForCurrentObjectIfNecessary;
+
+// overrides
+
 // the default implementation unsets needsToUpdateViews.
 - (void)updateViewsForCurrentObject NS_REQUIRES_SUPER;
 
