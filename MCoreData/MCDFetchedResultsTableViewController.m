@@ -141,7 +141,7 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     return YES;
 }
 
-- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
+- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id<NSFetchRequestResult>)object{
     return;
 }
 
@@ -153,6 +153,22 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     }
     return [self commitEditingStyle:editingStyle forObject:object];
 }
+
+#ifdef __IPHONE_11_0
+
+- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return nil;
+    }
+    return [self trailingSwipeActionsConfigurationForObject:object];
+}
+
+- (nullable UISwipeActionsConfiguration *)trailingSwipeActionsConfigurationForObject:(id<NSFetchRequestResult>)object API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
+    return nil;
+}
+
+#endif
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {

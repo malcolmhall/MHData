@@ -41,6 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(ResultType)object;
 
+#ifdef __IPHONE_11_0
+- (nullable UISwipeActionsConfiguration *)trailingSwipeActionsConfigurationForObject:(ResultType)object API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
+#endif
+
 - (BOOL)shouldHighlightObject:(id)object;
 
 //- (void)tearDownFetchedResultsController;
