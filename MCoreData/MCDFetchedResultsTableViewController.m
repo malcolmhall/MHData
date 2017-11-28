@@ -184,11 +184,16 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     return [self shouldHighlightObject:object];
 }
 
-- (BOOL)shouldHighlightObject:(id)resultObject{
+- (BOOL)shouldHighlightObject:(id<NSFetchRequestResult>)resultObject{
     return YES;
 }
 
+// it is possible to be asked for t title to a section that has no objects.
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    if(!sectionInfo.numberOfObjects){
+        return nil;
+    }
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section]; // bug its using collection view indexPathForItem
     id object = [self objectAtTableViewIndexPath:indexPath];
     if(!object){
@@ -197,7 +202,7 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     return [self sectionHeaderTitleForObject:object];
 }
 
-- (NSString *)sectionHeaderTitleForObject:(id)object{
+- (NSString *)sectionHeaderTitleForObject:(id<NSFetchRequestResult>)object{
     NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:object];
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:indexPath.section];
     return sectionInfo.name;

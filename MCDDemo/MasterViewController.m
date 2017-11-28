@@ -117,9 +117,9 @@
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [super numberOfSectionsInTableView:tableView] + 2;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return [super numberOfSectionsInTableView:tableView] + 2;
+//}
 
 //- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
@@ -168,32 +168,32 @@
 //    return NO;
 //}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section > 0 && indexPath.section < [self numberOfSectionsInTableView:tableView] - 1){
-        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    }
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.textLabel.text = @"Malc";
-    return cell;
-}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if(indexPath.section > 0 && indexPath.section < [self numberOfSectionsInTableView:tableView] - 1){
+//        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+//    }
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//    cell.textLabel.text = @"Malc";
+//    return cell;
+//}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section > 0 && section < [self numberOfSectionsInTableView:tableView] - 1){
-        return [super tableView:tableView numberOfRowsInSection:section];
-    }
-    return 2;
-}
-
-- (NSIndexPath *)fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
-        return nil;
-    }
-    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - 1];
-}
-
-- (NSIndexPath *)tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath{
-    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    if(section > 0 && section < [self numberOfSectionsInTableView:tableView] - 1){
+//        return [super tableView:tableView numberOfRowsInSection:section];
+//    }
+//    return 2;
+//}
+//
+//- (NSIndexPath *)fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath{
+//    if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
+//        return nil;
+//    }
+//    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - 1];
+//}
+//
+//- (NSIndexPath *)tableViewIndexPathFromFetchedResultsControllerIndexPath:(NSIndexPath *)indexPath{
+//    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
+//}
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
 //    if(section != 0){
@@ -264,7 +264,6 @@
 //    if (_fetchedResultsController != nil) {
 //        return _fetchedResultsController;
 //    }
-    
     NSManagedObjectContext * context = self.persistentContainer.viewContext;
     //NSManagedObjectContext * context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
     //context.parentContext = self.persistentContainer.viewContext;
