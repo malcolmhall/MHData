@@ -98,10 +98,31 @@ static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&k
     if(!object){
         return nil;
     }
-    return [self cellForObject:object];
+    UITableViewCell *cell = [self cellForObject:object];
+    if(cell){
+        return cell;
+    }
+    MCDFetchedResultTableViewCell *resultCell = [self resultCellForObject:object];
+    if(!resultCell){
+        NSString *identifier = [self resultCellIdentifierForObject:object];
+        resultCell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    }
+    if(![resultCell isKindOfClass:MCDFetchedResultTableViewCell.class]){
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"cell was not a result cell" userInfo:nil];
+    }
+    resultCell.fetchedObject = object;
+    return resultCell;
 }
 
 - (UITableViewCell *)cellForObject:(id<NSFetchRequestResult>)object{
+    return nil;
+}
+
+- (NSString *)resultCellIdentifierForObject:(id<NSFetchRequestResult>)object{
+    return nil;
+}
+
+- (MCDFetchedResultTableViewCell *)resultCellForObject:(id<NSFetchRequestResult>)object{
     return nil;
 }
 

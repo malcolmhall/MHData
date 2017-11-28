@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MCDFetchedResultTableViewCell;
+
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
 @interface MCDFetchedResultsTableViewController<ResultType:id<NSFetchRequestResult>> : UITableViewController <NSFetchedResultsControllerDelegate>
@@ -26,8 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
-// create or dequeue a cell and set the object on it if necesseary.
-- (UITableViewCell *)cellForObject:(id)object;
+// simply supply the identifier of a result cell subclass and one will be dequed and the fetched object set on it.
+- (NSString *)resultCellIdentifierForObject:(ResultType)object;
+
+// alternatively supply a result cell, e.g. by dequeing and configuring its appearance, then fetched object will be set on it.
+- (MCDFetchedResultTableViewCell *)resultCellForObject:(ResultType)object;
+
+// alternatively create or dequeue a cell and fully configure it by setting the fetched object on it yourself.
+- (UITableViewCell *)cellForObject:(ResultType)object;
 
 - (BOOL)canEditObject:(id)object;
 

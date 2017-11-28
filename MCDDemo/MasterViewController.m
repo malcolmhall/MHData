@@ -142,11 +142,15 @@
     return YES;
 }
 
-- (UITableViewCell *)cellForObject:(Event *)event{
-    EventTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Event"];
-    cell.fetchedObject = event;
-    return cell;
+- (NSString *)resultCellIdentifierForObject:(id<NSFetchRequestResult>)object{
+    return @"Event";
 }
+
+//- (UITableViewCell *)cellForObject:(Event *)event{
+//    EventTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Event"];
+//    cell.fetchedObject = event;
+//    return cell;
+//}
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     if(!tableView.isEditing){
