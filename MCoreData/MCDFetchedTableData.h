@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
 
-@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic, readonly) UITableView *tableView;
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
 // setting reloads the table but does not fetch.
