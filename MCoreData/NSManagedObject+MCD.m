@@ -120,7 +120,7 @@
 }
 
 + (NSArray *)mcd_objectsMatchingPredicate:(NSPredicate *)predicate sortDescriptors:(NSArray *)sortDescriptors relationshipKeyPathsForPrefetching:(nullable NSArray *)keyPaths context:(NSManagedObjectContext *)context{
-    return [self mcd_resultsMatchingPredicate:predicate sortDescriptors:sortDescriptors resultType:0 relationshipKeyPathsForPrefetching:keyPaths context:context];
+    return [self mcd_resultsMatchingPredicate:predicate sortDescriptors:sortDescriptors resultType:NSManagedObjectResultType relationshipKeyPathsForPrefetching:keyPaths context:context];
 }
 
 + (NSArray *)mcd_permanentObjectIDsFromObjects:(NSArray *)objects{

@@ -6,17 +6,17 @@
 //  Copyright © 2017 Malcolm Hall. All rights reserved.
 //
 
-#import "MCDFetchedResultTableViewCell.h"
+#import "MCDFetchedTableViewCell.h"
 
 static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
-@interface MCDFetchedResultTableViewCell()
+@interface MCDFetchedTableViewCell()
 
 @property (nonatomic) BOOL needsToUpdateViews;
 
 @end
 
-@implementation MCDFetchedResultTableViewCell
+@implementation MCDFetchedTableViewCell
 
 -(void)setFetchedObject:(NSManagedObject *)fetchedObject{
     if(_fetchedObject == fetchedObject){

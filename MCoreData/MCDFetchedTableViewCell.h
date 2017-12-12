@@ -10,9 +10,9 @@
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
 
-@interface MCDFetchedResultTableViewCell<ResultType:id<NSFetchRequestResult>> : UITableViewCell
+@interface MCDFetchedTableViewCell<ResultType:id<NSFetchRequestResult>> : UITableViewCell
 
-@property (strong, nonatomic) ResultType fetchedObject;
+@property (strong, nonatomic) ResultType fetchedObject; // rename to either cellObject or resultObject
 
 // when these keys change in the resultObject updateViews is called
 @property (strong, nonatomic) NSArray<NSString *> *objectKeyPathsForViews;

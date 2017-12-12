@@ -2,7 +2,7 @@
 //  MCDDefines+Namespace.h
 //  MCoreData
 //
-//  Generated using MHNamespaceGenerator on 28/11/2017
+//  Generated using MHNamespaceGenerator on 12/12/2017
 //
 
 #if !defined(__MCOREDATA_NAMESPACE_APPLY) && defined(MCOREDATA_NAMESPACE) && defined(MCOREDATA_NAMESPACE_LOWER)
@@ -11,8 +11,9 @@
     #define __MCOREDATA_NAMESPACE_APPLY(s) __MCOREDATA_NAMESPACE_BRIDGE(MCOREDATA_NAMESPACE, s)
 	#define __MCOREDATA_NAMESPACE_APPLY_LOWER(s) __MCOREDATA_NAMESPACE_BRIDGE(MCOREDATA_NAMESPACE_LOWER, s)
 // Classes
-    #define MCDFetchedResultTableViewCell __MCOREDATA_NAMESPACE_APPLY(MCDFetchedResultTableViewCell)
-    #define MCDFetchedResultsTableViewController __MCOREDATA_NAMESPACE_APPLY(MCDFetchedResultsTableViewController)
+    #define MCDFetchedTableData __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableData)
+    #define MCDFetchedTableViewCell __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewCell)
+    #define MCDFetchedTableViewController __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewController)
     #define MCDPersistentContainer __MCOREDATA_NAMESPACE_APPLY(MCDPersistentContainer)
     #define MCDPersistentStoreBridge __MCOREDATA_NAMESPACE_APPLY(MCDPersistentStoreBridge)
     #define MCDPersistentStoreDescription __MCOREDATA_NAMESPACE_APPLY(MCDPersistentStoreDescription)
@@ -40,6 +41,7 @@
     #define mcd_fetchValueForAggregateFunction __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_fetchValueForAggregateFunction)
     #define mcd_initWithContext __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_initWithContext)
     #define mcd_isConstraintMergeError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_isConstraintMergeError)
+    #define mcd_isValidIndexPath __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_isValidIndexPath)
     #define mcd_isValidationError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_isValidationError)
     #define mcd_modelNamed __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_modelNamed)
     #define mcd_newBackgroundContextWithError __MCOREDATA_NAMESPACE_APPLY_LOWER(mcd_newBackgroundContextWithError)

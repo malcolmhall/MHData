@@ -25,7 +25,6 @@
     
     //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
-    
   //  MCDBackgroundContextOperation *op = [[MCDBackgroundContextOperation alloc] init];
     
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
