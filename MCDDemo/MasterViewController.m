@@ -70,10 +70,13 @@
     //self.tableData.delegate = self;
     [self recreateFetchedResultsController];
     [self performSelector:@selector(malc) withObject:nil afterDelay:2];
+    
+  
 }
 
 - (void)malc{
-   // [self performSegueWithIdentifier:@"showDetail" sender:nil];
+    
+
 }
 
 - (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData canEditObject:(id)object{

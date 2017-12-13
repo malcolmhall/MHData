@@ -16,21 +16,20 @@
 }
 @synthesize tableData = _tableData;
 
-- (MCDFetchedTableData *)tableData{
-    if(!_tableData){
-        _tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
-        _tableData.delegate = self;
-    }
-    return _tableData;
+- (void)loadView{
+    [super loadView]; // loads from nib or creates and calls setView
+    self.tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
 }
 
 - (void)setTableData:(MCDFetchedTableData *)tableData{
-    if(!tableData){
-        _tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
-        _tableData.delegate = self;
-    }
-    else{
+    if(_tableData != tableData){
+        if(_tableData.delegate == self){
+            _tableData.delegate = nil;
+        }
         _tableData = tableData;
+        if(!tableData.delegate){
+            tableData.delegate = self;
+        }
     }
 }
 
