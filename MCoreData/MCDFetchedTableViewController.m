@@ -62,10 +62,7 @@
 //    return;
 //}
 
-//- (void)deselectObject:(id)object animated:(BOOL)animated{
-//    NSIndexPath *indexPath = [self tableViewIndexPathForObject:object];
-//    [self.tableView deselectRowAtIndexPath:indexPath animated:animated];
-//}
+
 
 
 

@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (void)didSelectObject:(ResultType)object;
 
-//- (void)deselectObject:(ResultType)object animated:(BOOL)animated;
+
 
 
 
