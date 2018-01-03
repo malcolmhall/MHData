@@ -174,7 +174,7 @@
         return;
     }
     else if([self.delegate respondsToSelector:@selector(fetchedTableData:commitEditingStyle:forObject:)]){
-        return [self.delegate fetchedTableData:self commitEditingStyle:editingStyle forObject:object];
+        [self.delegate fetchedTableData:self commitEditingStyle:editingStyle forObject:object];
     }
 }
 
@@ -182,18 +182,16 @@
 
 #ifdef __IPHONE_11_0
 
-//- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
-//    UISwipeActionsConfiguration *actions;
-//    if([self.delegate respondsToSelector:@selector(tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:)] &&
-//       (actions = [self.delegate tableView:self.tableView trailingSwipeActionsConfigurationForRowAtIndexPath:indexPath])){
-//        return actions;
-//    }
-//    id object = [self objectAtTableViewIndexPath:indexPath];
-//    if(!object){
-//        return nil;
-//    }
-//    return [self trailingSwipeActionsConfigurationForObject:object];
-//}
+- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return nil;
+    }
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:trailingSwipeActionsConfigurationForObject:)]){
+       return [self.delegate fetchedTableData:self trailingSwipeActionsConfigurationForObject:object];
+    }
+    return nil;
+}
 
 #endif
 
