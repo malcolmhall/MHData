@@ -126,35 +126,25 @@
     if(!object){
         return nil; // or exception because if it isnt an object index then we should have got a cell.
     }
-    else if([self.delegate respondsToSelector:@selector(fetchedTableData:cellForObject:)]){
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellIdentifierForObject:)]){
+        NSString *identifier = [self.delegate fetchedTableData:self fetchedCellIdentifierForObject:object];
+        if(identifier){
+            MCDFetchedTableViewCell *fetchedCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+            fetchedCell.fetchedObject = object;
+            return fetchedCell;
+        }
+    }
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellForObject:)]){
+        MCDFetchedTableViewCell *fetchedCell = [self.delegate fetchedTableData:self fetchedCellForObject:object];
+        if(fetchedCell){
+            fetchedCell.fetchedObject = object;
+            return fetchedCell;
+        }
+    }
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:cellForObject:)]){
         return [self.delegate fetchedTableData:self cellForObject:object];
     }
     return nil;
-    //            (cell = [self.delegate fetchedTableData:self cellForObject:object])){
-    //        return cell;
-    //    }
-    //    MCDFetchedTableViewCell *resultCell;
-    //    if([self.delegate respondsToSelector:@selector(fetchedTableData:resultCellForObject:)]){
-    //        resultCell = [self.delegate fetchedTableData:self resultCellForObject:object];
-    //        if(resultCell){
-    //            return resultCell;
-    //        }
-    //    }
-    //    if(!resultCell && [self.delegate respondsToSelector:@selector(fetchedTableData:resultCellIdentifierForObject:)]){
-    //        NSString *identifier = [self.delegate fetchedTableData:self resultCellIdentifierForObject:object];
-    //        resultCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-    //        if(resultCell){
-    //            return resultCell;
-    //        }
-    //    }
-    //    if(!resultCell){
-    //        return nil;
-    //    }
-    //    else if(![resultCell isKindOfClass:MCDFetchedTableViewCell.class]){
-    //        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"cell was not a result cell" userInfo:nil];
-    //    }
-    //    resultCell.fetchedObject = object;
-    //    return resultCell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

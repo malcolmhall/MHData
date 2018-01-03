@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MCDFetchedTableViewCell;
 @protocol MCDFetchedTableDataDelegate;
 
+// rename to FetchedTableDataController because contains the deselect method and uses a delegate.
 @interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject <NSFetchedResultsControllerDelegate, UITableViewDataSource>
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
@@ -60,11 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // simply supply the identifier of a result cell subclass and one will be dequed and the fetched object set on it.
 
-//- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData resultCellIdentifierForObject:(id)object;
+- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellIdentifierForObject:(id)object;
 
 // alternatively supply a result cell, e.g. by dequeing and configuring its appearance, then fetched object will be set on it.
 // This method supersedes -fetchedTableData:resultCellIdentifierForObject: if return value is non-nil
-//- (UITableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData resultCellForObject:(id)object;
+- (MCDFetchedTableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellForObject:(id)object;
 
 // alternatively create or dequeue a cell and fully configure it by setting the fetched object on it yourself.
 // This method supersedes -fetchedTableData:resultCellForObject: if return value is non-nil

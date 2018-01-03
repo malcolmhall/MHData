@@ -16,8 +16,8 @@
 }
 @synthesize tableData = _tableData;
 
-- (void)loadView{
-    [super loadView]; // loads from nib or creates and calls setView
+- (void)viewDidLoad{
+    [super viewDidLoad];
     self.tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
 }
 
@@ -34,6 +34,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    // perform a fetch if one hasn't been
     if(!self.tableData.fetchedResultsController.fetchedObjects){
         [self.tableData.fetchedResultsController performFetch:nil];
     }
