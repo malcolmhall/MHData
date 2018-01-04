@@ -23,6 +23,7 @@
     if (self) {
         _tableView = tableView;
         tableView.dataSource = self;
+        tableView.delegate = self;
     }
     return self;
 }
@@ -180,7 +181,7 @@
 
 
 
-#ifdef __IPHONE_11_0
+//#ifdef __IPHONE_11_0
 
 - (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
     id object = [self objectAtTableViewIndexPath:indexPath];
@@ -193,7 +194,7 @@
     return nil;
 }
 
-#endif
+//#endif
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {

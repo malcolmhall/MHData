@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class MCDFetchedTableViewCell;
 @protocol MCDFetchedTableDataDelegate;
 
-// rename to FetchedTableDataController because contains the deselect method and uses a delegate.
-@interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject <NSFetchedResultsControllerDelegate, UITableViewDataSource>
+// rename to MCDTableViewFetchController because contains the deselect method and uses a delegate.
+@interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
 
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSIndexPath *)tableViewIndexPathForObject:(ResultType)object;
 
-- (NSInteger)numberOfObjectsInSection:(NSInteger)section;
+//- (NSInteger)numberOfObjectsInSection:(NSInteger)section;
 
 //- (NSInteger)numberOfSections;
 
