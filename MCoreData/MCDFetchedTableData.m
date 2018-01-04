@@ -201,6 +201,16 @@
     return NO;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return;
+    }
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didSelectRowForObject:)]){
+        [self.delegate fetchedTableData:self didSelectRowForObject:object];
+    }
+}
+
 //- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
 //    id object = [self objectAtTableViewIndexPath:indexPath];
 //    if(!object){

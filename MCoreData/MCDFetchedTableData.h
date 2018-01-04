@@ -74,6 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData canEditObject:(id)object;
 
 - (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object;
+- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData didSelectRowForObject:(id)object;
 
 #ifdef __IPHONE_11_0
 - (nullable UISwipeActionsConfiguration *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData trailingSwipeActionsConfigurationForObject:(id)object API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
