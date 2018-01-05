@@ -157,9 +157,9 @@
     if(!object){
         return NO;
     }
-    if([self.delegate respondsToSelector:@selector(fetchedTableData:canEditObject:)]){
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:canEditRowForObject:)]){
         // Return NO if you do not want the specified item to be editable.
-        return [self.delegate fetchedTableData:self canEditObject:object];
+        return [self.delegate fetchedTableData:self canEditRowForObject:object];
     }
     return NO;
 }

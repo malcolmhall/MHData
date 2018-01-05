@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 // This method supersedes -fetchedTableData:resultCellForObject: if return value is non-nil
 - (UITableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData cellForObject:(id)object;
 
-- (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData canEditObject:(id)object;
+- (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData canEditRowForObject:(id)object;
 
 - (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object;
 - (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData didSelectRowForObject:(id)object;
