@@ -28,12 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<MCDFetchedTableDataDelegate> delegate;
 
-//@property (nonatomic, weak, nullable) id<UITableViewDataSource> dataSource;
-
 // performs fetch and reloads the table, useful after changing the sort descriptor on the fetch request.
 - (void)fetchAndReloadData;
 
-// transaltes from table view index to fetch index and gets the object.
+// translates from table view index to fetch index and gets the object.
 - (ResultType)objectAtTableViewIndexPath:(NSIndexPath *)indexPath;
 
 - (NSIndexPath *)tableViewIndexPathForObject:(ResultType)object;
@@ -48,11 +46,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtTableViewIndexPath:(NSIndexPath *)indexPath;
 
-- (void)deselectRowForObject:(id)object animated:(BOOL)animated;
+//- (void)deselectRowForObject:(id)object animated:(BOOL)animated;
 
 @end
 
-@protocol MCDFetchedTableDataDelegate <NSObject>
+@protocol MCDFetchedTableDataDelegate <UITableViewDataSource, UITableViewDelegate>
+
+// These methods supersede
 
 @optional
 
@@ -75,6 +75,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object;
 - (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData didSelectRowForObject:(id)object;
+- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData didDeselectRowForObject:(id)object;
+// supercedes tableView:didEndEditingRowAtIndexPath:
+- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData didEndEditingRowForObject:(id)object;
+// supercedes tableView:shouldHighlightRowAtIndexPath:
+- (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData shouldHighlightRowForObject:(id)object;
+
 
 #ifdef __IPHONE_11_0
 - (nullable UISwipeActionsConfiguration *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData trailingSwipeActionsConfigurationForObject:(id)object API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);

@@ -250,12 +250,13 @@
 //    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
 //}
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
 //    if(section != 0){
 //        return [super tableView:tableView titleForHeaderInSection:section];
 //    }
 //    return nil;
-//}
+    return @"Section";
+}
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];

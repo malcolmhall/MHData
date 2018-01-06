@@ -22,10 +22,25 @@
     self = [super init];
     if (self) {
         _tableView = tableView;
-        tableView.dataSource = self;
-        tableView.delegate = self;
     }
     return self;
+}
+
+- (void)setDelegate:(id<MCDFetchedTableDataDelegate>)delegate{
+    _delegate = delegate;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector{
+    return self.delegate;
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector{
+    if([super respondsToSelector:aSelector]){
+        return YES;
+    }
+    return [self.delegate respondsToSelector:aSelector];
 }
 
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
@@ -74,9 +89,9 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    if([self.dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]){
-//        return [self.dataSource numberOfSectionsInTableView:tableView];
-//    }
+    if([self.delegate respondsToSelector:@selector(numberOfSectionsInTableView:)]){
+        return [self.delegate numberOfSectionsInTableView:tableView];
+    }
     return self.fetchedResultsController.sections.count;
     
     // todo: should be checking the model rather than the result of the view
@@ -111,10 +126,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //NSIndexPath *indexPath = [self fetchedResultsControllerIndexPathFromTableViewIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
-//    if([self.dataSource respondsToSelector:@selector(tableView:numberOfRowsInSection:)]){
-//        return [self.dataSource tableView:tableView numberOfRowsInSection:section];
-//    }
+    if([self.delegate respondsToSelector:@selector(tableView:numberOfRowsInSection:)]){
+        return [self.delegate tableView:tableView numberOfRowsInSection:section];
+    }
     return self.fetchedResultsController.sections[section].numberOfObjects;
 }
 
@@ -211,13 +225,42 @@
     }
 }
 
-//- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
-//    id object = [self objectAtTableViewIndexPath:indexPath];
-//    if(!object){
-//        return nil;
-//    }
-//    return [self shouldHighlightObject:object];
-//}
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return;
+    }
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didDeselectRowForObject:)]){
+        [self.delegate fetchedTableData:self didDeselectRowForObject:object];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return;
+    }
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didEndEditingRowForObject:)]){
+        [self.delegate fetchedTableData:self didEndEditingRowForObject:object];
+    }
+    else if([self.delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]){
+        [self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return YES;
+    }
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:shouldHighlightRowForObject:)]){
+        return [self.delegate fetchedTableData:self shouldHighlightRowForObject:object];
+    }
+    else if([self.delegate respondsToSelector:@selector(tableView:shouldHighlightRowAtIndexPath:)]){
+        return [self.delegate tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    }
+    return YES;
+}
 
 
 // it is possible to be asked for t title to a section that has no objects.

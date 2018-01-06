@@ -19,6 +19,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
+    self.tableData.delegate = self;
 }
 
 - (void)setTableData:(MCDFetchedTableData *)tableData{
