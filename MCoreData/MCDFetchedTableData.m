@@ -206,7 +206,7 @@
 
 #ifdef __IPHONE_11_0
 
-- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsCdidEndSwipeForItemAtIndexPathonfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
+- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
     id object = [self objectAtTableViewIndexPath:indexPath];
     if(!object){
         return nil;
