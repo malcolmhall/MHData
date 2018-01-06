@@ -203,27 +203,27 @@
 //    return self.tableData.numberOfSections + 1;
 //}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if(indexPath.section > 0 && indexPath.section < [self numberOfSectionsInTableView:tableView] - 1){
-//        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+////    if(indexPath.section > 0 && indexPath.section < [self numberOfSectionsInTableView:tableView] - 1){
+////        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+////    }
+//    if(indexPath.section == [self numberOfSectionsInTableView:tableView] - 1){
+//        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//        cell.textLabel.text = @"Malc";
+//        return cell;
 //    }
-    if(indexPath.section == [self numberOfSectionsInTableView:tableView] - 1){
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-        cell.textLabel.text = @"Malc";
-        return cell;
-    }
-    return nil;
-}
+//    return nil;
+//}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if(section > 0 && section == [self numberOfSectionsInTableView:tableView] - 1){
-//        return
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+////    if(section > 0 && section == [self numberOfSectionsInTableView:tableView] - 1){
+////        return
+////    }
+//    if(section == [self numberOfSectionsInTableView:tableView] - 1){
+//        return 1;
 //    }
-    if(section == [self numberOfSectionsInTableView:tableView] - 1){
-        return 1;
-    }
-    return 0;
-}
+//    return 0;
+//}
 
 
 //- (NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath{
@@ -281,10 +281,10 @@
 //    return NO;
 //}
 
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-//    // Return NO if you do not want the specified item to be editable.
-//    return YES;
-//}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
 
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{

@@ -90,7 +90,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if([self.delegate respondsToSelector:@selector(numberOfSectionsInTableView:)]){
-        return [self.delegate numberOfSectionsInTableView:tableView];
+        NSInteger sections = [self.delegate numberOfSectionsInTableView:tableView];
+        if(sections > 1){
+            return sections;
+        }
     }
     return self.fetchedResultsController.sections.count;
     
@@ -127,7 +130,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if([self.delegate respondsToSelector:@selector(tableView:numberOfRowsInSection:)]){
-        return [self.delegate tableView:tableView numberOfRowsInSection:section];
+        NSInteger rows = [self.delegate tableView:tableView numberOfRowsInSection:section];
+        if(rows > 0){
+            return rows;
+        }
     }
     return self.fetchedResultsController.sections[section].numberOfObjects;
 }
@@ -164,9 +170,12 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if([self.dataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]){
-//        return [self.dataSource tableView:self.tableView canEditRowAtIndexPath:indexPath];
-//    }
+    if([self.delegate respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)]){
+        BOOL canEdit = [self.delegate tableView:self.tableView canEditRowAtIndexPath:indexPath];
+        if(canEdit){
+            return YES;
+        }
+    }
     id object = [self objectAtTableViewIndexPath:indexPath];
     if(!object){
         return NO;
@@ -195,7 +204,7 @@
 
 
 
-//#ifdef __IPHONE_11_0
+#ifdef __IPHONE_11_0
 
 - (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
     id object = [self objectAtTableViewIndexPath:indexPath];
@@ -208,7 +217,7 @@
     return nil;
 }
 
-//#endif
+#endif
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {

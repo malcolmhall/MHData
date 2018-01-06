@@ -42,7 +42,9 @@
     [super viewWillAppear:animated]; // reloads table if there are currently no sections
 }
 
-
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//    return NSNotFound;
+//}
 
 //- (NSString *)messageWhenNoRows{
 //    if(!_messageWhenNoRows){
