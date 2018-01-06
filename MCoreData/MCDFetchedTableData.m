@@ -206,7 +206,7 @@
 
 #ifdef __IPHONE_11_0
 
-- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
+- (nullable UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsCdidEndSwipeForItemAtIndexPathonfigurationForRowAtIndexPath:(nonnull NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos){
     id object = [self objectAtTableViewIndexPath:indexPath];
     if(!object){
         return nil;
@@ -244,18 +244,20 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
-    id object = [self objectAtTableViewIndexPath:indexPath];
-    if(!object){
-        return;
-    }
-    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didEndEditingRowForObject:)]){
-        [self.delegate fetchedTableData:self didEndEditingRowForObject:object];
-    }
-    else if([self.delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]){
-        [self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
-    }
-}
+// this is called after a swipe to delete but not a tap to delete. So in this case the object is nil if it was deleted.
+// bad
+//- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+//    id object = [self objectAtTableViewIndexPath:indexPath];
+//    if(!object){
+//        return;
+//    }
+//    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didEndEditingRowForObject:)]){
+//        [self.delegate fetchedTableData:self didEndEditingRowForObject:object];
+//    }
+//    else if([self.delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]){
+//        [self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+//    }
+//}
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     id object = [self objectAtTableViewIndexPath:indexPath];
@@ -467,9 +469,11 @@ atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 - (id<NSFetchRequestResult>)objectAtTableViewIndexPath:(NSIndexPath *)indexPath{
 //    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedIndexPathForTableViewIndexPath:)]){
 //        indexPath = [self.delegate fetchedTableData:self fetchedIndexPathForTableViewIndexPath:indexPath];
-//        if(![self.fetchedResultsController mcd_isValidIndexPath:indexPath]){
-//            return nil;
-//        }
+
+//    }
+    // object might be deleted, e.g. if didEndEditing is implelemented
+//    if(![self.fetchedResultsController mcd_isValidIndexPath:indexPath]){
+//        return nil;
 //    }
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
