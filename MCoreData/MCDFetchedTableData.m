@@ -273,20 +273,25 @@
     return YES;
 }
 
-
-// it is possible to be asked for t title to a section that has no objects.
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-//    if(!sectionInfo.numberOfObjects){
-//        return nil;
-//    }
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section]; // bug its using collection view indexPathForItem
-//    id object = [self objectAtTableViewIndexPath:indexPath];
-//    if(!object){
-//        return nil;
-//    }
-//    return [self sectionHeaderTitleForObject:object];
-//}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    // it is possible to be asked for a title to a section that has no objects.
+    if(!sectionInfo.numberOfObjects){
+        return nil;
+    }
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    id object = [self objectAtTableViewIndexPath:indexPath];
+    if(!object){
+        return nil;
+    }
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:sectionHeaderTitleForObject:)]){
+        return [self.delegate fetchedTableData:self sectionHeaderTitleForObject:object];
+    }
+    else if([self.delegate respondsToSelector:@selector(tableView:titleForHeaderInSection:)]){
+        return [self.delegate tableView:tableView titleForHeaderInSection:section];
+    }
+    return nil;
+}
 
 //- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
 //    return self.fetchedResultsController.sectionIndexTitles;
