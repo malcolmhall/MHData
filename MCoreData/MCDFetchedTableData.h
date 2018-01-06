@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (void)commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtTableViewIndexPath:(NSIndexPath *)indexPath;
 
-//- (void)deselectRowForObject:(id)object animated:(BOOL)animated;
+- (void)deselectRowForObject:(ResultType)object animated:(BOOL)animated;
 
 @end
 
