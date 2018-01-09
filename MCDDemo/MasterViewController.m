@@ -153,23 +153,59 @@
     }
 }
 
+#pragma mark - Table Data
+
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
+         return nil;
+    }
+    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - 1];
+}
+
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableViewIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath{
+//    if(indexPath.section == 0){
+        return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
+//    }
+//    return indexPath;
+}
+
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionIndexForTableSectionIndex:(NSInteger)section{
+    if(section == 0 || section == [self numberOfSectionsInTableView:self.tableView] - 1){
+        return NSNotFound;
+    }
+    return section - 1;
+}
+
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionIndexForFetchedSectionIndex:(NSInteger)fetchedSectionIndex{
+    return fetchedSectionIndex + 1;
+}
+
+
 #pragma mark - Table View
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return [super numberOfSectionsInTableView:tableView] + 2;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.tableData.fetchedResultsController.sections.count + 2;
+}
 
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-//    return [sectionInfo numberOfObjects];
-//}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if(section == 0 || section == [self numberOfSectionsInTableView:self.tableView] - 1){
+        return 1;
+    }
+    return 0;
+}
 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell;
+    if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
+       cell  = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        cell.textLabel.text = @"Malc";
+    }
+    
+//
 //    NSManagedObject *object = [self objectAtIndexPath:indexPath];
 //    [self configureCell:cell withObject:object];
-//    return cell;
-//}
+    return cell;
+}
 
 //- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
 //    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -183,12 +219,12 @@
 //    return cell;
 //}
 
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(!tableView.isEditing){
-        return YES;
-    }
-    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
-}
+//- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if(!tableView.isEditing){
+//        return YES;
+//    }
+//    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
+//}
 
 //- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     //NSManagedObject *object = [self resultObjectAtIndexPath:indexPath];
@@ -250,13 +286,13 @@
 //    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
 //}
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    if(section != 0){
-//        return [super tableView:tableView titleForHeaderInSection:section];
-//    }
-//    return nil;
-    return @"Section";
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+////    if(section != 0){
+////        return [super tableView:tableView titleForHeaderInSection:section];
+////    }
+////    return nil;
+//    return @"Section";
+//}
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -272,8 +308,9 @@
     //[self deselectObject:object animated:YES];
 }
 
-//- (NSString *)sectionHeaderTitleForObject:(Event *)event{
-//    return event.sectionKey;
+- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData sectionHeaderTitleForObject:(Event *)event{
+    return event.sectionKey;
+}
 //}
 
 // testing
@@ -337,8 +374,8 @@
     
     NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
     NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
-    
     [fetchRequest setSortDescriptors:@[sortDescriptor1, sortDescriptor2]];
+    //[fetchRequest setSortDescriptors:@[sortDescriptor2]];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".

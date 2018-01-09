@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MCDFetchedTableDataDelegate;
 
 // rename to MCDTableViewFetchController because contains the deselect method and uses a delegate.
-@interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIDataSourceTranslating>
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
 
@@ -86,11 +86,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UISwipeActionsConfiguration *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData trailingSwipeActionsConfigurationForObject:(id)object API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 #endif
 
-- (BOOL)shouldHighlightObject:(id)object;
+//- (BOOL)shouldHighlightObject:(id)object;
 
-//- (NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
-
-//- (NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableViewIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath;
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableViewIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionIndexForTableSectionIndex:(NSInteger)tableSectionIndex;
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionIndexForFetchedSectionIndex:(NSInteger)fetchedSectionIndex;
 
 // return NSNotFound for
 //- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
