@@ -20,6 +20,7 @@
     [super viewDidLoad];
     self.tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
     self.tableData.delegate = self;
+    //self.tableData.translating = self;
 }
 
 - (void)setTableData:(MCDFetchedTableData *)tableData{

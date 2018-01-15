@@ -13,14 +13,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MCDFetchedTableViewCell;
-@protocol MCDFetchedTableDataDelegate;
+@protocol MCDFetchedTableDataDelegate;//, MCDFetchedTableDataTranslating;
 
 // rename to MCDTableViewFetchController because contains the deselect method and uses a delegate.
-@interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject <NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIDataSourceTranslating>
+@interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject
 
 - (instancetype)initWithTableView:(UITableView *)tableView;
 
-@property (strong, nonatomic, readonly) UITableView *tableView;
+@property (weak, nonatomic, readonly) UITableView *tableView;
 
 // Set this to make it work, and the delegate is automatically set to this view controller.
 // setting reloads the table but does not fetch.
@@ -28,13 +28,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<MCDFetchedTableDataDelegate> delegate;
 
+// set to override the delete methods
+@property (nonatomic, weak, nullable) id<UITableViewDataSource> tableViewDataSource;
+
+// set to override the delete methods
+@property (nonatomic, weak, nullable) id<UITableViewDelegate> tableViewDelegate;
+
+//@property (nonatomic, weak, nullable) id<MCDFetchedTableDataTranslating> translating;
+
 // performs fetch and reloads the table, useful after changing the sort descriptor on the fetch request.
 - (void)fetchAndReloadData;
-
-// translates from table view index to fetch index and gets the object.
-- (ResultType)objectAtTableViewIndexPath:(NSIndexPath *)indexPath;
-
-- (NSIndexPath *)tableViewIndexPathForObject:(ResultType)object;
 
 //- (NSInteger)numberOfObjectsInSection:(NSInteger)section;
 
@@ -48,11 +51,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)deselectRowForObject:(ResultType)object animated:(BOOL)animated;
 
+- (ResultType)objectAtTableViewIndexPath:(NSIndexPath *)indexPath;
+
+- (NSIndexPath *)tableViewIndexPathForObject:(ResultType)object;
+
 @end
 
-@protocol MCDFetchedTableDataDelegate <UITableViewDataSource, UITableViewDelegate>
-
-// These methods supersede
+@protocol MCDFetchedTableDataDelegate <NSFetchedResultsControllerDelegate>
 
 @optional
 
@@ -81,24 +86,30 @@ NS_ASSUME_NONNULL_BEGIN
 // supercedes tableView:shouldHighlightRowAtIndexPath:
 - (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData shouldHighlightRowForObject:(id)object;
 
-
 #ifdef __IPHONE_11_0
 - (nullable UISwipeActionsConfiguration *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData trailingSwipeActionsConfigurationForObject:(id)object API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos);
 #endif
 
-//- (BOOL)shouldHighlightObject:(id)object;
+@end
 
-- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
-- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableViewIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath;
+/*
+@protocol MCDFetchedTableDataTranslating <NSObject>
+
+@required
+
+// return NSNotFound for invalid
 - (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionIndexForTableSectionIndex:(NSInteger)tableSectionIndex;
+// return NSNotFound for invalid
 - (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionIndexForFetchedSectionIndex:(NSInteger)fetchedSectionIndex;
 
-// return NSNotFound for
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+@optional
 
-// return nil for 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+// return nil if invalid
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
+// return nil if invalid
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableViewIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath;
 
 @end
+*/
 
 NS_ASSUME_NONNULL_END
