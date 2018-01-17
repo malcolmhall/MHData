@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MCDFetchedTableViewCell;
-@protocol MCDFetchedTableDataDelegate;//, MCDFetchedTableDataTranslating;
+@protocol MCDFetchedTableDataDelegate, MCDFetchedTableDataTranslating;
 
 // rename to MCDTableViewFetchController because contains the deselect method and uses a delegate.
 @interface MCDFetchedTableData<ResultType:id<NSFetchRequestResult>> : NSObject
@@ -28,13 +28,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<MCDFetchedTableDataDelegate> delegate;
 
-// set to override the delete methods
-@property (nonatomic, weak, nullable) id<UITableViewDataSource> tableViewDataSource;
+//@property (nonatomic, weak, nullable) id<MCDFetchedTableDataDelegate> dataSource;
 
-// set to override the delete methods
-@property (nonatomic, weak, nullable) id<UITableViewDelegate> tableViewDelegate;
+// set to override the data source methods
+@property (nonatomic, weak, nullable) id<UITableViewDataSource> tableDataSource;
 
-//@property (nonatomic, weak, nullable) id<MCDFetchedTableDataTranslating> translating;
+// set to override the delegate methods
+@property (nonatomic, weak, nullable) id<UITableViewDelegate> tableDelegate;
+
+// set to enable translating of sections and index paths from the fetch controller to the table view.
+@property (nonatomic, weak, nullable) id<MCDFetchedTableDataTranslating> translating;
 
 // performs fetch and reloads the table, useful after changing the sort descriptor on the fetch request.
 - (void)fetchAndReloadData;
@@ -51,13 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)deselectRowForObject:(ResultType)object animated:(BOOL)animated;
 
-- (ResultType)objectAtTableViewIndexPath:(NSIndexPath *)indexPath;
+- (ResultType)objectAtTableIndexPath:(NSIndexPath *)indexPath;
 
-- (NSIndexPath *)tableViewIndexPathForObject:(ResultType)object;
+- (NSIndexPath *)tableIndexPathForObject:(ResultType)object;
 
 @end
 
-@protocol MCDFetchedTableDataDelegate <NSFetchedResultsControllerDelegate>
+@protocol MCDFetchedTableDataDelegate <NSObject>
 
 @optional
 
@@ -69,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellIdentifierForObject:(id)object;
 
 // alternatively supply a result cell, e.g. by dequeing and configuring its appearance, then fetched object will be set on it.
-// This method supersedes -fetchedTableData:resultCellIdentifierForObject: if return value is non-nil
+// This method supersedes -fetchedTableData:fetchedCellIdentifierForObject: if return value is non-nil
 - (MCDFetchedTableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellForObject:(id)object;
 
 // alternatively create or dequeue a cell and fully configure it by setting the fetched object on it yourself.
@@ -92,24 +95,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-/*
 @protocol MCDFetchedTableDataTranslating <NSObject>
 
 @required
 
 // return NSNotFound for invalid
-- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionIndexForTableSectionIndex:(NSInteger)tableSectionIndex;
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionForTableSection:(NSInteger)tableSection;
 // return NSNotFound for invalid
-- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionIndexForFetchedSectionIndex:(NSInteger)fetchedSectionIndex;
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionForFetchedSection:(NSInteger)fetchedSection;
 
-@optional
-
-// return nil if invalid
-- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableViewIndexPath:(NSIndexPath *)indexPath;
-// return nil if invalid
-- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableViewIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath;
+//@optional
+//
+//// return nil if invalid
+//- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath;
+//// return nil if invalid
+//- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath;
 
 @end
-*/
+
 
 NS_ASSUME_NONNULL_END

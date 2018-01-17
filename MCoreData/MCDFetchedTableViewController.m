@@ -20,7 +20,8 @@
     [super viewDidLoad];
     self.tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
     self.tableData.delegate = self;
-    //self.tableData.translating = self;
+    self.tableData.tableDataSource = self;
+    self.tableData.tableDelegate = self;
 }
 
 - (void)setTableData:(MCDFetchedTableData *)tableData{
@@ -47,6 +48,10 @@
 //    return NSNotFound;
 //}
 
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    return NSNotFound;
+//}
+
 //- (NSString *)messageWhenNoRows{
 //    if(!_messageWhenNoRows){
 //        _messageWhenNoRows = kDefaultmessageWhenNoRows;
@@ -56,7 +61,7 @@
 
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    id object = [self objectAtTableViewIndexPath:indexPath];
+//    id object = [self objectAtTableIndexPath:indexPath];
 //    if(!object){
 //        return;
 //    }
