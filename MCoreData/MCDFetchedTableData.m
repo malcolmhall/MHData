@@ -287,7 +287,13 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
         return nil;
     }
     else if([self.delegate respondsToSelector:@selector(fetchedTableData:sectionHeaderTitleForObject:)]){
+        // we allow returning nil from this to override default behavior
         return [self.delegate fetchedTableData:self sectionHeaderTitleForObject:object];
+    }
+    else if([object isKindOfClass:NSManagedObject.class]){
+        // some magic as last resort
+        NSManagedObject *managedObject = (NSManagedObject *)object;
+        return managedObject.entity.name;
     }
     return nil;
 }
