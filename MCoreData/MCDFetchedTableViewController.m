@@ -14,30 +14,30 @@
 @implementation MCDFetchedTableViewController{
     //NSString *_messageWhenNoRows;
 }
-@synthesize fetchedDataSource = _fetchedDataSource;
+@synthesize fetchedTableData = _fetchedTableData;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.fetchedDataSource = [MCDFetchedDataSource.alloc initWithTableView:self.tableView];
-    self.fetchedDataSource.delegate = self;
+    self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
+    self.fetchedTableData.delegate = self;
 }
 
-- (void)setFetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource{
-    if(_fetchedDataSource != fetchedDataSource){
-        if(_fetchedDataSource.delegate == self){
-            _fetchedDataSource.delegate = nil;
+- (void)setFetchedDataSource:(MCDFetchedTableData *)fetchedTableData{
+    if(_fetchedTableData != fetchedTableData){
+        if(_fetchedTableData.delegate == self){
+            _fetchedTableData.delegate = nil;
         }
-        _fetchedDataSource = fetchedDataSource;
-        if(!fetchedDataSource.delegate){
-            fetchedDataSource.delegate = self;
+        _fetchedTableData = fetchedTableData;
+        if(!fetchedTableData.delegate){
+            fetchedTableData.delegate = self;
         }
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     // perform a fetch if one hasn't been
-    if(!self.fetchedDataSource.fetchedResultsController.fetchedObjects){
-        [self.fetchedDataSource.fetchedResultsController performFetch:nil];
+    if(!self.fetchedTableData.fetchedResultsController.fetchedObjects){
+        [self.fetchedTableData.fetchedResultsController performFetch:nil];
     }
     [super viewWillAppear:animated]; // reloads table if there are currently no sections
 }

@@ -1,23 +1,23 @@
 //
-//  MCDFetchedDataSource.m
+//  MCDFetchedTableData.m
 //  MCoreData
 //
 //  Created by Malcolm Hall on 06/12/2017.
 //  Copyright © 2017 Malcolm Hall. All rights reserved.
 //
 
-#import "MCDFetchedDataSource.h"
+#import "MCDFetchedTableData.h"
 #import "MCDFetchedTableViewCell.h"
 #import "NSFetchedResultsController+MCD.h"
 #import <objc/runtime.h>
 
-@interface MCDFetchedDataSource()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface MCDFetchedTableData()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) BOOL sectionsCountChanged;
 
 @end
 
-@implementation MCDFetchedDataSource
+@implementation MCDFetchedTableData
 
 - (instancetype)initWithTableView:(UITableView *)tableView{
     self = [super init];
@@ -27,7 +27,7 @@
     return self;
 }
 
-- (void)setDelegate:(id<MCDFetchedDataSourceDelegate>)delegate{
+- (void)setDelegate:(id<MCDFetchedTableDataDelegate>)delegate{
     _delegate = delegate;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -89,9 +89,9 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
 //}
 
 //- (NSInteger)numberOfObjectsInSection:(NSInteger)section{
-//    if([self.delegate respondsToSelector:@selector(fetchedDataSource:fetchedIndexPathForTableIndexPath:)]){
+//    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedIndexPathForTableIndexPath:)]){
 //        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-//        indexPath = [self.delegate fetchedDataSource:self fetchedIndexPathForTableIndexPath:indexPath];
+//        indexPath = [self.delegate fetchedTableData:self fetchedIndexPathForTableIndexPath:indexPath];
 //        section = indexPath.section;
 //    }
     //if(section >= 0 && section < self.fetchedResultsController.sections.count){
@@ -178,23 +178,23 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return nil; // or exception because if it isnt an object index then we should have got a cell.
     }
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:fetchedCellIdentifierForObject:)]){
-        NSString *identifier = [self.delegate fetchedDataSource:self fetchedCellIdentifierForObject:object];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellIdentifierForObject:)]){
+        NSString *identifier = [self.delegate fetchedTableData:self fetchedCellIdentifierForObject:object];
         if(identifier){
             MCDFetchedTableViewCell *fetchedCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
             fetchedCell.fetchedObject = object;
             return fetchedCell;
         }
     }
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:fetchedCellForObject:)]){
-        MCDFetchedTableViewCell *fetchedCell = [self.delegate fetchedDataSource:self fetchedCellForObject:object];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellForObject:)]){
+        MCDFetchedTableViewCell *fetchedCell = [self.delegate fetchedTableData:self fetchedCellForObject:object];
         if(fetchedCell){
             fetchedCell.fetchedObject = object;
             return fetchedCell;
         }
     }
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:cellForObject:)]){
-        return [self.delegate fetchedDataSource:self cellForObject:object];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:cellForObject:)]){
+        return [self.delegate fetchedTableData:self cellForObject:object];
     }
     return nil;
 }
@@ -211,9 +211,9 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return YES;
     }
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:canEditRowForObject:)]){
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:canEditRowForObject:)]){
         // Return NO if you do not want the specified item to be editable.
-        return [self.delegate fetchedDataSource:self canEditRowForObject:object];
+        return [self.delegate fetchedTableData:self canEditRowForObject:object];
     }
     return YES;
 }
@@ -227,8 +227,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return;
     }
-    else if([self.delegate respondsToSelector:@selector(fetchedDataSource:commitEditingStyle:forObject:)]){
-        [self.delegate fetchedDataSource:self commitEditingStyle:editingStyle forObject:object];
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:commitEditingStyle:forObject:)]){
+        [self.delegate fetchedTableData:self commitEditingStyle:editingStyle forObject:object];
     }
 }
     
@@ -264,8 +264,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return nil;
     }
-    else if([self.delegate respondsToSelector:@selector(fetchedDataSource:sectionHeaderTitleForObject:)]){
-        return [self.delegate fetchedDataSource:self sectionHeaderTitleForObject:object];
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:sectionHeaderTitleForObject:)]){
+        return [self.delegate fetchedTableData:self sectionHeaderTitleForObject:object];
     }
     return nil;
 }
@@ -294,8 +294,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return nil;
     }
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:trailingSwipeActionsConfigurationForObject:)]){
-       return [self.delegate fetchedDataSource:self trailingSwipeActionsConfigurationForObject:object];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:trailingSwipeActionsConfigurationForObject:)]){
+       return [self.delegate fetchedTableData:self trailingSwipeActionsConfigurationForObject:object];
     }
     return nil;
 }
@@ -310,8 +310,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return;
     }
-    else if([self.delegate respondsToSelector:@selector(fetchedDataSource:didSelectRowForObject:)]){
-        [self.delegate fetchedDataSource:self didSelectRowForObject:object];
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didSelectRowForObject:)]){
+        [self.delegate fetchedTableData:self didSelectRowForObject:object];
     }
 }
 
@@ -323,8 +323,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return;
     }
-    else if([self.delegate respondsToSelector:@selector(fetchedDataSource:didDeselectRowForObject:)]){
-        [self.delegate fetchedDataSource:self didDeselectRowForObject:object];
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didDeselectRowForObject:)]){
+        [self.delegate fetchedTableData:self didDeselectRowForObject:object];
     }
 }
 
@@ -335,8 +335,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
 //    if(!object){
 //        return;
 //    }
-//    else if([self.delegate respondsToSelector:@selector(fetchedDataSource:didEndEditingRowForObject:)]){
-//        [self.delegate fetchedDataSource:self didEndEditingRowForObject:object];
+//    else if([self.delegate respondsToSelector:@selector(fetchedTableData:didEndEditingRowForObject:)]){
+//        [self.delegate fetchedTableData:self didEndEditingRowForObject:object];
 //    }
 //    else if([self.delegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)]){
 //        [self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
@@ -354,8 +354,8 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return YES;
     }
-    else if([self.delegate respondsToSelector:@selector(fetchedDataSource:shouldHighlightRowForObject:)]){
-        return [self.delegate fetchedDataSource:self shouldHighlightRowForObject:object];
+    else if([self.delegate respondsToSelector:@selector(fetchedTableData:shouldHighlightRowForObject:)]){
+        return [self.delegate fetchedTableData:self shouldHighlightRowForObject:object];
     }
     return YES;
 }
@@ -517,15 +517,15 @@ atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 #pragma Table to Fetched
 
 - (NSInteger)fetchedSectionForTableSection:(NSInteger)tableSection{
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:fetchedSectionForTableSection:)]){
-        return [self.delegate fetchedDataSource:self fetchedSectionForTableSection:tableSection];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedSectionForTableSection:)]){
+        return [self.delegate fetchedTableData:self fetchedSectionForTableSection:tableSection];
     }
     return tableSection;
 }
 
 - (NSIndexPath *)fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath{
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:fetchedIndexPathForTableIndexPath:)]){
-        return [self.delegate fetchedDataSource:self fetchedIndexPathForTableIndexPath:indexPath];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedIndexPathForTableIndexPath:)]){
+        return [self.delegate fetchedTableData:self fetchedIndexPathForTableIndexPath:indexPath];
     }
     NSInteger section = [self fetchedSectionForTableSection:indexPath.section];
     if(section == NSNotFound){
@@ -551,15 +551,15 @@ atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 #pragma Fetched to Table
 
 - (NSInteger)tableSectionForFetchedSection:(NSInteger)fetchedSection{
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:tableSectionForFetchedSection:)]){
-        return [self.delegate fetchedDataSource:self tableSectionForFetchedSection:fetchedSection];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:tableSectionForFetchedSection:)]){
+        return [self.delegate fetchedTableData:self tableSectionForFetchedSection:fetchedSection];
     }
     return fetchedSection;
 }
 
 - (NSIndexPath *)tableIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath{
-    if([self.delegate respondsToSelector:@selector(fetchedDataSource:tableIndexPathForFetchedIndexPath:)]){
-        return [self.delegate fetchedDataSource:self tableIndexPathForFetchedIndexPath:indexPath];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:tableIndexPathForFetchedIndexPath:)]){
+        return [self.delegate fetchedTableData:self tableIndexPathForFetchedIndexPath:indexPath];
     }
     NSInteger section = [self tableSectionForFetchedSection:indexPath.section];
     if(section == NSNotFound){

@@ -11,7 +11,7 @@
     #define __MCOREDATA_NAMESPACE_APPLY(s) __MCOREDATA_NAMESPACE_BRIDGE(MCOREDATA_NAMESPACE, s)
 	#define __MCOREDATA_NAMESPACE_APPLY_LOWER(s) __MCOREDATA_NAMESPACE_BRIDGE(MCOREDATA_NAMESPACE_LOWER, s)
 // Classes
-    #define MCDFetchedDataSource __MCOREDATA_NAMESPACE_APPLY(MCDFetchedDataSource)
+    #define MCDFetchedTableData __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableData)
     #define MCDFetchedTableViewCell __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewCell)
     #define MCDFetchedTableViewController __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewController)
     #define MCDPersistentContainer __MCOREDATA_NAMESPACE_APPLY(MCDPersistentContainer)

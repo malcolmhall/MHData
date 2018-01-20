@@ -11,7 +11,7 @@
 #import "EventTableViewCell.h"
 //#import "EventTableViewData.h"
 
-@interface MasterViewController ()<MCDFetchedDataSourceDelegate>
+@interface MasterViewController ()<MCDFetchedTableDataDelegate>
 
 @end
 
@@ -32,7 +32,7 @@
 }
 
 - (IBAction)teardownButtonTapped:(id)sender{
-    self.fetchedDataSource.fetchedResultsController = nil;
+    self.fetchedTableData.fetchedResultsController = nil;
     
 //    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
 //    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
@@ -45,7 +45,7 @@
     
 - (IBAction)recreateButtonTapped:(id)sender{
     [self recreateFetchedResultsController];
-    [self.fetchedDataSource fetchAndReloadData];
+    [self.fetchedTableData fetchAndReloadData];
 }
 
 - (void)viewDidLoad {
@@ -67,8 +67,8 @@
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];
     self.tableView.allowsSelectionDuringEditing = YES;
     
-    //self.fetchedDataSource = [MCDFetchedDataSource.alloc initWithTableView:self.tableView];
-    //self.fetchedDataSource.delegate = self;
+    //self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
+    //self.fetchedTableData.delegate = self;
     [self recreateFetchedResultsController];
     [self performSelector:@selector(malc) withObject:nil afterDelay:2];
 }
@@ -78,22 +78,22 @@
 
 }
 
-- (BOOL)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource canEditObject:(id)object{
+- (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData canEditObject:(id)object{
     return YES;
 }
 
-- (UITableViewCell *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource cellForObject:(id)object{
+- (UITableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData cellForObject:(id)object{
     EventTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Event"];
     cell.fetchedObject = object;
     return cell;
 }
 
-- (NSString *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource fetchedCellIdentifierForObject:(id)object{
+- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellIdentifierForObject:(id)object{
     return @"Event";
 }
 
 
-- (nullable UISwipeActionsConfiguration *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource trailingSwipeActionsConfigurationForObject:(id)object{
+- (nullable UISwipeActionsConfiguration *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData trailingSwipeActionsConfigurationForObject:(id)object{
     return nil;
 }
 
@@ -119,7 +119,7 @@
     if(!context){
         return;
     }
-    NSEntityDescription *entity = self.fetchedDataSource.fetchedResultsController.fetchRequest.entity;
+    NSEntityDescription *entity = self.fetchedTableData.fetchedResultsController.fetchRequest.entity;
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name inManagedObjectContext:context];
     
     // If appropriate, configure the new managed object.
@@ -144,7 +144,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = nil;//[self.fetchedDataSource objectAtTableIndexPath:indexPath];
+        NSManagedObject *object = nil;//[self.fetchedTableData objectAtTableIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -154,28 +154,28 @@
 
 #pragma mark - Table Data
 /*
-- (nullable NSIndexPath *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath{
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
          return nil;
     }
     return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - 1];
 }
 
-- (nullable NSIndexPath *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource tableIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath{
+- (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath{
 //    if(indexPath.section == 0){
     return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
 //
 }
 */
 
-- (NSInteger)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource fetchedSectionForTableSection:(NSInteger)tableSection{
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionForTableSection:(NSInteger)tableSection{
     if(tableSection == 0){//} || section == [self numberOfSectionsInTableView:self.tableView] - 1){
         return NSNotFound;
     }
     return tableSection - 1;
 }
 
-- (NSInteger)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource tableSectionForFetchedSection:(NSInteger)fetchedSection{
+- (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionForFetchedSection:(NSInteger)fetchedSection{
     return fetchedSection + 1;
 }
 
@@ -183,7 +183,7 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedDataSource.fetchedResultsController.sections.count + 1;
+    return self.fetchedTableData.fetchedResultsController.sections.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -231,7 +231,7 @@
 //}
 
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    return self.fetchedDataSource.numberOfSections + 1;
+//    return self.fetchedTableData.numberOfSections + 1;
 //}
 
 //- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -257,14 +257,14 @@
 //}
 
 
-//- (NSIndexPath *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath{
+//- (NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath{
 //    //if(indexPath.section == 0){//} || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
 //    //    return indexPath;
 //    //}
 //    return [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - 1];
 //}
 //
-//- (NSIndexPath *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource tableIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath{
+//- (NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableIndexPathForFetchedIndexPath:(NSIndexPath *)indexPath{
 ////    if(indexPath.section == 0){
 ////        return indexPath;
 ////    }
@@ -303,7 +303,7 @@
     //[self deselectObject:object animated:YES];
 }
 
-- (NSString *)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource sectionHeaderTitleForObject:(Event *)event{
+- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData sectionHeaderTitleForObject:(Event *)event{
     return event.sectionKey;
 }
 //}
@@ -319,7 +319,7 @@
 }
 
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-- (void)fetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
+- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = self.managedObjectContext;
         //Event *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -374,7 +374,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    self.fetchedDataSource.fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
+    self.fetchedTableData.fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
     //aFetchedResultsController.delegate = self;
     // self.fetchedResultsController = aFetchedResultsController;
     
