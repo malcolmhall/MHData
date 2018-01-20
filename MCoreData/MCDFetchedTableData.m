@@ -193,8 +193,15 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     }
     if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellIdentifierForObject:)]){
         NSString *identifier = [self.delegate fetchedTableData:self fetchedCellIdentifierForObject:object];
-        MCDFetchedTableViewCell *fetchedCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-        if(fetchedCell){ // nil if invalid identifier
+        if(identifier){
+            UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+            if(!cell){
+                [NSException raise:NSInvalidArgumentException format:@"Failed to dequeue a cell with identifier %@", identifier];
+            }
+            else if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
+                [NSException raise:NSInvalidArgumentException format:@"Cell dequeued with identifier %@ was not a subclass of %@", identifier, NSStringFromClass(MCDFetchedTableViewCell.class)];
+            }
+            MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
             fetchedCell.fetchedObject = object;
             return fetchedCell;
         }
@@ -202,12 +209,14 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     // Some magic as a last resort
     if([object isKindOfClass:NSManagedObject.class]){
         NSManagedObject *managedObject = (NSManagedObject *)object;
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:managedObject.entity.name];
-        if([cell isKindOfClass:MCDFetchedTableViewCell.class]){
-            MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
-            fetchedCell.fetchedObject = object;
-            return fetchedCell;
+        NSString *identifier = managedObject.entity.name;
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+        if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
+            [NSException raise:NSInvalidArgumentException format:@"Cell dequeued with identifier using entity name %@ was not a subclass of %@", identifier, NSStringFromClass(MCDFetchedTableViewCell.class)];
         }
+        MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
+        fetchedCell.fetchedObject = object;
+        return fetchedCell;
     }
     return nil;
 }
