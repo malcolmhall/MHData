@@ -293,7 +293,7 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     else if([object isKindOfClass:NSManagedObject.class]){
         // some magic as last resort
         NSManagedObject *managedObject = (NSManagedObject *)object;
-        return managedObject.entity.name;
+        return [NSString stringWithFormat:@"%@ Section", managedObject.entity.name];
     }
     return nil;
 }
