@@ -178,12 +178,10 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
     if(!object){
         return nil; // or exception because if it isnt an object index then we should have got a cell.
     }
-    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellIdentifierForObject:)]){
-        NSString *identifier = [self.delegate fetchedTableData:self fetchedCellIdentifierForObject:object];
-        if(identifier){
-            MCDFetchedTableViewCell *fetchedCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-            fetchedCell.fetchedObject = object;
-            return fetchedCell;
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:cellForObject:)]){
+        UITableViewCell *cell = [self.delegate fetchedTableData:self cellForObject:object];
+        if(cell){
+            return cell;
         }
     }
     if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellForObject:)]){
@@ -193,8 +191,26 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
             return fetchedCell;
         }
     }
-    if([self.delegate respondsToSelector:@selector(fetchedTableData:cellForObject:)]){
-        return [self.delegate fetchedTableData:self cellForObject:object];
+    if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellIdentifierForObject:)]){
+        NSString *identifier = [self.delegate fetchedTableData:self fetchedCellIdentifierForObject:object];
+        MCDFetchedTableViewCell *fetchedCell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
+        if(fetchedCell){ // nil if invalid identifier
+            fetchedCell.fetchedObject = object;
+            return fetchedCell;
+        }
+    }
+    // Some magic as a last resort
+    if(![object isKindOfClass:NSManagedObject.class]){
+        NSManagedObject *managedObject = (NSManagedObject *)object;
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:managedObject.entity.name];
+        if(cell){
+            if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
+                @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"cell was not a subclass of MCDFetchedTableViewCell" userInfo:nil];
+            }
+            MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
+            fetchedCell.fetchedObject = object;
+            return fetchedCell;
+        }
     }
     return nil;
 }
