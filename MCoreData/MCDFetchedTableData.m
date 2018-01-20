@@ -196,10 +196,10 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
         if(identifier){
             UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
             if(!cell){
-                [NSException raise:NSInvalidArgumentException format:@"Failed to dequeue a cell with identifier %@", identifier];
+                [NSException raise:NSInvalidArgumentException format:@"fetchedCellIdentifierForObject returned an identifier %@ but we failed to dequeue a cell", identifier];
             }
             else if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
-                [NSException raise:NSInvalidArgumentException format:@"Cell dequeued with identifier %@ was not a subclass of %@", identifier, NSStringFromClass(MCDFetchedTableViewCell.class)];
+                [NSException raise:NSInvalidArgumentException format:@"fetchedCellIdentifierForObject returned an identifier %@ and we dequeued a cell %@ but it is not a subclass of %@", identifier, NSStringFromClass(cell.class), NSStringFromClass(MCDFetchedTableViewCell.class)];
             }
             MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
             fetchedCell.fetchedObject = object;
@@ -212,7 +212,7 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
         NSString *identifier = managedObject.entity.name;
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
         if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
-            [NSException raise:NSInvalidArgumentException format:@"Cell dequeued with identifier using entity name %@ was not a subclass of %@", identifier, NSStringFromClass(MCDFetchedTableViewCell.class)];
+            [NSException raise:NSInvalidArgumentException format:@"Cell was dequeued using entity name %@ as identifier but the cell %@ was not a subclass of %@", identifier, NSStringFromClass(cell.class), NSStringFromClass(MCDFetchedTableViewCell.class)];
         }
         MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
         fetchedCell.fetchedObject = object;
