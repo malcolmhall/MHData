@@ -2,7 +2,7 @@
 //  MCDDefines+Namespace.h
 //  MCoreData
 //
-//  Generated using MHNamespaceGenerator on 17/01/2018
+//  Generated using MHNamespaceGenerator on 20/01/2018
 //
 
 #if !defined(__MCOREDATA_NAMESPACE_APPLY) && defined(MCOREDATA_NAMESPACE) && defined(MCOREDATA_NAMESPACE_LOWER)
@@ -11,7 +11,7 @@
     #define __MCOREDATA_NAMESPACE_APPLY(s) __MCOREDATA_NAMESPACE_BRIDGE(MCOREDATA_NAMESPACE, s)
 	#define __MCOREDATA_NAMESPACE_APPLY_LOWER(s) __MCOREDATA_NAMESPACE_BRIDGE(MCOREDATA_NAMESPACE_LOWER, s)
 // Classes
-    #define MCDFetchedTableData __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableData)
+    #define MCDFetchedDataSource __MCOREDATA_NAMESPACE_APPLY(MCDFetchedDataSource)
     #define MCDFetchedTableViewCell __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewCell)
     #define MCDFetchedTableViewController __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewController)
     #define MCDPersistentContainer __MCOREDATA_NAMESPACE_APPLY(MCDPersistentContainer)

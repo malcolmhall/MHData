@@ -9,7 +9,7 @@
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 #import <MCoreData/MCDDefines.h>
-#import <MCoreData/MCDFetchedTableData.h>
+#import <MCoreData/MCDFetchedDataSource.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
-@interface MCDFetchedTableViewController<ResultType:id<NSFetchRequestResult>> : UITableViewController <MCDFetchedTableDataDelegate>
+@interface MCDFetchedTableViewController<ResultType:id<NSFetchRequestResult>> : UITableViewController <MCDFetchedDataSourceDelegate>
 
-@property (nonatomic, strong, null_resettable) MCDFetchedTableData<ResultType> *tableData;
+@property (nonatomic, strong, null_resettable) MCDFetchedDataSource<ResultType> *fetchedDataSource;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;

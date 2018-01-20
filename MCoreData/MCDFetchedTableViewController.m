@@ -14,32 +14,30 @@
 @implementation MCDFetchedTableViewController{
     //NSString *_messageWhenNoRows;
 }
-@synthesize tableData = _tableData;
+@synthesize fetchedDataSource = _fetchedDataSource;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    self.tableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
-    self.tableData.delegate = self;
-    self.tableData.tableDataSource = self;
-    self.tableData.tableDelegate = self;
+    self.fetchedDataSource = [MCDFetchedDataSource.alloc initWithTableView:self.tableView];
+    self.fetchedDataSource.delegate = self;
 }
 
-- (void)setTableData:(MCDFetchedTableData *)tableData{
-    if(_tableData != tableData){
-        if(_tableData.delegate == self){
-            _tableData.delegate = nil;
+- (void)setFetchedDataSource:(MCDFetchedDataSource *)fetchedDataSource{
+    if(_fetchedDataSource != fetchedDataSource){
+        if(_fetchedDataSource.delegate == self){
+            _fetchedDataSource.delegate = nil;
         }
-        _tableData = tableData;
-        if(!tableData.delegate){
-            tableData.delegate = self;
+        _fetchedDataSource = fetchedDataSource;
+        if(!fetchedDataSource.delegate){
+            fetchedDataSource.delegate = self;
         }
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     // perform a fetch if one hasn't been
-    if(!self.tableData.fetchedResultsController.fetchedObjects){
-        [self.tableData.fetchedResultsController performFetch:nil];
+    if(!self.fetchedDataSource.fetchedResultsController.fetchedObjects){
+        [self.fetchedDataSource.fetchedResultsController performFetch:nil];
     }
     [super viewWillAppear:animated]; // reloads table if there are currently no sections
 }
@@ -48,9 +46,9 @@
 //    return NSNotFound;
 //}
 
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return NSNotFound;
-//}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return NSNotFound;
+}
 
 //- (NSString *)messageWhenNoRows{
 //    if(!_messageWhenNoRows){
