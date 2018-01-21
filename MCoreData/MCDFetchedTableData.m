@@ -23,6 +23,7 @@
     self = [super init];
     if (self) {
         _tableView = tableView;
+        
     }
     return self;
 }
@@ -295,6 +296,7 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
         NSManagedObject *managedObject = (NSManagedObject *)object;
         return [NSString stringWithFormat:@"%@ Section", managedObject.entity.name];
     }
+    // sectionInfo.name
     return nil;
 }
 

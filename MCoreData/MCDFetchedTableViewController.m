@@ -16,10 +16,18 @@
 }
 @synthesize fetchedTableData = _fetchedTableData;
 
-- (void)viewDidLoad{
-    [super viewDidLoad];
-    self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
-    self.fetchedTableData.delegate = self;
+//- (void)viewDidLoad{
+//    [super viewDidLoad];
+//    self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
+//    self.fetchedTableData.delegate = self;
+//}
+
+- (MCDFetchedTableData *)fetchedTableData{
+    if(!_fetchedTableData){
+        _fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
+        _fetchedTableData.delegate = self;
+    }
+    return _fetchedTableData;
 }
 
 - (void)setFetchedDataSource:(MCDFetchedTableData *)fetchedTableData{
