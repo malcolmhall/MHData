@@ -48,26 +48,29 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector{
-    if(isProtocolMethod(@protocol(UITableViewDelegate), aSelector)){
-        return self.delegate;
-    }
-    else if(isProtocolMethod(@protocol(UITableViewDataSource), aSelector)){
-        return self.delegate;
-    }
-    return [super forwardingTargetForSelector:aSelector];
+    return self.delegate;
+//    if(isProtocolMethod(@protocol(UITableViewDelegate), aSelector)){
+//        return self.delegate;
+//    }
+//    else if(isProtocolMethod(@protocol(UITableViewDataSource), aSelector)){
+//        return self.delegate;
+//    }
+//    return [super forwardingTargetForSelector:aSelector];
 }
 
+// checking public protocol misses private protocol methods
 - (BOOL)respondsToSelector:(SEL)aSelector{
     if([super respondsToSelector:aSelector]){
         return YES;
     }
-    else if(isProtocolMethod(@protocol(UITableViewDelegate), aSelector)){
-        return [self.delegate respondsToSelector:aSelector];
-    }
-    else if(isProtocolMethod(@protocol(UITableViewDataSource), aSelector)){
-        return [self.delegate respondsToSelector:aSelector];
-    }
-    return NO;
+    return [self.delegate respondsToSelector:aSelector];
+//    else if(isProtocolMethod(@protocol(UITableViewDelegate), aSelector)){
+//        return [self.delegate respondsToSelector:aSelector];
+//    }
+//    else if(isProtocolMethod(@protocol(UITableViewDataSource), aSelector)){
+//        return [self.delegate respondsToSelector:aSelector];
+//    }
+//    return NO;
 }
 
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{

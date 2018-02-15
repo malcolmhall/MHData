@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol MCDFetchedTableDataDelegate <UITableViewDataSource, UITableViewDelegate>
+@protocol MCDFetchedTableDataDelegate <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
 @optional
 
