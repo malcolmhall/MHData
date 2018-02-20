@@ -57,6 +57,7 @@
 		ECC991D31D11AD88000F5EFB /* MCDPersistentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC991D11D11AD88000F5EFB /* MCDPersistentContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECC991D41D11AD88000F5EFB /* MCDPersistentContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991D21D11AD88000F5EFB /* MCDPersistentContainer.m */; };
 		ECD142D11DB922F8000B38AC /* MCDDefines+Namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = ECD142D01DB922F8000B38AC /* MCDDefines+Namespace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECDFA8C6203CAADE003AE478 /* MHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECDFA86E203CA086003AE478 /* MHFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = EC3144571D073A1A0025F669;
 			remoteInfo = MHFoundationTests;
+		};
+		ECDFA8C1203CAAD7003AE478 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECDFA867203CA086003AE478 /* MHFoundation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EC31444C1D073A1A0025F669;
+			remoteInfo = MHFoundation;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -137,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECDFA8C6203CAADE003AE478 /* MHFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +289,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				ECDFA8C2203CAAD7003AE478 /* PBXTargetDependency */,
 			);
 			name = MCoreData;
 			productName = MHData;
@@ -444,6 +454,11 @@
 			isa = PBXTargetDependency;
 			target = EC3144D91D073E010025F669 /* MCoreData */;
 			targetProxy = EC6759921DB15D9D00838798 /* PBXContainerItemProxy */;
+		};
+		ECDFA8C2203CAAD7003AE478 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MHFoundation;
+			targetProxy = ECDFA8C1203CAAD7003AE478 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
