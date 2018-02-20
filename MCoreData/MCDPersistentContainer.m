@@ -21,7 +21,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // if the class exists and we linked against the SDK it became available in.
-        NSString *sdkName = [[NSBundle bundleForClass:[self class]] objectForInfoDictionaryKey:@"DTSDKName"];
+        NSString *sdkName = [[NSBundle bundleForClass:self.class] objectForInfoDictionaryKey:@"DTSDKName"];
         sdkVersion = [sdkName stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
     });
     return sdkVersion.integerValue >= 10;
@@ -70,7 +70,7 @@
         _persistentStoreCoordinator = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:model];
         _viewContext = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
         _viewContext.persistentStoreCoordinator = _persistentStoreCoordinator;
-        NSURL *URL = [[[self class] defaultDirectoryURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", name]];
+        NSURL *URL = [[self.class defaultDirectoryURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.sqlite", name]];
         _persistentStoreDescriptions = @[[MCDPersistentStoreDescription persistentStoreDescriptionWithURL:URL]];
     }
     return self;

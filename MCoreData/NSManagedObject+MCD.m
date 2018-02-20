@@ -44,7 +44,7 @@
     }
     NSError *error;
     NSManagedObject *object = [context existingObjectWithID:objectID error:&error];
-    if(![object isKindOfClass:[self class]]){
+    if(![object isKindOfClass:self.class]){
         NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
         object = nil;
     }
@@ -166,7 +166,7 @@
     }
     NSError *error;
     if(![self.managedObjectContext obtainPermanentIDsForObjects:@[self] error:&error]){
-        NSLog(@"Error obtaining permanent object ID for %@: %@", [self class], error);
+        NSLog(@"Error obtaining permanent object ID for %@: %@", self.class, error);
         return NO;
     }
     return YES;

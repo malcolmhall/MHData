@@ -57,6 +57,7 @@
 		ECC991D31D11AD88000F5EFB /* MCDPersistentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC991D11D11AD88000F5EFB /* MCDPersistentContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECC991D41D11AD88000F5EFB /* MCDPersistentContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC991D21D11AD88000F5EFB /* MCDPersistentContainer.m */; };
 		ECD142D11DB922F8000B38AC /* MCDDefines+Namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = ECD142D01DB922F8000B38AC /* MCDDefines+Namespace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECF22EF0203B0AA90047DBD5 /* MHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF22EDB203B05320047DBD5 /* MHFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = EC3144D91D073E010025F669;
 			remoteInfo = MHData;
+		};
+		ECF22EDA203B05320047DBD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECF22ED4203B05320047DBD5 /* MHFoundation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC31444D1D073A1A0025F669;
+			remoteInfo = MHFoundation;
+		};
+		ECF22EDC203B05320047DBD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECF22ED4203B05320047DBD5 /* MHFoundation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC3144571D073A1A0025F669;
+			remoteInfo = MHFoundationTests;
+		};
+		ECF22EEE203B0AA30047DBD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECF22ED4203B05320047DBD5 /* MHFoundation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EC31444C1D073A1A0025F669;
+			remoteInfo = MHFoundation;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -115,6 +137,7 @@
 		ECC991D11D11AD88000F5EFB /* MCDPersistentContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDPersistentContainer.h; sourceTree = "<group>"; };
 		ECC991D21D11AD88000F5EFB /* MCDPersistentContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDPersistentContainer.m; sourceTree = "<group>"; };
 		ECD142D01DB922F8000B38AC /* MCDDefines+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MCDDefines+Namespace.h"; sourceTree = "<group>"; };
+		ECF22ED4203B05320047DBD5 /* MHFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MHFoundation.xcodeproj; path = dependencies/MHFoundation/MHFoundation.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECF22EF0203B0AA90047DBD5 /* MHFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +165,7 @@
 			children = (
 				EC3144DC1D073E010025F669 /* MCoreData */,
 				EC3144E81D073E010025F669 /* MCoreDataTests */,
+				ECF22ED3203B05200047DBD5 /* Frameworks */,
 				EC3144DB1D073E010025F669 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -204,6 +229,23 @@
 			path = MCoreDataTests;
 			sourceTree = "<group>";
 		};
+		ECF22ED3203B05200047DBD5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ECF22ED4203B05320047DBD5 /* MHFoundation.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECF22ED5203B05320047DBD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECF22EDB203B05320047DBD5 /* MHFoundation.framework */,
+				ECF22EDD203B05320047DBD5 /* MHFoundationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -247,6 +289,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				ECF22EEF203B0AA30047DBD5 /* PBXTargetDependency */,
 			);
 			name = MCoreData;
 			productName = MHData;
@@ -303,6 +346,12 @@
 			mainGroup = EC3144D01D073E010025F669;
 			productRefGroup = EC3144DB1D073E010025F669 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = ECF22ED5203B05320047DBD5 /* Products */;
+					ProjectRef = ECF22ED4203B05320047DBD5 /* MHFoundation.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EC3144D91D073E010025F669 /* MCoreData */,
@@ -311,6 +360,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		ECF22EDB203B05320047DBD5 /* MHFoundation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MHFoundation.framework;
+			remoteRef = ECF22EDA203B05320047DBD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECF22EDD203B05320047DBD5 /* MHFoundationTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MHFoundationTests.xctest;
+			remoteRef = ECF22EDC203B05320047DBD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EC3144D81D073E010025F669 /* Resources */ = {
@@ -388,6 +454,11 @@
 			isa = PBXTargetDependency;
 			target = EC3144D91D073E010025F669 /* MCoreData */;
 			targetProxy = EC6759921DB15D9D00838798 /* PBXContainerItemProxy */;
+		};
+		ECF22EEF203B0AA30047DBD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MHFoundation;
+			targetProxy = ECF22EEE203B0AA30047DBD5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

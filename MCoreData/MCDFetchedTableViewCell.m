@@ -8,7 +8,7 @@
 
 #import "MCDFetchedTableViewCell.h"
 
-static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
+//static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
 @interface MCDFetchedTableViewCell()
 
@@ -19,38 +19,50 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 @implementation MCDFetchedTableViewCell
 
 -(void)setFetchedObject:(NSManagedObject *)fetchedObject{
-    if(_fetchedObject == fetchedObject){
-        return;
-    }
-    else if(_fetchedObject){
-        [self stopObservingCurrentObject];
-    }
+//    if(_fetchedObject == fetchedObject){
+//        return;
+//    }
+//    else if(_fetchedObject){
+//        [self stopObservingCurrentObject];
+//    }
     _fetchedObject = fetchedObject;
-    if(fetchedObject){
-        [self startObservingCurrentObject];
-        [self updateViewsForCurrentObjectIfNecessary];
-    }
+    self.observerForUpdatingViews.object = fetchedObject;
+//    if(fetchedObject){
+//        [self startObservingCurrentObject];
+//        [self updateViewsForCurrentObjectIfNecessary];
+//    }
 }
 
-- (void)startObservingCurrentObject{
-    for(NSString *key in self.objectKeyPathsForViews){
-        [self.fetchedObject addObserver:self forKeyPath:key options:0 context:kUpdateViewsContext];
+- (MHFObserver *)observerForUpdatingViews{
+    if(!_observerForUpdatingViews){
+        _observerForUpdatingViews = [MHFObserver.alloc initWithDelegate:self];
     }
+    return _observerForUpdatingViews;
 }
 
-- (void)stopObservingCurrentObject{
-    for(NSString *key in self.objectKeyPathsForViews){
-        [self.fetchedObject removeObserver:self forKeyPath:key context:kUpdateViewsContext];
-    }
-}
-
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
-    if(context != kUpdateViewsContext){
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
+- (void)observer:(MHFObserver *)observer objectChangedKeyPath:(nonnull NSString *)keyPath{
     [self updateViewsForCurrentObjectIfNecessary];
 }
+
+//- (void)startObservingCurrentObject{
+//    for(NSString *key in self.objectKeyPathsForViews){
+//        [self.fetchedObject addObserver:self forKeyPath:key options:0 context:kUpdateViewsContext];
+//    }
+//}
+//
+//- (void)stopObservingCurrentObject{
+//    for(NSString *key in self.objectKeyPathsForViews){
+//        [self.fetchedObject removeObserver:self forKeyPath:key context:kUpdateViewsContext];
+//    }
+//}
+
+//- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
+//    if(context != kUpdateViewsContext){
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//        return;
+//    }
+//    [self updateViewsForCurrentObjectIfNecessary];
+//}
 
 - (void)updateViewsForCurrentObjectIfNecessary{
     if(self.window){
@@ -76,9 +88,11 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
     }
 }
 
-- (void)dealloc
-{
-    self.fetchedObject = nil;
-}
+//- (void)dealloc
+//{
+//    self.fetchedObject = nil;
+//}
+
+
 
 @end
