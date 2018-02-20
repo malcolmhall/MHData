@@ -571,11 +571,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "dependencies/MHFoundation/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					"MHFOUNDATION_NAMESPACE=MHD",
 					"MHFOUNDATION_NAMESPACE_LOWER=mhd",
 				);
-				HEADER_SEARCH_PATHS = dependencies/MHFoundation;
 				INFOPLIST_FILE = MCoreData/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -593,11 +593,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "dependencies/MHFoundation/build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
 					"MHFOUNDATION_NAMESPACE=MHD",
 					"MHFOUNDATION_NAMESPACE_LOWER=mhd",
 				);
-				HEADER_SEARCH_PATHS = dependencies/MHFoundation;
 				INFOPLIST_FILE = MCoreData/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
