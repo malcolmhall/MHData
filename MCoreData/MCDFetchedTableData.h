@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MCDFetchedTableViewCell;
+@class MCDManagedObjectTableViewCell;
 
 @protocol MCDFetchedTableDataDelegate;
 
@@ -58,11 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData sectionHeaderTitleForObject:(id)object;
 
 // simply supply the identifier of a result cell subclass and one will be dequed and the fetched object set on it.
-- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellIdentifierForObject:(id)object;
+//- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellIdentifierForObject:(id)object;
 
 // alternatively supply a result cell, e.g. by dequeing and configuring its appearance, then fetched object will be set on it.
 // This method supersedes -fetchedTableData:fetchedCellIdentifierForObject: if return value is non-nil
-- (MCDFetchedTableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellForObject:(id)object;
+//- (MCDManagedObjectTableViewCell *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedCellForObject:(id)object;
 
 // alternatively create or dequeue a cell and fully configure it by setting the fetched object on it yourself.
 // This method supersedes -fetchedTableData:resultCellForObject: if return value is non-nil

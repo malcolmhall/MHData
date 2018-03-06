@@ -13,7 +13,6 @@
 #import <MCoreData/MCDPersistentStoreBridge.h>
 #import <MCoreData/MCDFetchedTableData.h>
 #import <MCoreData/MCDFetchedTableViewController.h>
-#import <MCoreData/MCDFetchedTableViewCell.h>
 #import <MCoreData/MCDPersistentContainer.h>
 #import <MCoreData/MCDPersistentStoreDescription.h>
 

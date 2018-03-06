@@ -7,7 +7,6 @@
 //
 
 #import "MCDFetchedTableData.h"
-#import "MCDFetchedTableViewCell.h"
 #import "NSFetchedResultsController+MCD.h"
 #import <objc/runtime.h>
 
@@ -188,10 +187,11 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
             return cell;
         }
     }
+    /*
     if([self.delegate respondsToSelector:@selector(fetchedTableData:fetchedCellForObject:)]){
-        MCDFetchedTableViewCell *fetchedCell = [self.delegate fetchedTableData:self fetchedCellForObject:object];
+        MCDManagedObjectTableViewCell *fetchedCell = [self.delegate fetchedTableData:self fetchedCellForObject:object];
         if(fetchedCell){
-            fetchedCell.fetchedObject = object;
+            fetchedCell.object = object;
             return fetchedCell;
         }
     }
@@ -202,11 +202,11 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
             if(!cell){
                 [NSException raise:NSInvalidArgumentException format:@"fetchedCellIdentifierForObject returned an identifier %@ but we failed to dequeue a cell", identifier];
             }
-            else if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
-                [NSException raise:NSInvalidArgumentException format:@"fetchedCellIdentifierForObject returned an identifier %@ and we dequeued a cell %@ but it is not a subclass of %@", identifier, NSStringFromClass(cell.class), NSStringFromClass(MCDFetchedTableViewCell.class)];
+            else if(![cell isKindOfClass:MCDManagedObjectTableViewCell.class]){
+                [NSException raise:NSInvalidArgumentException format:@"fetchedCellIdentifierForObject returned an identifier %@ and we dequeued a cell %@ but it is not a subclass of %@", identifier, NSStringFromClass(cell.class), NSStringFromClass(MCDManagedObjectTableViewCell.class)];
             }
-            MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
-            fetchedCell.fetchedObject = object;
+            MCDManagedObjectTableViewCell *fetchedCell = (MCDManagedObjectTableViewCell *)cell;
+            fetchedCell.object = object;
             return fetchedCell;
         }
     }
@@ -215,13 +215,14 @@ BOOL isProtocolMethod(Protocol * protocol, SEL selector) {
         NSManagedObject *managedObject = (NSManagedObject *)object;
         NSString *identifier = managedObject.entity.name;
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:identifier];
-        if(![cell isKindOfClass:MCDFetchedTableViewCell.class]){
-            [NSException raise:NSInvalidArgumentException format:@"Cell was dequeued using entity name %@ as identifier but the cell %@ was not a subclass of %@", identifier, NSStringFromClass(cell.class), NSStringFromClass(MCDFetchedTableViewCell.class)];
+        if(![cell isKindOfClass:MCDManagedObjectTableViewCell.class]){
+            [NSException raise:NSInvalidArgumentException format:@"Cell was dequeued using entity name %@ as identifier but the cell %@ was not a subclass of %@", identifier, NSStringFromClass(cell.class), NSStringFromClass(MCDManagedObjectTableViewCell.class)];
         }
-        MCDFetchedTableViewCell *fetchedCell = (MCDFetchedTableViewCell *)cell;
-        fetchedCell.fetchedObject = object;
+        MCDManagedObjectTableViewCell *fetchedCell = (MCDManagedObjectTableViewCell *)cell;
+        fetchedCell.object = object;
         return fetchedCell;
     }
+     */
     return nil;
 }
 
@@ -539,7 +540,7 @@ atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 //    return nil;
 //}
 //
-//- (MCDFetchedTableViewCell *)resultCellForObject:(id<NSFetchRequestResult>)object{
+//- (MCDManagedObjectTableViewCell *)resultCellForObject:(id<NSFetchRequestResult>)object{
 //    return nil;
 //}
 //
