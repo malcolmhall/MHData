@@ -11,8 +11,9 @@
 #import "EventTableViewCell.h"
 //#import "EventTableViewData.h"
 
-@interface MasterViewController ()<MCDFetchedTableDataDelegate>
-
+@interface MasterViewController ()
+//<MCDFetchedTableDataDelegate>
+@property (assign) BOOL malc;
 @end
 
 @implementation MasterViewController{
@@ -32,25 +33,34 @@
 }
 
 - (IBAction)teardownButtonTapped:(id)sender{
-    self.fetchedTableData.fetchedResultsController = nil;
-    
+    //self.fetchedTableData.fetchedResultsController = nil;
+    //self.fetchedResultsController = nil;
 //    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
 //    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
 //
 //
 //    self.fetchedResultsController.fetchRequest.sortDescriptors = @[sortDescriptor1, sortDescriptor2];
-//    [self.fetchedResultsController performFetch:nil];
-//    [self.tableView reloadData];
+    self.fetchedResultsController = nil;
+    [self.tableView reloadData];
 }
     
 - (IBAction)recreateButtonTapped:(id)sender{
-    [self recreateFetchedResultsController];
-    [self.fetchedTableData fetchAndReloadData];
+    //self.view = nil;
+   // self.malc = YES;
+    //self.view = nil;
+//    [self performSelector:@selector(unloadViewIfReloadable)];
+//    BOOL i = [self isViewLoaded];
+//    [self.tableView reloadData];
+    
+    //[self createFetchedResultsController];
+    //[self.fetchedTableData fetchAndReloadData];
+    self.fetchedResultsController = nil;
+    [self.fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
-    
     
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -69,15 +79,11 @@
     
     //self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
     //self.fetchedTableData.delegate = self;
-    [self recreateFetchedResultsController];
+  //  [self recreateFetchedResultsController];
     [self performSelector:@selector(malc) withObject:nil afterDelay:2];
 }
 
-- (void)malc{
-    
-
-}
-
+/*
 - (BOOL)fetchedTableData:(MCDFetchedTableData *)fetchedTableData canEditObject:(id)object{
     return YES;
 }
@@ -96,6 +102,7 @@
 - (nullable UISwipeActionsConfiguration *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData trailingSwipeActionsConfigurationForObject:(id)object{
     return nil;
 }
+*/
 
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
@@ -119,7 +126,7 @@
     if(!context){
         return;
     }
-    NSEntityDescription *entity = self.fetchedTableData.fetchedResultsController.fetchRequest.entity;
+    NSEntityDescription *entity = self.fetchedResultsController.fetchRequest.entity; // fetchedTableData
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name inManagedObjectContext:context];
     
     // If appropriate, configure the new managed object.
@@ -168,6 +175,7 @@
 }
 */
 
+/*
 - (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedSectionForTableSection:(NSInteger)tableSection{
     if(tableSection == 0){//} || section == [self numberOfSectionsInTableView:self.tableView] - 1){
         return NSNotFound;
@@ -178,20 +186,20 @@
 - (NSInteger)fetchedTableData:(MCDFetchedTableData *)fetchedTableData tableSectionForFetchedSection:(NSInteger)fetchedSection{
     return fetchedSection + 1;
 }
-
+*/
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.fetchedTableData.fetchedResultsController.sections.count + 1;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return self.fetchedTableData.fetchedResultsController.sections.count + 1;
+//}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(section == 0){//} || section == [self numberOfSectionsInTableView:self.tableView] - 1){
-        return 1;
-    }
-    return NSNotFound;
-}
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    if(section == 0){//} || section == [self numberOfSectionsInTableView:self.tableView] - 1){
+//        return 1;
+//    }
+//    return NSNotFound;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
@@ -303,9 +311,9 @@
     //[self deselectObject:object animated:YES];
 }
 
-- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData sectionHeaderTitleForObject:(Event *)event{
-    return event.sectionKey;
-}
+//- (NSString *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData sectionHeaderTitleForObject:(Event *)event{
+//    return event.sectionKey;
+//}
 //}
 
 // testing
@@ -318,8 +326,9 @@
     return YES;
 }
 
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSManagedObject *object;
+//- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = self.managedObjectContext;
         //Event *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -348,7 +357,10 @@
 
 #pragma mark - Fetched results controller
 
-- (void)recreateFetchedResultsController{
+- (void)createFetchedResultsController{
+//    if(!self.malc){
+//        return;
+//    }
     //- (NSFetchedResultsController *)fetchedResultsController
     //{
     //    if (_fetchedResultsController != nil) {
@@ -374,7 +386,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    self.fetchedTableData.fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
+    self.fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
     //aFetchedResultsController.delegate = self;
     // self.fetchedResultsController = aFetchedResultsController;
     

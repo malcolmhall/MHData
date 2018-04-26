@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.observerForUpdatingViews.keyPaths = @[@"timestamp"];
+    self.viewedKeys = @[@"timestamp"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,9 +22,15 @@
     // Configure the view for the selected state
 }
 
-- (void)updateViewsForCurrentObject{
-    [super updateViewsForCurrentObject];
-    self.textLabel.text = self.fetchedObject.timestamp.description;
+- (void)updateViewsFromCurrentObject{
+    [super updateViewsFromCurrentObject];
+    self.textLabel.text = self.event.timestamp.description;
 }
+
+- (Event *)event{
+    return self.object;
+}
+
+
 
 @end

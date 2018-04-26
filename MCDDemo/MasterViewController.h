@@ -13,7 +13,7 @@
 
 @class DetailViewController, EventTableViewData;
 
-@interface MasterViewController : MCDFetchedTableViewController<Event *>  // UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MasterViewController : MCDFetchedTableViewController  // UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 

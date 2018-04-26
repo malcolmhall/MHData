@@ -10,6 +10,8 @@
 #import <MCoreData/MCoreData.h>
 #import "Event+CoreDataClass.h"
 
-@interface EventTableViewCell : MCDFetchedTableViewCell<Event *>
+@interface EventTableViewCell : MCDManagedObjectTableViewCell
+
+@property (strong, nonatomic) Event *event;
 
 @end

@@ -16,6 +16,7 @@
 @end
 
 @implementation MCDFetchedTableViewController
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 //- (instancetype)initWithTableView:(UITableView *)tableView{
 //    self = [super init];
@@ -51,6 +52,18 @@
 //        tableView.dataSource = self;
 //    }
 //}
+//
+
+- (NSFetchedResultsController *)fetchedResultsController{
+    if(!_fetchedResultsController){
+        [self createFetchedResultsController];
+    }
+    return _fetchedResultsController;
+}
+
+- (void)createFetchedResultsController{
+    
+}
 
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
     if(fetchedResultsController == _fetchedResultsController){
@@ -66,7 +79,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    // perform a fetch if one hasn't been
     if(!self.fetchedResultsController.fetchedObjects){
         [self.fetchedResultsController performFetch:nil];
     }
