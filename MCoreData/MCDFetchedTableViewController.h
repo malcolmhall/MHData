@@ -9,21 +9,25 @@
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
 #import <MCoreData/MCDDefines.h>
-#import <MCoreData/MCDFetchedTableData.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MCDManagedObjectTableViewCell;
+@class MCDObjectTableViewCell;
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
-@interface MCDFetchedTableViewController<ResultType:id<NSFetchRequestResult>> : UITableViewController <MCDFetchedTableDataDelegate>
+@interface MCDFetchedTableViewDataSource : NSObject <UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong, null_resettable) MCDFetchedTableData<ResultType> *fetchedTableData;
+- (instancetype)initWithTableView:(UITableView *)tableView;
+
+@property (nonatomic, weak, nullable) UITableView *tableView;
+
+@property (nonatomic, strong, nullable) NSFetchedResultsController *fetchedResultsController;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
+- (void)scrollToObject:(id)object;
 
 //- (void)tearDownFetchedResultsController;
 
@@ -48,10 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 //- (void)deleteResultObject:(NSManagedObject *)resultObject;
 
 //- (void)didSelectObject:(ResultType)object;
-
-
-
-
 
 // override to translate from the table to the fetch controller, return nil if it's a table only index.
 //- (nullable NSIndexPath *)fetchedResultsControllerIndexPathFromTableViewIndexPath:(NSIndexPath *)indexPath;
