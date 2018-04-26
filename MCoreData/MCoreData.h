@@ -11,8 +11,9 @@
 #import <MCoreData/MCDError.h>
 #import <MCoreData/MCDStackManager.h>
 #import <MCoreData/MCDPersistentStoreBridge.h>
-#import <MCoreData/MCDFetchedTableData.h>
+//#import <MCoreData/MCDFetchedTableViewDataSource.h>
 #import <MCoreData/MCDFetchedTableViewController.h>
+#import <MCoreData/MCDManagedObjectTableViewCell.h>
 #import <MCoreData/MCDPersistentContainer.h>
 #import <MCoreData/MCDPersistentStoreDescription.h>
 

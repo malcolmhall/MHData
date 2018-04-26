@@ -16,11 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
-@interface MCDFetchedTableViewDataSource : NSObject <UITableViewDataSource, NSFetchedResultsControllerDelegate>
+@interface MCDFetchedTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-- (instancetype)initWithTableView:(UITableView *)tableView;
+//- (instancetype)initWithTableView:(UITableView *)tableView;
 
-@property (nonatomic, weak, nullable) UITableView *tableView;
+//@property (nonatomic, weak, nullable) UITableView *tableView;
 
 @property (nonatomic, strong, nullable) NSFetchedResultsController *fetchedResultsController;
 

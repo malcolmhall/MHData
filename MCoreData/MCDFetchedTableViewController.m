@@ -6,24 +6,24 @@
 //  Copyright (c) 2013 MAlcolm Hall. All rights reserved.
 //
 
-#import "MCDFetchedTableViewDataSource.h"
+#import "MCDFetchedTableViewController.h"
 
 //static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 //static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&kMCDFetchedResultsTableViewControllerKVOContext;
 
-@interface MCDFetchedTableViewDataSource()
+@interface MCDFetchedTableViewController()
 @property (nonatomic, assign) BOOL sectionsCountChanged;
 @end
 
-@implementation MCDFetchedTableViewDataSource
+@implementation MCDFetchedTableViewController
 
-- (instancetype)initWithTableView:(UITableView *)tableView{
-    self = [super init];
-    if (self) {
-        _tableView = tableView;
-    }
-    return self;
-}
+//- (instancetype)initWithTableView:(UITableView *)tableView{
+//    self = [super init];
+//    if (self) {
+//        _tableView = tableView;
+//    }
+//    return self;
+//}
 
 //- (void)viewDidLoad{
 //    [super viewDidLoad];
@@ -65,13 +65,13 @@
     }
 }
 
-//- (void)viewWillAppear:(BOOL)animated{
-//    // perform a fetch if one hasn't been
-//    if(!self.fetchedResultsController.fetchedObjects){
-//        [self.fetchedResultsController performFetch:nil];
-//    }
-//    [super viewWillAppear:animated]; // reloads table if there are currently no sections
-//}
+- (void)viewWillAppear:(BOOL)animated{
+    // perform a fetch if one hasn't been
+    if(!self.fetchedResultsController.fetchedObjects){
+        [self.fetchedResultsController performFetch:nil];
+    }
+    [super viewWillAppear:animated]; // reloads table if there are currently no sections
+}
 
 #pragma mark - UITableViewDataSource
 
