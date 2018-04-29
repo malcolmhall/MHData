@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSFetchedResultsController *fetchedResultsController;
 
-- (void)createFetchedResultsController;
+//- (void)createFetchedResultsController;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;

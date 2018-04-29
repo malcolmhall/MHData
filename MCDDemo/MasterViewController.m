@@ -46,16 +46,17 @@
     
 - (IBAction)recreateButtonTapped:(id)sender{
     //self.view = nil;
-   // self.malc = YES;
+    self.malc = YES;
     //self.view = nil;
+    //[self reloadView];  
 //    [self performSelector:@selector(unloadViewIfReloadable)];
 //    BOOL i = [self isViewLoaded];
 //    [self.tableView reloadData];
     
-    //[self createFetchedResultsController];
+    [self createFetchedResultsController];
     //[self.fetchedTableData fetchAndReloadData];
-    self.fetchedResultsController = nil;
-    [self.fetchedResultsController performFetch:nil];
+//    self.fetchedResultsController = nil;
+//    [self.fetchedResultsController performFetch:nil];
     [self.tableView reloadData];
 }
 
@@ -79,7 +80,7 @@
     
     //self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
     //self.fetchedTableData.delegate = self;
-  //  [self recreateFetchedResultsController];
+    [self createFetchedResultsController];
     [self performSelector:@selector(malc) withObject:nil afterDelay:2];
 }
 
@@ -327,7 +328,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object;
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 //- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = self.managedObjectContext;
@@ -390,13 +391,13 @@
     //aFetchedResultsController.delegate = self;
     // self.fetchedResultsController = aFetchedResultsController;
     
-    //    NSError *error = nil;
-    //    if (![self.fetchedResultsController performFetch:&error]) {
-    //         // Replace this implementation with code to handle the error appropriately.
-    //         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-    //        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-    //        abort();
-    //    }
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error]) {
+             // Replace this implementation with code to handle the error appropriately.
+             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+            abort();
+        }
     
     //return _fetchedResultsController;
 }

@@ -54,16 +54,62 @@
 //}
 //
 
-- (NSFetchedResultsController *)fetchedResultsController{
-    if(!_fetchedResultsController){
-        [self createFetchedResultsController];
-    }
-    return _fetchedResultsController;
-}
+//- (void)loadView{
+//    if(!self.fetchedResultsController){
+//        self.view = [UIView.alloc init];
+//        return;
+//    }
+//    [super loadView];
+//}
 
-- (void)createFetchedResultsController{
-    
+/*
+- (void)setView:(UIView *)view{
+    // if the first time
+    UIView *oldView = self.viewIfLoaded;
+    if(view == oldView){
+        return;
+    }
+    else if(!oldView){
+        super.view = view;
+        return;
+    }
+    BOOL callAppearanceMethods = self.parentViewController && !self.parentViewController.shouldAutomaticallyForwardAppearanceMethods;
+    UIView *superview = oldView.superview;
+    UIView *bob = self.navigationController.view; // different from superview
+    if(callAppearanceMethods){
+        [self beginAppearanceTransition:NO animated:NO];
+    }
+    [oldView removeFromSuperview];
+    if(callAppearanceMethods){
+         [self endAppearanceTransition];
+    }
+    super.view = view;
+    if(!view){
+        view = self.view; // calls setView
+    }
+    // workaround for nav controller and tab controller not forwarding viewWillAppear
+    if(!self.parentViewController.shouldAutomaticallyForwardAppearanceMethods){
+        [self beginAppearanceTransition:YES animated:NO];
+    }
+    [superview addSubview:self.view];
+    if(!self.parentViewController.shouldAutomaticallyForwardAppearanceMethods){
+        [self endAppearanceTransition];
+    }
 }
+*/
+
+
+
+//- (NSFetchedResultsController *)fetchedResultsController{
+//    if(!_fetchedResultsController){
+//        [self createFetchedResultsController];
+//    }
+//    return _fetchedResultsController;
+//}
+//
+//- (void)createFetchedResultsController{
+//    
+//}
 
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
     if(fetchedResultsController == _fetchedResultsController){
@@ -87,6 +133,7 @@
 
 #pragma mark - UITableViewDataSource
 
+// called by didMoveToWindow aswell and layoutsubviews
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.fetchedResultsController.sections.count;
 }
