@@ -5,7 +5,7 @@
 //  Created by Malcolm Hall on 15/06/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
-//  A back-port of NSPersistentStoreDescription from the iOS 10 SDK
+//  Used to be a back-port of NSPersistentStoreDescription from the iOS 10 SDK, now not used for anythign yet.
 
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
 // An instance of MCDPersistentStoreDescription encapsulates all information needed to describe a persistent store.
-@interface MCDPersistentStoreDescription : NSObject //<NSCopying>
+@interface MCDPersistentStoreDescription : NSPersistentStoreDescription //NSObject //<NSCopying>
 
+/*
 + (id)persistentStoreDescriptionWithURL:(NSURL *)URL;
 
 @property (copy) NSString *type;
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Returns a store description instance with default values for the store located at `URL` that can be used immediately with `addPersistentStoreWithDescription:completionHandler:`.
 - (instancetype)initWithURL:(NSURL *)URL NS_DESIGNATED_INITIALIZER;
+*/
 
 @end
 

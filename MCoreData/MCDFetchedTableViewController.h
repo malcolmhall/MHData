@@ -16,20 +16,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
-@interface MCDFetchedTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MCDFetchedTableViewController<ResultType : id<NSFetchRequestResult>> : UITableViewController <NSFetchedResultsControllerDelegate>
 
 //- (instancetype)initWithTableView:(UITableView *)tableView;
 
 //@property (nonatomic, weak, nullable) UITableView *tableView;
 
-@property (nonatomic, strong, nullable) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong, nullable) NSFetchedResultsController<ResultType> *fetchedResultsController;
 
 //- (void)createFetchedResultsController;
 
 // displays a blank view with this message if there are no rows in any section, set to nil to not use this feature.
 //@property (copy, nonatomic, nullable) NSString *messageWhenNoRows;
 
-- (void)scrollToObject:(id)object;
+- (void)scrollToObject:(ResultType)object;
 
 //- (void)tearDownFetchedResultsController;
 

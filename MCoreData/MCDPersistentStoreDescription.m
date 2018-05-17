@@ -10,7 +10,9 @@
 
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
-@implementation MCDPersistentStoreDescription{
+@implementation MCDPersistentStoreDescription
+/*
+{
     NSMutableDictionary<NSString *, NSObject *> *_options;
 }
 
@@ -67,6 +69,8 @@
 - (void)setValue:(nullable NSObject *)value forPragmaNamed:(NSString *)name{
     
 }
+
+*/
 
 @end
 

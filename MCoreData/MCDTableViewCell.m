@@ -6,17 +6,17 @@
 //  Copyright © 2018 Malcolm Hall. All rights reserved.
 //
 
-#import "MCDManagedObjectTableViewCell.h"
+#import "MCDTableViewCell.h"
 
 static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
-@interface MCDManagedObjectTableViewCell ()
+@interface MCDTableViewCell ()
 @property (nonatomic) BOOL needsToUpdateViews;
 @end
 
-@implementation MCDManagedObjectTableViewCell
+@implementation MCDTableViewCell
 
-- (void)setObject:(NSManagedObject *)object{
+- (void)setObject:(NSObject<MCDTableViewCellObject> *)object{
     if(_object == object){
         return;
     }
@@ -30,14 +30,15 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
     [self updateViewsFromCurrentObjectIfNecessary];
 }
 
-- (void)addUpdateViewsObserversForObject:(NSManagedObject *)object{
-    for(NSString *keyPath in self.viewedKeys){
+- (void)addUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
+    //[o addObserver:@"" forKeyPath:@"" options:0 context:0];
+    for(NSString *keyPath in object.keysForTableViewCell){
         [object addObserver:self forKeyPath:keyPath options:0 context:kUpdateViewsContext];
     }
 }
 
-- (void)removeUpdateViewsObserversForObject:(NSManagedObject *)object{
-    for(NSString *keyPath in self.viewedKeys){
+- (void)removeUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
+    for(NSString *keyPath in object.keysForTableViewCell){
         [object removeObserver:self forKeyPath:keyPath context:kUpdateViewsContext];
     }
 }
@@ -52,6 +53,9 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
 - (void)updateViewsFromCurrentObject{
     self.needsToUpdateViews = NO;
+    if([self.object respondsToSelector:@selector(titleForTableViewCell)]){
+        self.textLabel.text = self.object.titleForTableViewCell;
+    }
 }
 
 - (void)updateViewsFromCurrentObjectIfNecessary{

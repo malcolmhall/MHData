@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCoreData.h>
-#import "Event+CoreDataClass.h"
+#import "MCoreDataDemo+CoreDataModel.h"
 
 @class DetailViewController, EventTableViewData;
 

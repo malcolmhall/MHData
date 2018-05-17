@@ -168,7 +168,7 @@
             //NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
            // MCDPersistentStoreDescription* d = [MCDPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
             //_persistentContainer.persistentStoreDescriptions = @[d];
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(MCDPersistentStoreDescription * _Nonnull storeDescription, NSError * _Nullable error) {
+            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull storeDescription, NSError * _Nullable error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

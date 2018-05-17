@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.viewedKeys = @[@"timestamp"];
+    //self.viewedKeys = @[@"timestamp"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,13 +24,19 @@
 
 - (void)updateViewsFromCurrentObject{
     [super updateViewsFromCurrentObject];
-    self.textLabel.text = self.event.timestamp.description;
+    //self.textLabel.text = self.event.timestamp.description;
+    
+    
+    
 }
 
 - (Event *)event{
-    return self.object;
+    return (Event *)self.object;
 }
 
+- (void)setEvent:(Event *)event{
+    self.object = event;
+}
 
 
 @end

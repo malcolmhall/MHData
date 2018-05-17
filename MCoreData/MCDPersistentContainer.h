@@ -5,19 +5,23 @@
 //  Created by Malcolm Hall on 15/06/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
-//  A back-port of NSPersistentContainer from the iOS 10 SDK
+//  Used to be a back-port of NSPersistentContainer from the iOS 10 SDK but now is a subclass including extra features.
 
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MCDPersistentStoreDescription;
+//@class MCDPersistentStoreDescription;
 
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
-@interface MCDPersistentContainer : NSObject
+@interface MCDPersistentContainer : NSPersistentContainer
 
+// when creating an instance of this it sets the mcd_persistentContainer property on the coordinator so can easily access the container from
+// context.persistentCoordinator.mcd_persistentContainer.
+
+/*
 + (instancetype)persistentContainerWithName:(NSString *)name;
 + (instancetype)persistentContainerWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model;
 
@@ -41,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSManagedObjectContext *)newBackgroundContext NS_RETURNS_RETAINED;
 - (void)performBackgroundTask:(void (^)(NSManagedObjectContext *))block;
+*/
 
 @end
 
@@ -50,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 //#define __NSPersistentContainer__(a) a
 //#define MCDPersistentContainer __NSPersistentContainer__(NSPersistentContainer)
 //#endif
+
+
 
 NS_ASSUME_NONNULL_END
 

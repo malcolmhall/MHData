@@ -81,7 +81,16 @@
     //self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
     //self.fetchedTableData.delegate = self;
     [self createFetchedResultsController];
-    [self performSelector:@selector(malc) withObject:nil afterDelay:2];
+    [self performSelector:@selector(timer) withObject:nil afterDelay:2];
+}
+
+- (void)timer{
+    
+    Event *event = self.fetchedResultsController.fetchedObjects[0];
+    event.timestamp = NSDate.date;
+    [self.fetchedResultsController.managedObjectContext save:nil];
+    
+    [self performSelector:@selector(timer) withObject:nil afterDelay:2];
 }
 
 /*
@@ -202,14 +211,19 @@
 //    return NSNotFound;
 //}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
-    if(indexPath.section == 0){//section} || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
-        cell  = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        cell.textLabel.text = @"Malc";
-    }
-    return cell;
-}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    MCDTableViewCell *cell;
+//    if(indexPath.section == 0){//section} || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
+//        cell  = [tableView dequeueReusableCellWithIdentifier:@"MCD" forIndexPath:indexPath];
+//        //cell.textLabel.text = @"Malc";
+//    }
+//    cell.object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//   // NSManagedObject * o = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//   // id i = o.managedObjectContext.persistentStoreCoordinator.mcd_persistentContainer;
+//   // NSLog(@"%@", i);
+//    
+//    return cell;
+//}
 
 //- (UITableViewCell *)cellForResultObject:(NSManagedObject *)resultObject{
 //    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];

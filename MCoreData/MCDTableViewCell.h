@@ -14,12 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 //MCDATA_EXTERN void * const MCDManagedObjectTableViewCellUpdpateViewsContext;
 
-@interface MCDManagedObjectTableViewCell : UITableViewCell
+@protocol MCDTableViewCellObject;
+
+@interface MCDTableViewCell : UITableViewCell
 
 // needs to be retained to prevent being turned into a fault
-@property (nullable, strong, nonatomic) NSManagedObject *object;
+@property (nullable, strong, nonatomic) NSObject<MCDTableViewCellObject> *object;
 
-@property (nonatomic, strong) NSArray<NSString *> *viewedKeys;
+//@property (nonatomic, strong) NSArray<NSString *> *viewedKeys;
 
 // overrides
 
@@ -27,6 +29,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateViewsFromCurrentObject NS_REQUIRES_SUPER;
 // calls update if on screen otherwise sets a flag and then updates when comes on screen.
 - (void)updateViewsFromCurrentObjectIfNecessary NS_REQUIRES_SUPER;
+
+@end
+
+@protocol MCDTableViewCellObject <NSObject>
+
+// the keys of the object that are viewed in the cell. Update views will be called when their values change.
+- (NSArray<NSString *> *)keysForTableViewCell;
+
+@optional
+- (NSString *)titleForTableViewCell;
 
 @end
 

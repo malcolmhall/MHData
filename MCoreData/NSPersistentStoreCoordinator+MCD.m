@@ -6,10 +6,11 @@
 //
 //
 
-#import "NSPersistentStoreCoordinator+MCD.h"
+#import "NSPersistentStoreCoordinator+MCDPrivate.h"
 #import "MCDError.h"
 #import "NSManagedObjectModel+MCD.h"
 #import "MCDPersistentStoreDescription.h"
+#import <objc/runtime.h>
 
 @implementation NSPersistentStoreCoordinator (MCD)
 
@@ -148,6 +149,14 @@
             block(storeDescription, error);
         }
     }
+}
+
+- (MCDPersistentContainer *)mcd_persistentContainer{
+    return objc_getAssociatedObject(self, @selector(mcd_persistentContainer));
+}
+
+- (void)mcd_setPersistentContainer:(MCDPersistentContainer *)persistentContainer{
+    objc_setAssociatedObject(self, @selector(mcd_persistentContainer), persistentContainer, OBJC_ASSOCIATION_ASSIGN);
 }
 
 @end

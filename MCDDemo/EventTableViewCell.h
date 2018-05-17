@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MCoreData/MCoreData.h>
-#import "Event+CoreDataClass.h"
+#import "MCoreDataDemo+CoreDataModel.h"
 
-@interface EventTableViewCell : MCDManagedObjectTableViewCell
+@interface EventTableViewCell : MCDTableViewCell
 
 @property (strong, nonatomic) Event *event;
 

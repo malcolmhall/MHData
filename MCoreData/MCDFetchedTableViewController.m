@@ -7,6 +7,7 @@
 //
 
 #import "MCDFetchedTableViewController.h"
+#import "MCDTableViewCell.h"
 
 //static NSString * const kDefaultmessageWhenNoRows = @"There is no data available to display";
 //static void * const kMCDFetchedResultsTableViewControllerKVOContext = (void *)&kMCDFetchedResultsTableViewControllerKVOContext;
@@ -144,7 +145,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return nil;
+    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if(![object conformsToProtocol:@protocol(MCDTableViewCellObject)]){
+        return nil;
+    }
+    static NSString *kCellIdentifier = @"MCDTableViewCell";
+    MCDTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    if(!cell){
+        cell = [MCDTableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
+    }
+    cell.object = (NSObject<MCDTableViewCellObject> *)object;
+    return cell;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

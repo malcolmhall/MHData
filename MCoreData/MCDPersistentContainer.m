@@ -7,14 +7,23 @@
 //
 
 #import "MCDPersistentContainer.h"
-#import "MCDPersistentStoreDescription.h"
-#import "NSPersistentStoreCoordinator+MCD.h"
-#import "NSManagedObjectContext+MCD.h"
+//#import "MCDPersistentStoreDescription.h"
+#import "NSPersistentStoreCoordinator+MCDPrivate.h"
+//#import "NSManagedObjectContext+MCD.h"
 
 //#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
 @implementation MCDPersistentContainer
 
+- (instancetype)initWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model{
+    self = [super initWithName:name managedObjectModel:model];
+    if (self) {
+        self.persistentStoreCoordinator.mcd_persistentContainer = self;
+    }
+    return self;
+}
+
+/*
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 + (BOOL)classAvailable{
     static NSString *sdkVersion = nil;
@@ -118,6 +127,8 @@
         block(bc);
     }];
 }
+
+*/
 
 @end
 
