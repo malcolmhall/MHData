@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSPersistentStoreCoordinator (MCDPrivate)
 
-@property (weak, nonatomic, nullable, readwrite, setter=mcd_setPersistentContainer:) MCDPersistentContainer *mcd_persistentContainer;
+@property (weak, nonatomic, readwrite, setter=mcd_setPersistentContainer:) MCDPersistentContainer *mcd_persistentContainer;
 
 @end
 

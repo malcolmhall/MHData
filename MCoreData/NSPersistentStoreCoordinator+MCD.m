@@ -9,7 +9,7 @@
 #import "NSPersistentStoreCoordinator+MCDPrivate.h"
 #import "MCDError.h"
 #import "NSManagedObjectModel+MCD.h"
-#import "MCDPersistentStoreDescription.h"
+#import "MCDNSPersistentStoreDescription.h"
 #import <objc/runtime.h>
 
 @implementation NSPersistentStoreCoordinator (MCD)
@@ -133,7 +133,7 @@
     return URL;
 }
 
-- (void)mcd_addPersistentStoreWithDescription:(MCDPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MCDPersistentStoreDescription *, NSError * _Nullable))block{
+- (void)mcd_addPersistentStoreWithDescription:(MCDNSPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MCDNSPersistentStoreDescription *, NSError * _Nullable))block{
     if (storeDescription.shouldAddStoreAsynchronously) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSError *error;
@@ -156,6 +156,9 @@
 }
 
 - (void)mcd_setPersistentContainer:(MCDPersistentContainer *)persistentContainer{
+    if(self.mcd_persistentContainer){
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Coordinator already has a container; cannot replace." userInfo:nil];
+    }
     objc_setAssociatedObject(self, @selector(mcd_persistentContainer), persistentContainer, OBJC_ASSOCIATION_ASSIGN);
 }
 

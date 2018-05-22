@@ -15,7 +15,8 @@
 #import <MCoreData/MCDFetchedTableViewController.h>
 #import <MCoreData/MCDTableViewCell.h>
 #import <MCoreData/MCDPersistentContainer.h>
-#import <MCoreData/MCDPersistentStoreDescription.h>
+#import <MCoreData/MCDNSPersistentContainer.h>
+#import <MCoreData/MCDNSPersistentStoreDescription.h>
 
 #import <MCoreData/NSManagedObjectContext+MCD.h>
 #import <MCoreData/NSManagedObjectModel+MCD.h>

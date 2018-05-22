@@ -12,8 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
-
 // An instance of MCDNSPersistentStoreDescription encapsulates all information needed to describe a persistent store.
 @interface MCDNSPersistentStoreDescription : NSObject //<NSCopying>
 
@@ -43,11 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//@compatibility_alias NSPersistentStoreDescription MCDNSPersistentStoreDescription;
+//
 
-#else
-    #define __NSPersistentStoreDescription__(a) a
-    #define MCDNSPersistentStoreDescription __NSPersistentStoreDescription__(NSPersistentStoreDescription)
+//#else
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+  //  #define __NSPersistentStoreDescription__(a) a
+  //  #define MCDNSPersistentStoreDescription __NSPersistentStoreDescription__(NSPersistentStoreDescription)
+    @compatibility_alias NSPersistentStoreDescription MCDNSPersistentStoreDescription;
 #endif
 
 NS_ASSUME_NONNULL_END

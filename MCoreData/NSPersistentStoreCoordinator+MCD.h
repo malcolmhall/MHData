@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MCDPersistentStoreDescription, MCDPersistentContainer;
+@class MCDNSPersistentStoreDescription, MCDPersistentContainer;
 
 @interface NSPersistentStoreCoordinator (MCD)
 
@@ -41,10 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 // Returns the path to Application Support/Executable Name creating directories as necessary.
 + (NSURL *)mcd_applicationSupportDirectoryWithError:(NSError **)error;
 
-- (void)mcd_addPersistentStoreWithDescription:(MCDPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MCDPersistentStoreDescription *, NSError * _Nullable))block;
+- (void)mcd_addPersistentStoreWithDescription:(MCDNSPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MCDNSPersistentStoreDescription *, NSError * _Nullable))block;
 
 // provides access to the container that created this coordinator.
-@property (weak, nonatomic, readonly, nullable) MCDPersistentContainer *mcd_persistentContainer;
+@property (weak, nonatomic, readonly) MCDPersistentContainer *mcd_persistentContainer;
 
 @end
 

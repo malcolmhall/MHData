@@ -7,7 +7,17 @@
 //
 
 #import "MCDPersistentContainer.h"
+#import "NSPersistentStoreCoordinator+MCDPrivate.h"
 
 @implementation MCDPersistentContainer
+
+- (instancetype)initWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model
+{
+    self = [super initWithName:name managedObjectModel:model];
+    if (self) {
+        self.persistentStoreCoordinator.mcd_persistentContainer = self;
+    }
+    return self;
+}
 
 @end

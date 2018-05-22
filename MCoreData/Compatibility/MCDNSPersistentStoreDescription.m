@@ -8,13 +8,14 @@
 
 #import "MCDNSPersistentStoreDescription.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
 @implementation MCDNSPersistentStoreDescription
 {
     NSMutableDictionary<NSString *, NSObject *> *_options;
 }
 
+/*
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 + (BOOL)classAvailable{
     // if the class exists and we linked against the SDK it became available in.
@@ -33,13 +34,14 @@
     return super.alloc;
 }
 #endif
+*/
 
 + (id)persistentStoreDescriptionWithURL:(NSURL *)URL{
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-    if([self classAvailable]){
-        return [NSPersistentStoreDescription persistentStoreDescriptionWithURL:URL];
-    }
-    #endif
+//    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+//    if([self classAvailable]){
+//        return [NSPersistentStoreDescription persistentStoreDescriptionWithURL:URL];
+//    }
+//    #endif
     return [self.alloc initWithURL:URL];
 }
 
@@ -71,4 +73,4 @@
 
 @end
 
-#endif
+//#endif

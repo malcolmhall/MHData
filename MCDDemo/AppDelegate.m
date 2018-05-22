@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //NSURL *url = [MCDPersistentContainer defaultDirectoryURL];
+    //NSURL *url = [MCDNSPersistentContainer defaultDirectoryURL];
     
     //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
@@ -34,8 +34,8 @@
 
     UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
     MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
-    //controller.managedObjectContext = self.managedObjectContext;
-    controller.persistentContainer = self.persistentContainer;
+    controller.managedObjectContext = self.persistentContainer.viewContext;
+    //controller.persistentContainer = self.persistentContainer;
     
    // controller.fetchItem = [@{@"sectionKey" : @"a"} mutableCopy];
    // [self performSelector:@selector(malc:) withObject:controller afterDelay:1];
@@ -163,11 +163,12 @@
     // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            //NSURL *def = [MCDPersistentContainer defaultDirectoryURL];
+            //NSURL *def = [MCDNSPersistentContainer defaultDirectoryURL];
             _persistentContainer = [MCDPersistentContainer.alloc initWithName:@"MCoreDataDemo"];
             //NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
-           // MCDPersistentStoreDescription* d = [MCDPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
+           // MCDNSPersistentStoreDescription* d = [MCDNSPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
             //_persistentContainer.persistentStoreDescriptions = @[d];
+            //_persistentContainer.persistentStoreCoordinator.mcd_persistentContainer = _persistentContainer;
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull storeDescription, NSError * _Nullable error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
@@ -185,6 +186,7 @@
                     abort();
                 }
             }];
+            _persistentContainer.viewContext.automaticallyMergesChangesFromParent = YES;
         }
     }
     

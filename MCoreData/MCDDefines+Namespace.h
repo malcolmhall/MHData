@@ -14,9 +14,9 @@
     #define MCDFetchedTableData __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableData)
     #define MCDObjectTableViewCell __MCOREDATA_NAMESPACE_APPLY(MCDObjectTableViewCell)
     #define MCDFetchedTableViewController __MCOREDATA_NAMESPACE_APPLY(MCDFetchedTableViewController)
-    #define MCDPersistentContainer __MCOREDATA_NAMESPACE_APPLY(MCDPersistentContainer)
+    #define MCDNSPersistentContainer __MCOREDATA_NAMESPACE_APPLY(MCDNSPersistentContainer)
     #define MCDPersistentStoreBridge __MCOREDATA_NAMESPACE_APPLY(MCDPersistentStoreBridge)
-    #define MCDPersistentStoreDescription __MCOREDATA_NAMESPACE_APPLY(MCDPersistentStoreDescription)
+    #define MCDNSPersistentStoreDescription __MCOREDATA_NAMESPACE_APPLY(MCDNSPersistentStoreDescription)
     #define MCDStackManager __MCOREDATA_NAMESPACE_APPLY(MCDStackManager)
 // Categories
     #define MCD __MCOREDATA_NAMESPACE_APPLY(MCD)

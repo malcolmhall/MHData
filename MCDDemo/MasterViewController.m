@@ -28,9 +28,9 @@
 //    return self;
 //}
 
-- (NSManagedObjectContext *)managedObjectContext{
-    return self.persistentContainer.viewContext;
-}
+//- (NSManagedObjectContext *)managedObjectContext{
+//    return self.persistentContainer.viewContext;
+//}
 
 - (IBAction)teardownButtonTapped:(id)sender{
     //self.fetchedTableData.fetchedResultsController = nil;
@@ -70,7 +70,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
-    self.persistentContainer.viewContext.mcd_automaticallyMergesChangesFromParent = YES;
+    //self.persistentContainer.viewContext.mcd_automaticallyMergesChangesFromParent = YES;
     //self.messageWhenNoRows = @"Sorry there are no rows";
  //   self.keyPathsForObservingFetchItem = @[@"sectionKey"];
     
@@ -86,9 +86,16 @@
 
 - (void)timer{
     
+    NSManagedObjectContext *context = self.managedObjectContext.persistentStoreCoordinator.mcd_persistentContainer.newBackgroundContext;
+    
     Event *event = self.fetchedResultsController.fetchedObjects[0];
-    event.timestamp = NSDate.date;
-    [self.fetchedResultsController.managedObjectContext save:nil];
+    
+    Event *event2 = [context objectWithID:event.objectID];
+    
+    event2.timestamp = NSDate.date;
+    //[self.fetchedResultsController.managedObjectContext save:nil];
+    
+    [context save:nil];
     
     [self performSelector:@selector(timer) withObject:nil afterDelay:2];
 }
@@ -381,7 +388,7 @@
     //    if (_fetchedResultsController != nil) {
     //        return _fetchedResultsController;
     //    }
-    NSManagedObjectContext * context = self.persistentContainer.viewContext;
+    NSManagedObjectContext * context = self.managedObjectContext;// self.persistentContainer.viewContext;
     //NSManagedObjectContext * context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
     //context.parentContext = self.persistentContainer.viewContext;
     //context.mcd_automaticallyMergesChangesFromParent = YES;

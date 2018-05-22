@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MCDNSPersistentStoreDescription;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
-
 @interface MCDNSPersistentContainer : NSObject
 
 + (instancetype)persistentContainerWithName:(NSString *)name;
@@ -44,11 +42,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-//@compatibility_alias NSPersistentContainer MCDNSPersistentContainer;
+//
 
-#else
-    #define __NSPersistentContainer__(a) a
-    #define MCDNSPersistentContainer __NSPersistentContainer__(NSPersistentContainer)
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+    //#define __NSPersistentContainer__(a) a
+    //#define MCDNSPersistentContainer __NSPersistentContainer__(NSPersistentContainer)
+    @compatibility_alias NSPersistentContainer MCDNSPersistentContainer;
 #endif
 
 NS_ASSUME_NONNULL_END

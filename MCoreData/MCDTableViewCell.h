@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (NSString *)titleForTableViewCell;
+- (NSString *)subtitleForTableViewCell;
 
 @end
 

@@ -18,8 +18,8 @@
 @property (strong, nonatomic) DetailViewController *detailViewController;
 
 //@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) MCDPersistentContainer *persistentContainer;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+//@property (strong, nonatomic) MCDNSPersistentContainer *persistentContainer;
 //@property (strong, nonatomic) EventTableViewData *eventData;
 
 @property (strong, nonatomic) id fetchItem;

@@ -56,6 +56,9 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
     if([self.object respondsToSelector:@selector(titleForTableViewCell)]){
         self.textLabel.text = self.object.titleForTableViewCell;
     }
+    if([self.object respondsToSelector:@selector(subtitleForTableViewCell)]){
+        self.detailTextLabel.text = self.object.subtitleForTableViewCell;
+    }
 }
 
 - (void)updateViewsFromCurrentObjectIfNecessary{

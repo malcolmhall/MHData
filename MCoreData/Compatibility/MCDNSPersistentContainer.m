@@ -11,10 +11,11 @@
 #import "NSPersistentStoreCoordinator+MCD.h"
 #import "NSManagedObjectContext+MCD.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
 @implementation MCDNSPersistentContainer
 
+/*
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
 + (BOOL)classAvailable{
     static NSString *sdkVersion = nil;
@@ -37,13 +38,13 @@
     return super.alloc;
 }
 #endif
-
+*/
 + (NSURL *)defaultDirectoryURL{
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
-    if([self classAvailable]){
-        return [NSPersistentContainer defaultDirectoryURL];
-    }
-    #endif
+//    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+//    if([self classAvailable]){
+//        return [NSPersistentContainer defaultDirectoryURL];
+//    }
+//    #endif
     
     NSError *error;
     NSURL *URL = [NSPersistentStoreCoordinator mcd_applicationSupportDirectoryWithError:&error];
@@ -121,4 +122,4 @@
 
 @end
 
-#endif
+//#endif
