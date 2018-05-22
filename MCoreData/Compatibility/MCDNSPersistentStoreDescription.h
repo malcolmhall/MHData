@@ -1,5 +1,5 @@
 //
-//  MCDPersistentStoreDescription.h
+//  MCDNSPersistentStoreDescription.h
 //  MCoreData
 //
 //  Created by Malcolm Hall on 15/06/2016.
@@ -12,12 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
-// An instance of MCDPersistentStoreDescription encapsulates all information needed to describe a persistent store.
-@interface MCDPersistentStoreDescription : NSPersistentStoreDescription //NSObject //<NSCopying>
+// An instance of MCDNSPersistentStoreDescription encapsulates all information needed to describe a persistent store.
+@interface MCDNSPersistentStoreDescription : NSObject //<NSCopying>
 
-/*
 + (id)persistentStoreDescriptionWithURL:(NSURL *)URL;
 
 @property (copy) NSString *type;
@@ -41,15 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Returns a store description instance with default values for the store located at `URL` that can be used immediately with `addPersistentStoreWithDescription:completionHandler:`.
 - (instancetype)initWithURL:(NSURL *)URL NS_DESIGNATED_INITIALIZER;
-*/
 
 @end
 
-//@compatibility_alias NSPersistentStoreDescription MCDPersistentStoreDescription;
+//@compatibility_alias NSPersistentStoreDescription MCDNSPersistentStoreDescription;
 
-//#else
-//#define __NSPersistentStoreDescription__(a) a
-//#define MCDPersistentStoreDescription __NSPersistentStoreDescription__(NSPersistentStoreDescription)
-//#endif
+#else
+    #define __NSPersistentStoreDescription__(a) a
+    #define MCDNSPersistentStoreDescription __NSPersistentStoreDescription__(NSPersistentStoreDescription)
+#endif
 
 NS_ASSUME_NONNULL_END

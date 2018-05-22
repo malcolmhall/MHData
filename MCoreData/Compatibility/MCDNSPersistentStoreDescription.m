@@ -1,17 +1,16 @@
 //
-//  MCDPersistentStoreDescription.m
+//  MCDNSPersistentStoreDescription.m
 //  MCoreData
 //
 //  Created by Malcolm Hall on 15/06/2016.
 //  Copyright © 2016 Malcolm Hall. All rights reserved.
 //
 
-#import "MCDPersistentStoreDescription.h"
+#import "MCDNSPersistentStoreDescription.h"
 
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 100000
 
-@implementation MCDPersistentStoreDescription
-/*
+@implementation MCDNSPersistentStoreDescription
 {
     NSMutableDictionary<NSString *, NSObject *> *_options;
 }
@@ -70,8 +69,6 @@
     
 }
 
-*/
-
 @end
 
-//#endif
+#endif
