@@ -99,19 +99,6 @@
 }
 */
 
-
-
-//- (NSFetchedResultsController *)fetchedResultsController{
-//    if(!_fetchedResultsController){
-//        [self createFetchedResultsController];
-//    }
-//    return _fetchedResultsController;
-//}
-//
-//- (void)createFetchedResultsController{
-//    
-//}
-
 - (void)setFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{
     if(fetchedResultsController == _fetchedResultsController){
         return;
@@ -123,13 +110,14 @@
     if(!fetchedResultsController.delegate){
         fetchedResultsController.delegate = self;
     }
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     if(!self.fetchedResultsController.fetchedObjects){
         [self.fetchedResultsController performFetch:nil];
     }
-    [super viewWillAppear:animated]; // reloads table if there are currently no sections
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - UITableViewDataSource

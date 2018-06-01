@@ -6,7 +6,7 @@
 //
 //
 
-#import "NSPersistentStoreCoordinator+MCDPrivate.h"
+#import "NSPersistentStoreCoordinator+MCD.h"
 #import "MCDError.h"
 #import "NSManagedObjectModel+MCD.h"
 #import "MCDNSPersistentStoreDescription.h"
@@ -151,15 +151,8 @@
     }
 }
 
-- (MCDPersistentContainer *)mcd_persistentContainer{
-    return objc_getAssociatedObject(self, @selector(mcd_persistentContainer));
-}
-
-- (void)mcd_setPersistentContainer:(MCDPersistentContainer *)persistentContainer{
-    if(self.mcd_persistentContainer){
-        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Coordinator already has a container; cannot replace." userInfo:nil];
-    }
-    objc_setAssociatedObject(self, @selector(mcd_persistentContainer), persistentContainer, OBJC_ASSOCIATION_ASSIGN);
+- (BOOL)mcd_destroyPersistentStore:(NSPersistentStore *)store error:(NSError * _Nullable __autoreleasing *)error{
+    return [self destroyPersistentStoreAtURL:store.URL withType:store.type options:store.options error:error];
 }
 
 @end

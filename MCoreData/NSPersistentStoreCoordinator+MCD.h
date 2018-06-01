@@ -43,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)mcd_addPersistentStoreWithDescription:(MCDNSPersistentStoreDescription *)storeDescription completionHandler:(void (^)(MCDNSPersistentStoreDescription *, NSError * _Nullable))block;
 
-// provides access to the container that created this coordinator.
-@property (weak, nonatomic, readonly) MCDPersistentContainer *mcd_persistentContainer;
+// convenience
+- (BOOL)mcd_destroyPersistentStore:(NSPersistentStore *)store error:(NSError * _Nullable __autoreleasing *)error;
 
 @end
 

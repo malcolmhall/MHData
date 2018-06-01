@@ -41,12 +41,31 @@
 //
 //    self.fetchedResultsController.fetchRequest.sortDescriptors = @[sortDescriptor1, sortDescriptor2];
     self.fetchedResultsController = nil;
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
 }
     
 - (IBAction)recreateButtonTapped:(id)sender{
+    /*
+    NSPersistentStore *store = self.managedObjectContext.persistentStoreCoordinator.persistentStores.firstObject;
+    NSURL *url = store.URL;
+    url = [url URLByDeletingLastPathComponent];
+    url = [url URLByAppendingPathComponent:@"malc.sqlite"];
+    store.URL = url;
+    NSError *error = nil;
+    [self.managedObjectContext.persistentStoreCoordinator mcd_destroyPersistentStore:store error:&error];
+    if(error){
+        NSLog(@"%@", error);
+    }
+    NSArray *a = self.managedObjectContext.persistentStoreCoordinator.persistentStores;
+    NSLog(@"");
+    
+    [self.managedObjectContext.persistentStoreCoordinator.mcd_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull a , NSError * _Nullable e) {
+        NSLog(@"");
+    }];
+    */
+   // return;
     //self.view = nil;
-    self.malc = YES;
+   // self.malc = YES;
     //self.view = nil;
     //[self reloadView];  
 //    [self performSelector:@selector(unloadViewIfReloadable)];
@@ -57,7 +76,7 @@
     //[self.fetchedTableData fetchAndReloadData];
 //    self.fetchedResultsController = nil;
 //    [self.fetchedResultsController performFetch:nil];
-    [self.tableView reloadData];
+ //   [self.tableView reloadData];
 }
 
 - (void)viewDidLoad{
@@ -88,15 +107,15 @@
     
     NSManagedObjectContext *context = self.managedObjectContext.persistentStoreCoordinator.mcd_persistentContainer.newBackgroundContext;
     
-    Event *event = self.fetchedResultsController.fetchedObjects[0];
-    
-    Event *event2 = [context objectWithID:event.objectID];
-    
-    event2.timestamp = NSDate.date;
-    //[self.fetchedResultsController.managedObjectContext save:nil];
-    
-    [context save:nil];
-    
+    Event *event = self.fetchedResultsController.fetchedObjects.firstObject;
+    if(event){
+        Event *event2 = [context objectWithID:event.objectID];
+        
+        event2.timestamp = NSDate.date;
+        //[self.fetchedResultsController.managedObjectContext save:nil];
+        
+        [context save:nil];
+    }
     [self performSelector:@selector(timer) withObject:nil afterDelay:2];
 }
 
@@ -144,6 +163,9 @@
         return;
     }
     NSEntityDescription *entity = self.fetchedResultsController.fetchRequest.entity; // fetchedTableData
+    if(!entity){
+        return;
+    }
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name inManagedObjectContext:context];
     
     // If appropriate, configure the new managed object.
@@ -408,18 +430,18 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    self.fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
+    NSFetchedResultsController *fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
     //aFetchedResultsController.delegate = self;
     // self.fetchedResultsController = aFetchedResultsController;
     
         NSError *error = nil;
-        if (![self.fetchedResultsController performFetch:&error]) {
+        if (![fetchedResultsController performFetch:&error]) {
              // Replace this implementation with code to handle the error appropriately.
              // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, error.userInfo);
             abort();
         }
-    
+    self.fetchedResultsController = fetchedResultsController;
     //return _fetchedResultsController;
 }
 
