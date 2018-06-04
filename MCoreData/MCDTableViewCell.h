@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MCDTableViewCellObject <NSObject>
 
 // the keys of the object that are viewed in the cell. Update views will be called when their values change.
-- (NSArray<NSString *> *)keysForTableViewCell;
++ (NSSet<NSString *> *)keyPathsForValuesAffectingTableViewCell;
 
 @optional
 - (NSString *)titleForTableViewCell;

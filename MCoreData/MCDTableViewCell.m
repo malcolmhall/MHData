@@ -31,14 +31,15 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 }
 
 - (void)addUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
+    
     //[o addObserver:@"" forKeyPath:@"" options:0 context:0];
-    for(NSString *keyPath in object.keysForTableViewCell){
+    for(NSString *keyPath in [object.class keyPathsForValuesAffectingTableViewCell]){
         [object addObserver:self forKeyPath:keyPath options:0 context:kUpdateViewsContext];
     }
 }
 
 - (void)removeUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
-    for(NSString *keyPath in object.keysForTableViewCell){
+    for(NSString *keyPath in [object.class keyPathsForValuesAffectingTableViewCell]){
         [object removeObserver:self forKeyPath:keyPath context:kUpdateViewsContext];
     }
 }
@@ -86,5 +87,5 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
         [self removeUpdateViewsObserversForObject:_object];
     }
 }
-    
+
 @end

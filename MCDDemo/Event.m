@@ -11,12 +11,16 @@
 
 @implementation Event
 
-- (nonnull NSArray<NSString *> *)keysForTableViewCell {
-    return @[@"timestamp"];
-}
+//- (nonnull NSArray<NSString *> *)keysTableViewCellShouldObserve{
+//    return @[@"timestamp"];
+//}
 
 - (NSString *)titleForTableViewCell{
     return self.timestamp.description;
+}
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingTableViewCell{
+    return [NSSet setWithObject:@"timestamp"];
 }
 
 @end
