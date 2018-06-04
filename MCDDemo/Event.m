@@ -11,10 +11,6 @@
 
 @implementation Event
 
-//- (nonnull NSArray<NSString *> *)keysTableViewCellShouldObserve{
-//    return @[@"timestamp"];
-//}
-
 - (NSString *)titleForTableViewCell{
     return self.timestamp.description;
 }
