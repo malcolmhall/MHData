@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mcd_postNotificationOnMainThreadWithName:(NSString *)name;
 + (NSUInteger)mcd_countOfObjectsMatchingPredicate:(NSPredicate *)predicate context:(NSManagedObjectContext *)context;
 
+// new
++ (NSFetchRequest *)mcd_fetchRequestWithPredicate:(NSPredicate *)predicate;
+
 @end
 
 NS_ASSUME_NONNULL_END

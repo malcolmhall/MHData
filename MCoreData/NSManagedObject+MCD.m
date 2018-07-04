@@ -217,4 +217,10 @@
     return result;
 }
 
++ (NSFetchRequest *)mcd_fetchRequestWithPredicate:(NSPredicate *)predicate{
+    NSFetchRequest *fr = self.fetchRequest;
+    fr.predicate = predicate;
+    return fr;
+}
+
 @end
