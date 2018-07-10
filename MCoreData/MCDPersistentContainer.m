@@ -10,21 +10,70 @@
 #import "NSPersistentStoreCoordinator+MCDPrivate.h"
 #import <objc/runtime.h>
 
-@interface NSPersistentStoreCoordinator ()
-
-@property (weak, nonatomic, readwrite, setter=mcd_setPersistentContainer:) MCDPersistentContainer *mcd_persistentContainer;
-
-@end
+//@interface NSPersistentStoreCoordinator ()
+//
+//@property (weak, nonatomic, readwrite, setter=mcd_setPersistentContainer:) MCDPersistentContainer *mcd_persistentContainer;
+//
+//@end
 
 @implementation MCDPersistentContainer
+
+- (MCDManagedObjectContext *)viewContext{
+    NSManagedObjectContext *moc = super.viewContext;
+    if(![moc isKindOfClass:MCDManagedObjectContext.class]){
+        return nil;
+    }
+    return (MCDManagedObjectContext *)moc;
+}
+
+- (MCDManagedObjectContext *)newBackgroundContext{
+    return [self newBackgroundContextWithClass:MCDManagedObjectContext.class];
+}
+
+- (MCDManagedObjectContext *)newViewContext{
+    return [self newViewContextWithClass:MCDManagedObjectContext.class];
+}
+
+void validateClassParam(Class<MCDManagedObjectContext> managedObjectContextClass){
+    if(![managedObjectContextClass conformsToProtocol:@protocol(MCDManagedObjectContext)]){
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Class does not conform to MCDManagedObjectContext." userInfo:nil];
+    }
+}
+
+- (__kindof MCDManagedObjectContext *)newViewContextWithClass:(Class<MCDManagedObjectContext>)managedObjectContextClass{
+    validateClassParam(managedObjectContextClass);
+    MCDManagedObjectContext *moc = [managedObjectContextClass.alloc initWithConcurrencyType:NSMainQueueConcurrencyType persistentContainer:self];
+    moc.persistentStoreCoordinator = self.persistentStoreCoordinator;
+    return moc;
+}
+
+- (__kindof MCDManagedObjectContext *)newBackgroundContextWithClass:(Class<MCDManagedObjectContext>)managedObjectContextClass{
+    validateClassParam(managedObjectContextClass);
+    if(!self.persistentStoreCoordinator.persistentStores.count){
+        NSLog(@"Background context created for persistent container %@ with no stores loaded", self.name);
+    }
+    MCDManagedObjectContext *moc = [managedObjectContextClass.alloc initWithConcurrencyType:NSPrivateQueueConcurrencyType persistentContainer:self];
+    if(self.viewContext.parentContext){
+        moc.parentContext = self.viewContext.parentContext;
+    }
+    else{
+        moc.persistentStoreCoordinator = self.persistentStoreCoordinator;
+    }
+    return moc;
+}
 
 - (instancetype)initWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model
 {
     self = [super initWithName:name managedObjectModel:model];
     if (self) {
-        self.persistentStoreCoordinator.mcd_persistentContainer = self;
+        [self setValue:self.newViewContext forKey:@"_viewContext"];
+        //self.persistentStoreCoordinator.mcd_persistentContainer = self;
     }
     return self;
+}
+
+- (instancetype)init{
+    return [self initWithName:[NSBundle.mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey]];
 }
 
 - (NSPersistentStoreDescription *)storeDescription{
@@ -76,17 +125,25 @@
 
 @end
 
-@implementation NSPersistentStoreCoordinator (MCDPersistentContainer)
+//@implementation NSPersistentStoreCoordinator (MCDPersistentContainer)
+//
+//- (MCDPersistentContainer *)mcd_persistentContainer{
+//    return objc_getAssociatedObject(self, @selector(mcd_persistentContainer));
+//}
+//
+//- (void)mcd_setPersistentContainer:(MCDPersistentContainer *)persistentContainer{
+//    if(self.mcd_persistentContainer){
+//        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Coordinator already has a container; cannot replace." userInfo:nil];
+//    }
+//    objc_setAssociatedObject(self, @selector(mcd_persistentContainer), persistentContainer, OBJC_ASSOCIATION_ASSIGN);
+//}
+//
+//@end
 
-- (MCDPersistentContainer *)mcd_persistentContainer{
-    return objc_getAssociatedObject(self, @selector(mcd_persistentContainer));
-}
-
-- (void)mcd_setPersistentContainer:(MCDPersistentContainer *)persistentContainer{
-    if(self.mcd_persistentContainer){
-        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Coordinator already has a container; cannot replace." userInfo:nil];
-    }
-    objc_setAssociatedObject(self, @selector(mcd_persistentContainer), persistentContainer, OBJC_ASSOCIATION_ASSIGN);
-}
-
-@end
+//@implementation NSManagedObjectContext (MCDPersistentContainer)
+//
+//- (MCDPersistentContainer *)mcd_persistentContainer{
+//    return self.persistentStoreCoordinator.mcd_persistentContainer;
+//}
+//
+//@end

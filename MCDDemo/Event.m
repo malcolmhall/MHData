@@ -15,7 +15,7 @@
     return self.timestamp.description;
 }
 
-+ (NSSet<NSString *> *)keyPathsForValuesAffectingTableViewCell{
++ (NSSet<NSString *> *)keyPathsForTableViewCell{
     return [NSSet setWithObject:@"timestamp"];
 }
 
