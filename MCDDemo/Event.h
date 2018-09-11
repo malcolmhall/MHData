@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Attendee, Venue;
+
 @interface Event : NSManagedObject <MCDTableViewCellObject>
 
 @end

@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Attendee" representedClassName="Attendee" syncable="YES" codeGenerationType="class">
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="attendees" inverseEntity="Event" syncable="YES"/>
+    </entity>
     <entity name="Event" representedClassName="Event" codeGenerationType="category">
         <attribute name="sectionKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO">
             <userInfo/>
         </attribute>
         <attribute name="timestamp2" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="attendees" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Attendee" inverseName="event" inverseEntity="Attendee" syncable="YES"/>
+        <relationship name="venue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Venue" inverseName="events" inverseEntity="Venue" syncable="YES"/>
         <userInfo/>
     </entity>
+    <entity name="Venue" representedClassName="Venue" syncable="YES" codeGenerationType="category">
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO">
+            <userInfo/>
+        </attribute>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="venue" inverseEntity="Event" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Event" positionX="261" positionY="189" width="128" height="90"/>
+        <element name="Attendee" positionX="261" positionY="216" width="128" height="60"/>
+        <element name="Event" positionX="261" positionY="189" width="128" height="120"/>
+        <element name="Venue" positionX="270" positionY="225" width="128" height="75"/>
     </elements>
 </model>

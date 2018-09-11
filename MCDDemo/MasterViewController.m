@@ -11,6 +11,10 @@
 #import "EventTableViewCell.h"
 //#import "EventTableViewData.h"
 
+//static NSString * const kDetailObjectKey = @"DetailObject";
+NSString * const MasterViewControllerDetailObjectKey = @"DetailObject";
+//static NSManagedObjectContext *_managedObjectContext = nil;
+
 @interface MasterViewController ()
 //<MCDFetchedTableDataDelegate>
 @property (assign) BOOL malc;
@@ -18,6 +22,52 @@
 
 @implementation MasterViewController{
     NSArray *_sectionKeys;
+}
+
+//+ (NSManagedObjectContext *)managedObjectContext{
+//    return _managedObjectContext;
+//}
+//
+//+ (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext{
+//    _managedObjectContext = managedObjectContext;
+//}
+
+// we return nil when we don't want the controller restored.
+//+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray<NSString *> *)identifierComponents
+//                                                            coder:(NSCoder *)coder{
+//    NSURL *objectURI = [coder decodeObjectForKey:MasterViewControllerDetailObjectKey];
+//    if(!objectURI){
+//        return nil;
+//    }
+//    NSManagedObject *object = [self.managedObjectContext mcd_existingObjectWithURI:objectURI error:nil];
+//    if(!object){
+//        return nil;
+//    }
+//    UIStoryboard *storyboard = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+//    MasterViewController *master = [storyboard instantiateViewControllerWithIdentifier:@"MasterViewController"];
+//    master.masterItem = object;
+//    return master;
+//}
+
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), self);
+    //self.restorationClass = self.class;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder{
+    [super encodeRestorableStateWithCoder:coder];
+    if(self.masterItem){
+        [coder encodeObject:self.masterItem.objectID.URIRepresentation forKey:MasterViewControllerDetailObjectKey];
+    }
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+    NSURL *objectURI = [coder decodeObjectForKey:MasterViewControllerDetailObjectKey];
+//    if(objectURI){
+//        _masterItem = (Venue *)[self.managedObjectContext mcd_objectWithURI:objectURI];
+//    }
 }
 
 //- (instancetype)initWithStyle:(UITableViewStyle)style x:(int)x{
@@ -28,8 +78,19 @@
 //    return self;
 //}
 
+//- (void)showObject:(nullable NSManagedObject *)object startEditing:(BOOL)startEditing{
+//    NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:object];
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+- (void)showSelectedObject{
+    [self performSegueWithIdentifier:@"showDetail" sender:self];
+}
+
 //- (NSManagedObjectContext *)managedObjectContext{
-//    return self.persistentContainer.viewContext;
+//    NSManagedObjectContext *moc = super.managedObjectContext;
+//    if(!moc){
+//        return self.masterItem.managedObjectContext;
+//    }
+//    return moc;
 //}
 
 - (IBAction)teardownButtonTapped:(id)sender{
@@ -63,31 +124,125 @@
         NSLog(@"");
     }];
     */
-   // return;
+    // return;
     //self.view = nil;
-   // self.malc = YES;
+    // self.malc = YES;
     //self.view = nil;
     //[self reloadView];  
-//    [self performSelector:@selector(unloadViewIfReloadable)];
-//    BOOL i = [self isViewLoaded];
-//    [self.tableView reloadData];
-    
-    [self createFetchedResultsController];
+    //    [self performSelector:@selector(unloadViewIfReloadable)];
+    //    BOOL i = [self isViewLoaded];
+    //    [self.tableView reloadData];
     //[self.fetchedTableData fetchAndReloadData];
-//    self.fetchedResultsController = nil;
-//    [self.fetchedResultsController performFetch:nil];
- //   [self.tableView reloadData];
+    //    self.fetchedResultsController = nil;
+    //    [self.fetchedResultsController performFetch:nil];
+    //   [self.tableView reloadData];
+}
+
+//- (void)applicationFinishedRestoringState{
+//    NSIndexPath *selected = self.tableView.indexPathForSelectedRow;
+//    self.shownViewController.object = [self.fetchedResultsController objectAtIndexPath:selected];
+//}
+
+//- (void)setDetailViewController:(UIViewController<MCDObjectViewer> *)shownViewController{
+//    super.shownViewController = shownViewController;
+//}
+
+//- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext{
+//    NSAssert(!_managedObjectContext, @"MasterViewController already has a context, cannot replace");
+//    _managedObjectContext = managedObjectContext;
+//}
+
+- (void)setMasterItem:(NSManagedObject *)masterItem{
+    [self setMasterItem:masterItem deleteCache:YES];
+}
+
+- (void)setMasterItem:(NSManagedObject *)masterItem deleteCache:(BOOL)deleteCache{
+    if (_masterItem == masterItem) {
+        return;
+    }
+    _masterItem = masterItem;
+    
+    if(deleteCache){
+        [NSFetchedResultsController deleteCacheWithName:@"Master"];
+    }
+    if(self.isFetchedResultsControllerCreated){
+        self.fetchedResultsController = nil;
+    }
+}
+
+- (void)createFetchedResultsController{
+    //id i = object.changedValuesForCurrentEvent;
+    // Update the view.
+    // [self configureView];
+    //[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(objectChanged:) name:MCDFetchedTableViewControllerObjectUpdated object:object];
+    //[self updateViewsFromCurrentObject];
+//    if(!self.isViewLoaded){
+//        return;
+//    }
+//    [self updateViewsFromCurrentObject];
+    
+    //    if(!self.malc){
+    //        return;
+    //    }
+    //- (NSFetchedResultsController *)fetchedResultsController
+    //{
+    //    if (_fetchedResultsController != nil) {
+    //        return _fetchedResultsController;
+    //    }
+    NSManagedObjectContext * context = self.managedObjectContext;
+    //    if(!context){
+    //        return;
+    //    }
+    //NSManagedObjectContext * context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
+    //context.parentContext = self.persistentContainer.viewContext;
+    //context.mcd_automaticallyMergesChangesFromParent = YES;
+    
+    NSFetchRequest *fetchRequest = Event.fetchRequest;
+    // NSDictionary *d = self.fetchItem;
+    //fetchRequest.predicate = [NSPredicate predicateWithFormat:@"sectionKey = %@", d[@"sectionKey"]];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"venue = %@", self.masterItem];
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+    
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
+    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
+    //    [fetchRequest setSortDescriptors:@[sortDescriptor1, sortDescriptor2]];
+    [fetchRequest setSortDescriptors:@[sortDescriptor2]];
+    fetchRequest.propertiesToFetch = @[@"timestamp"];
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Master"]; // @"sectionKey"
+    //aFetchedResultsController.delegate = self;
+    // self.fetchedResultsController = aFetchedResultsController;
+    
+    //        NSError *error = nil;
+    //        if (![fetchedResultsController performFetch:&error]) {
+    //             // Replace this implementation with code to handle the error appropriately.
+    //             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+    //            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+    //            abort();
+    //        }
+    self.fetchedResultsController = fetchedResultsController;
+    //return _fetchedResultsController;
 }
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+ //   self.shouldAlwaysHaveSelectedRow = YES;
+  //  id i = self.tableView.indexPathForSelectedRow;
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    //UIBarButtonItem *addButton = [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    //self.shownViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    
+    [self.tableView registerClass:EventTableViewCell.class forCellReuseIdentifier:@"EventTableViewCell"];
     
     //self.persistentContainer.viewContext.mcd_automaticallyMergesChangesFromParent = YES;
     //self.messageWhenNoRows = @"Sorry there are no rows";
@@ -95,28 +250,49 @@
     
     _sectionKeys = @[@"a", @"b", @"c", @"d", @"e"];
     //[self performSelector:@selector(test) withObject:nil afterDelay:2];
-    self.tableView.allowsSelectionDuringEditing = YES;
+    //self.tableView.allowsSelectionDuringEditing = YES;
     
     //self.fetchedTableData = [MCDFetchedTableData.alloc initWithTableView:self.tableView];
     //self.fetchedTableData.delegate = self;
-    [self createFetchedResultsController];
-    [self performSelector:@selector(timer) withObject:nil afterDelay:2];
+    
+//    if(self.masterItem){
+//        [self updateViewsFromCurrentObject];
+//    }
+   // [self performSelector:@selector(timer) withObject:nil afterDelay:5];
 }
+
 
 - (void)timer{
     
-    NSManagedObjectContext *context = self.managedObjectContext.persistentStoreCoordinator.mcd_persistentContainer.newBackgroundContext;
+    NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
     
-    Event *event = self.fetchedResultsController.fetchedObjects.firstObject;
+    //[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:0];
+    //return;
+   // NSManagedObjectContext *context = self.managedObjectContext.persistentStoreCoordinator.mcd_persistentContainer.newBackgroundContext;
+    
+    Event *event = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+    
+    [context deleteObject:event];
+    [context save:nil];
+    return;
+    
     if(event){
-        Event *event2 = [context objectWithID:event.objectID];
+        //Event *event2 = [context objectWithID:event.objectID];
         
-        event2.timestamp = NSDate.date;
-        //[self.fetchedResultsController.managedObjectContext save:nil];
-        
+        if(self.malc){
+            event.timestamp = NSDate.distantFuture;
+        }
+        else{
+            event.timestamp = NSDate.distantPast;
+        }
+        self.malc = !self.malc;
+        //event.timestamp = NSDate.date;
+        [event addAttendeesObject:[Attendee.alloc initWithContext:context]];
         [context save:nil];
+        
+        //[context save:nil];
     }
-    [self performSelector:@selector(timer) withObject:nil afterDelay:2];
+    //[self performSelector:@selector(timer) withObject:nil afterDelay:1];
 }
 
 /*
@@ -141,8 +317,57 @@
 */
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
+    //self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
+//    if(self.isMovingToParentViewController){
+//        NSLog(@"To");
+//    }
+//    if(self.isMovingFromParentViewController){
+//        NSLog(@"From");
+//    }
+//    if(self.isBeingDismissed){
+//        NSLog(@"Dismissed");
+//    }
+//
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+//    if(self.isMovingToParentViewController){
+//        NSLog(@"To");
+//    }
+//    if(self.isMovingFromParentViewController){
+//        NSLog(@"From");
+//    }
+//    if(self.isBeingDismissed){
+//        NSLog(@"Dismissed");
+//    }
+    [super viewDidAppear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    //    if(self.splitViewController.isCollapsed && self.navigationController.isMovingFromParentViewController){
+    //        self.object = nil;
+    //    }
+    UIViewController *u = self.presentingViewController;
+    UIViewController *pvc = self.parentViewController;
+    if(!pvc){
+        // when going back in landscape or portrait.
+        //self.viewedObject = nil;
+    }
+    else if(u){
+        // doesn't happen
+        //self.viewedObject = nil;
+    }
+    // wehen rotating
+    
+//    if (!vc.parentViewController){ //} || [self.parentViewController isMovingFromParentViewController])
+//        NSLog(@"View controller was popped");
+//    }
+//    else
+//    {
+//        NSLog(@"New view controller was pushed");
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,9 +375,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender {
+- (IBAction)insertNewObject:(id)sender {
     //NSManagedObjectContext *context = self.persistentContainer.viewContext;
-    NSManagedObjectContext *context = self.managedObjectContext;
+    NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
    //NSManagedObjectContext * context = self.persistentContainer.newBackgroundContext;
     ///NSManagedObjectContext * context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
     //context.parentContext = self.fetchedResultsController.managedObjectContext;
@@ -171,9 +396,9 @@
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [object setValue:[NSDate date] forKey:@"timestamp"];
-    
-    int i = arc4random_uniform(_sectionKeys.count);
-    [object setValue:_sectionKeys[i] forKey:@"sectionKey"];
+    [object setValue:self.masterItem forKey:@"venue"];
+//    int i = arc4random_uniform(_sectionKeys.count);
+//    [object setValue:_sectionKeys[i] forKey:@"sectionKey"];
     
     // Save the context.
     NSError *error = nil;
@@ -188,17 +413,42 @@
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = nil;//[self.fetchedTableData objectAtTableIndexPath:indexPath];
-        DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
-        controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-        controller.navigationItem.leftItemsSupplementBackButton = YES;
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
+//        Event *event;
+//        if([sender isKindOfClass:Event.class]){
+//            event = (Event *)sender;
+//        }
+//        else{
+        //NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        //NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        //Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//        }
+        //UITableViewCell *cell = (UITableViewCell *)sender;
+        
+        //NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        DetailViewController *controller = (DetailViewController *)[segue.destinationViewController topViewController];
+        controller.event = self.selectedObject;
+        
+        //controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+        //controller.navigationItem.leftItemsSupplementBackButton = YES;
+        //self.shownViewController = controller;
     }
 }
 
 #pragma mark - Table Data
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//- (UITableViewCell *)cellForObject:(NSManagedObject *)object atIndexPath:(NSIndexPath *)indexPath{
+//    EventTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Event" forIndexPath:indexPath];
+//    //Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    //cell.event = event;
+//    return cell;
+//}
+
+//- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object{
+//    cell.event = object;
+//}
+
 /*
 - (nullable NSIndexPath *)fetchedTableData:(MCDFetchedTableData *)fetchedTableData fetchedIndexPathForTableIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0 || indexPath.section == [self numberOfSectionsInTableView:self.tableView] - 1){
@@ -342,6 +592,8 @@
 //}
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSLog(@"did select");
+//}
 //    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 - (void)didSelectObject:(Event *)object{
     [object setValue:NSDate.date forKey:@"timestamp"];
@@ -373,8 +625,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
 //- (void)fetchedTableData:(MCDFetchedTableData *)fetchedTableData commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forObject:(id)object{
+    
+    BOOL b = self.tableView.isEditing;
+    
     if(editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = self.managedObjectContext;
+        NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
         //Event *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [context deleteObject:object];
         NSError *error = nil;
@@ -388,62 +643,17 @@
     }
 }
 
-
 //- (void)configureCell:(EventTableViewCell *)cell withObject:(NSManagedObject *)object{
 //    //cell.textLabel.text = [[object valueForKey:@"timestamp"] description];
 //    cell.fetchedResult = object;
 //}
 
 - (void)observedChangeOfFetchItemKeyPath:(NSString *)keyPath{
-    NSDictionary *d = self.fetchItem;
-    self.navigationItem.title = d[@"sectionKey"];
+//    NSDictionary *d = self.fetchItem;
+//    self.navigationItem.title = d[@"sectionKey"];
 }
 
 #pragma mark - Fetched results controller
-
-- (void)createFetchedResultsController{
-//    if(!self.malc){
-//        return;
-//    }
-    //- (NSFetchedResultsController *)fetchedResultsController
-    //{
-    //    if (_fetchedResultsController != nil) {
-    //        return _fetchedResultsController;
-    //    }
-    NSManagedObjectContext * context = self.managedObjectContext;// self.persistentContainer.viewContext;
-    //NSManagedObjectContext * context = [NSManagedObjectContext.alloc initWithConcurrencyType:NSMainQueueConcurrencyType];
-    //context.parentContext = self.persistentContainer.viewContext;
-    //context.mcd_automaticallyMergesChangesFromParent = YES;
-    
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Event"];
-    // NSDictionary *d = self.fetchItem;
-    //fetchRequest.predicate = [NSPredicate predicateWithFormat:@"sectionKey = %@", d[@"sectionKey"]];
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    
-    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"sectionKey" ascending:YES];
-    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
-//    [fetchRequest setSortDescriptors:@[sortDescriptor1, sortDescriptor2]];
-    [fetchRequest setSortDescriptors:@[sortDescriptor2]];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *fetchedResultsController = [NSFetchedResultsController.alloc initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]; // @"sectionKey"
-    //aFetchedResultsController.delegate = self;
-    // self.fetchedResultsController = aFetchedResultsController;
-    
-        NSError *error = nil;
-        if (![fetchedResultsController performFetch:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-            abort();
-        }
-    self.fetchedResultsController = fetchedResultsController;
-    //return _fetchedResultsController;
-}
 
 /*
  - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -510,5 +720,13 @@
  */
 
 
+//- (NSManagedObject *)mcd_detailObject{
+//    return self.masterItem;
+//}
+
+- (void)dealloc
+{
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), self);
+}
 
 @end

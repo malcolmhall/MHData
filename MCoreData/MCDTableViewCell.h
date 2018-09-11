@@ -8,7 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #import <UIKit/UIKit.h>
-#import <MCoreData/MCDDefines.h>
+#import <MCoreData/MCDObjectViewer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,10 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MCDTableViewCellObject;
 
-@interface MCDTableViewCell : UITableViewCell
+@interface MCDTableViewCell : UITableViewCell// <MCDObjectViewer>
 
-// needs to be retained to prevent being turned into a fault
-@property (nullable, strong, nonatomic) NSObject<MCDTableViewCellObject> *object;
+//- (instancetype)initWithStyle:(UITableViewCellStyle)style;
+
+// needs to be retained for KVO and also to prevent being turned into a fault.
+@property (nullable, strong, nonatomic) NSManagedObject<MCDTableViewCellObject> *object;
 
 //@property (nonatomic, strong) NSArray<NSString *> *viewedKeys;
 
@@ -35,11 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MCDTableViewCellObject <NSObject>
 
 // the keys of the object that are viewed in the cell. Update views will be called when their values change.
-+ (NSSet<NSString *> *)keyPathsForTableViewCell;
-
-@optional
+//+ (NSSet<NSString *> *)keyPathsForTableViewCell;
 - (NSString *)titleForTableViewCell;
+@optional
 - (NSString *)subtitleForTableViewCell;
+- (BOOL)containsObject:(NSManagedObject *)object;
 
 @end
 

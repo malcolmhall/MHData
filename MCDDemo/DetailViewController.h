@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MCoreData/MCoreData.h>
+#import "MCoreDataDemo+CoreDataModel.h"
 
-@interface DetailViewController : UIViewController
+extern NSString * const DetailViewControllerDetailObjectKey;
 
-@property (strong, nonatomic) id detailItem;
+@interface DetailViewController : UIViewController <UIViewControllerRestoration>
+
+@property (strong, nonatomic) Event *event;
+//@property (strong, nonatomic, readonly) Event *detailItem;
+//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
 @end
 

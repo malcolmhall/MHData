@@ -15,8 +15,16 @@
     return self.timestamp.description;
 }
 
-+ (NSSet<NSString *> *)keyPathsForValuesAffectingTableViewCell{
++ (NSSet *)keyPathsForValuesAffectingTitleForTableViewCell{
     return [NSSet setWithObject:@"timestamp"];
+}
+
+- (NSString *)subtitleForTableViewCell{
+    return [NSString stringWithFormat:@"%ld", self.attendees.count];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSubtitleForTableViewCell{
+    return [NSSet setWithObject:@"attendees.@count"];
 }
 
 @end

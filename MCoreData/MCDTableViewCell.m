@@ -7,6 +7,7 @@
 //
 
 #import "MCDTableViewCell.h"
+#import "MCDFetchedTableViewController.h"
 
 static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
@@ -16,50 +17,56 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 
 @implementation MCDTableViewCell
 
-- (void)setObject:(NSObject<MCDTableViewCellObject> *)object{
+- (void)setObject:(NSManagedObject<MCDTableViewCellObject> *)object{
     if(_object == object){
         return;
     }
     else if(_object){
-        [self removeUpdateViewsObserversForObject:_object];
+        //[self removeUpdateViewsObserversForObject:_object];
+        [NSNotificationCenter.defaultCenter removeObserver:self name:MCDFetchedTableViewControllerObjectUpdated object:_object];
     }
     _object = object;
     if(object){
-        [self addUpdateViewsObserversForObject:object];
+        //[self addUpdateViewsObserversForObject:object];
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(objectChanged:) name:MCDFetchedTableViewControllerObjectUpdated object:object];
     }
     [self updateViewsFromCurrentObjectIfNecessary];
 }
 
-- (void)addUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
-    
-    //[o addObserver:@"" forKeyPath:@"" options:0 context:0];
-    for(NSString *keyPath in [object.class keyPathsForTableViewCell]){
-        [object addObserver:self forKeyPath:keyPath options:0 context:kUpdateViewsContext];
-    }
+- (void)objectChanged:(NSNotification *)notification{
+     [self updateViewsFromCurrentObjectIfNecessary];
 }
 
-- (void)removeUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
-    for(NSString *keyPath in [object.class keyPathsForTableViewCell]){
-        [object removeObserver:self forKeyPath:keyPath context:kUpdateViewsContext];
-    }
-}
+//- (void)addUpdateViewsObserversForObject:(NSManagedObject<MCDTableViewCellObject> *)object{
+//    [object addObserver:self forKeyPath:NSStringFromSelector(@selector(titleForTableViewCell)) options:0 context:kUpdateViewsContext];
+//    if([object respondsToSelector:@selector(subtitleForTableViewCell)]){
+//        [object addObserver:self forKeyPath:NSStringFromSelector(@selector(subtitleForTableViewCell)) options:0 context:kUpdateViewsContext];
+//    }
+//}
 
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
-    if(context != kUpdateViewsContext){
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
-    [self updateViewsFromCurrentObjectIfNecessary];
-}
+//- (void)removeUpdateViewsObserversForObject:(NSObject<MCDTableViewCellObject> *)object{
+//    [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(titleForTableViewCell)) context:kUpdateViewsContext];
+//    if([object respondsToSelector:@selector(subtitleForTableViewCell)]){
+//        [object removeObserver:self forKeyPath:NSStringFromSelector(@selector(subtitleForTableViewCell)) context:kUpdateViewsContext];
+//    }
+//}
+
+// propertiesToFetch must be set to prevent this being called when the object fault is fired.
+//- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context{
+//    if(context != kUpdateViewsContext){
+//        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+//        return;
+//    }
+//    NSManagedObject *o = (NSManagedObject *)object;
+//    if(o.faultingState){
+//        return;
+//    }
+//
+//}
 
 - (void)updateViewsFromCurrentObject{
+    //if([self.viewedObject respondsToSelector:@selector(titleForTableViewCell)]){
     self.needsToUpdateViews = NO;
-    if([self.object respondsToSelector:@selector(titleForTableViewCell)]){
-        self.textLabel.text = self.object.titleForTableViewCell;
-    }
-    if([self.object respondsToSelector:@selector(subtitleForTableViewCell)]){
-        self.detailTextLabel.text = self.object.subtitleForTableViewCell;
-    }
 }
 
 - (void)updateViewsFromCurrentObjectIfNecessary{
@@ -71,7 +78,9 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 }
 
 - (void)willMoveToWindow:(UIWindow *)window{
+//- (void)didMoveToWindow{
     if(window && self.needsToUpdateViews){
+    //if(self.needsToUpdateViews){
         [self updateViewsFromCurrentObject];
     }
 }
@@ -79,13 +88,14 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
 - (void)prepareForReuse{
     [super prepareForReuse];
     self.object = nil;
+    self.needsToUpdateViews = NO;
 }
 
 - (void)dealloc
 {
-    if(_object){
-        [self removeUpdateViewsObserversForObject:_object];
-    }
+//    if(_object){
+//        [self removeUpdateViewsObserversForObject:_object];
+//    }
 }
 
 @end

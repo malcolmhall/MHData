@@ -49,9 +49,11 @@
 		ECB213771D872F2400246A1F /* NSError+MCD.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB213751D872F2400246A1F /* NSError+MCD.m */; };
 		ECC4B0D31FD8C14F00076880 /* NSFetchedResultsController+MCD.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC4B0D11FD8C14F00076880 /* NSFetchedResultsController+MCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECC4B0D41FD8C14F00076880 /* NSFetchedResultsController+MCD.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC4B0D21FD8C14F00076880 /* NSFetchedResultsController+MCD.m */; };
+		ECC6B468210A873C0034DCB4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC6B467210A873C0034DCB4 /* CoreData.framework */; };
 		ECD142D11DB922F8000B38AC /* MCDDefines+Namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = ECD142D01DB922F8000B38AC /* MCDDefines+Namespace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECF4603E208B5F8F008DB68E /* MCDTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = ECF4603A208B5F8E008DB68E /* MCDTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECF4603F208B5F8F008DB68E /* MCDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF4603D208B5F8F008DB68E /* MCDTableViewCell.m */; };
+		ECF7B25B20FEA60B00A81FFA /* MCDObjectViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECF7B25A20FEA58C00A81FFA /* MCDObjectViewer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECF97ED020B4673200CD1331 /* MCDPersistentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = ECF97ECE20B4673200CD1331 /* MCDPersistentContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECF97ED120B4673200CD1331 /* MCDPersistentContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF97ECF20B4673200CD1331 /* MCDPersistentContainer.m */; };
 		ECF9A3C720BCC52B0042123C /* MCDNSPersistentContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF9A3C320BCC52B0042123C /* MCDNSPersistentContainer.m */; };
@@ -108,9 +110,11 @@
 		ECB213751D872F2400246A1F /* NSError+MCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MCD.m"; sourceTree = "<group>"; };
 		ECC4B0D11FD8C14F00076880 /* NSFetchedResultsController+MCD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFetchedResultsController+MCD.h"; sourceTree = "<group>"; };
 		ECC4B0D21FD8C14F00076880 /* NSFetchedResultsController+MCD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFetchedResultsController+MCD.m"; sourceTree = "<group>"; };
+		ECC6B467210A873C0034DCB4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		ECD142D01DB922F8000B38AC /* MCDDefines+Namespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MCDDefines+Namespace.h"; sourceTree = "<group>"; };
 		ECF4603A208B5F8E008DB68E /* MCDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDTableViewCell.h; sourceTree = "<group>"; };
 		ECF4603D208B5F8F008DB68E /* MCDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDTableViewCell.m; sourceTree = "<group>"; };
+		ECF7B25A20FEA58C00A81FFA /* MCDObjectViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDObjectViewer.h; sourceTree = "<group>"; };
 		ECF97ECE20B4673200CD1331 /* MCDPersistentContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDPersistentContainer.h; sourceTree = "<group>"; };
 		ECF97ECF20B4673200CD1331 /* MCDPersistentContainer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDPersistentContainer.m; sourceTree = "<group>"; };
 		ECF9A3C320BCC52B0042123C /* MCDNSPersistentContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDNSPersistentContainer.m; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECC6B468210A873C0034DCB4 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +175,7 @@
 				EC3144FB1D073EA30025F669 /* MCDPersistentStoreBridge.m */,
 				EC3144FC1D073EA30025F669 /* MCDStackManager.h */,
 				EC3144FD1D073EA30025F669 /* MCDStackManager.m */,
+				ECF7B25A20FEA58C00A81FFA /* MCDObjectViewer.h */,
 				EC1670692059832900D0ACE6 /* MCDFetchedTableViewController.h */,
 				EC16706A2059832900D0ACE6 /* MCDFetchedTableViewController.m */,
 				ECF4603A208B5F8E008DB68E /* MCDTableViewCell.h */,
@@ -208,6 +214,7 @@
 		ECF22ED3203B05200047DBD5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECC6B467210A873C0034DCB4 /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -242,6 +249,7 @@
 				EC3145081D073EA30025F669 /* MCDDefines.h in Headers */,
 				EC3145141D073EA30025F669 /* NSManagedObject+MCD.h in Headers */,
 				EC3145161D073EA30025F669 /* NSManagedObjectContext+MCD.h in Headers */,
+				ECF7B25B20FEA60B00A81FFA /* MCDObjectViewer.h in Headers */,
 				EC31451A1D073EA30025F669 /* NSPersistentStoreCoordinator+MCD.h in Headers */,
 				EC3B230B20ADABE900444480 /* NSPersistentStoreCoordinator+MCDPrivate.h in Headers */,
 				ECF9A3CA20BCC52B0042123C /* MCDNSPersistentContainer.h in Headers */,

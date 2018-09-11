@@ -284,5 +284,13 @@
     return result;
 }
 
+- (NSManagedObject *)mcd_objectWithURI:(NSURL *)objectURI{
+    NSManagedObjectID *objectID = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURI];
+    return [self objectWithID:objectID];
+}
 
+- (nullable __kindof NSManagedObject *)mcd_existingObjectWithURI:(NSURL *)objectURI error:(NSError**)error{
+    NSManagedObjectID *objectID = [self.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURI];
+    return [self existingObjectWithID:objectID error:error];
+}
 @end

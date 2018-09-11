@@ -10,6 +10,15 @@
 
 @implementation EventTableViewCell
 
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
@@ -25,9 +34,6 @@
 - (void)updateViewsFromCurrentObject{
     [super updateViewsFromCurrentObject];
     //self.textLabel.text = self.event.timestamp.description;
-    
-    
-    
 }
 
 - (Event *)event{
@@ -35,7 +41,7 @@
 }
 
 - (void)setEvent:(Event *)event{
-    self.object = event;
+    super.object = event;
 }
 
 

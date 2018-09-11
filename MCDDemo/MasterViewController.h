@@ -10,19 +10,25 @@
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCoreData.h>
 #import "MCoreDataDemo+CoreDataModel.h"
+#import "DetailViewController.h"
 
-@class DetailViewController, EventTableViewData;
+@class EventTableViewData;
 
-@interface MasterViewController : MCDFetchedTableViewController  // UITableViewController <NSFetchedResultsControllerDelegate>
+extern NSString * const MasterViewControllerDetailObjectKey;
 
-@property (strong, nonatomic) DetailViewController *detailViewController;
+@interface MasterViewController : MCDFetchedTableViewController <UIDataSourceModelAssociation, UIViewControllerRestoration> // UITableViewController <NSFetchedResultsControllerDelegate>
+
+//@property (strong, nonatomic) DetailViewController *shownViewController;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 //@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+//@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 //@property (strong, nonatomic) MCDNSPersistentContainer *persistentContainer;
 //@property (strong, nonatomic) EventTableViewData *eventData;
 
-@property (strong, nonatomic) id fetchItem;
+@property (strong, nonatomic) Venue *masterItem;
+- (void)setMasterItem:(NSManagedObject *)masterItem deleteCache:(BOOL)deleteCache;
 
 @end
 

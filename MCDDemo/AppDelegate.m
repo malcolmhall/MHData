@@ -9,16 +9,37 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 #import "MasterViewController.h"
+#import "InitialViewController.h"
 
+// Finder behaviour is not to select anything when going in subfolder.
+// Notes always picks the first note.
+// Mail remembers previous selected email in the folder.
+// Think its best that something is always selected cause saves a tap.
+
+// What was that stuff to do with needing to show detail from the venue list?
+// Was using sender. Maybe to do with deletes?
+// Probably to do with deleting Folders.
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
 @end
 
+@interface UISplitViewController ()
+
+- (void)_willShowCollapsedDetailViewController:(id)a inTargetController:(id)b;
+
+@end
+
+@interface UINavigationController ()
+- (id)separateSecondaryViewControllerFromPrimaryViewController:(UIViewController *)primaryViewController;
+@end
+
 @implementation AppDelegate
 
+// must not do anything that causes views to load in here.
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     //NSURL *url = [MCDNSPersistentContainer defaultDirectoryURL];
@@ -27,21 +48,48 @@
     
   //  MCDBackgroundContextOperation *op = [[MCDBackgroundContextOperation alloc] init];
     
+    self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = YES;
+    
     UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
+    
+    
+    UINavigationController *navigationController = splitViewController.viewControllers.lastObject;
+    //navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
     splitViewController.delegate = self;
 
-    UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-    MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
+   // id i = splitViewController.viewControllers;
+    UINavigationController *masterNavigationController = splitViewController.viewControllers.firstObject;//[0];
+    id j = masterNavigationController.viewControllers;
+    InitialViewController *controller = (InitialViewController *)masterNavigationController.viewControllers.firstObject;// topViewController
     controller.managedObjectContext = self.persistentContainer.viewContext;
+    controller.persistentContainer = self.persistentContainer;
+    
+    //MasterViewController.managedObjectContext = self.persistentContainer.viewContext;
+   // DetailViewController.managedObjectContext = self.persistentContainer.viewContext;
+    
+//    [UIApplication registerObjectForStateRestoration:self.persistentContainer.viewContext restorationIdentifier:@"Context"];
+    
+   // UINavigationController *secondaryNavigationController = splitViewController.viewControllers.lastObject;;
+   // DetailViewController *detail = (DetailViewController *)secondaryNavigationController.viewControllers.firstObject;
+   // id i = detail.view;
+  //  detail.managedObjectContext = self.persistentContainer.viewContext;
+    
     //controller.persistentContainer = self.persistentContainer;
     
    // controller.fetchItem = [@{@"sectionKey" : @"a"} mutableCopy];
    // [self performSelector:@selector(malc:) withObject:controller afterDelay:1];
     
-    //NSManagedObjectContext * c1 = self.persistentContainer.newBackgroundContext;
     
+    //NSManagedObjectContext * c1 = self.persistentContainer.newBackgroundContext;
+ //   [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+  //  splitViewController.delegate = self;
+    // must be done here because causes views to load.
+    splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
     return YES;
 }
 
@@ -59,6 +107,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self saveContext];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -75,15 +124,176 @@
     [self saveContext];
 }
 
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder{
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder{
+    return YES;
+}
+
+//- (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder{
+//    
+//}
+
+- (UISplitViewController *)splitViewController{
+    return (UISplitViewController *)self.window.rootViewController;
+}
+
+// in the case of restored in master portrait, the detail in the storyboard cause a collapse, so whats the point in preventing a collapse when detail portrait?
+// if just giving detail navigation it doesnt seem to automatically find the controller below it.
+- (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder{
+    NSLog(@"viewControllerWithRestorationIdentifierPath %@", identifierComponents.lastObject);
+    //return nil;
+    //UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+//    if([identifierComponents.lastObject isEqualToString:@"DetailViewController"]){
+//        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+//        UINavigationController *secondaryNavigationController = splitViewController.viewControllers.lastObject;;
+//        DetailViewController *detail = (DetailViewController *)secondaryNavigationController.viewControllers.firstObject;
+//        NSURL *objectURI = [coder decodeObjectForKey:@"object"];
+//        if(objectURI){
+//            NSManagedObjectContext *moc = self.persistentContainer.viewContext;
+//            NSManagedObjectID *objectID = [moc.persistentStoreCoordinator managedObjectIDForURIRepresentation:objectURI];
+//            NSManagedObject *object = [moc objectWithID:objectID];
+//            detail.object = object;
+//        }
+        // attempt to workaround a bug for _preservedDetailController not being restored.
+        //[splitViewController _willShowCollapsedDetailViewController:secondaryNavigationController inTargetController:nil];
+//        return nil;
+//    }
+//    else
+    
+//    if([identifierComponents.lastObject isEqualToString:@"SplitViewController"]){
+//        return UISplitViewController.alloc.init;
+//    }
+//    if([identifierComponents.lastObject isEqualToString:@"InitialViewController"]){
+//        return self.splitViewController;
+//    }
+    //else
+    //return nil;
+    // if we don't restore this then collapse is called.
+    if([identifierComponents.lastObject isEqualToString:@"DetailNavigationController"]){
+        UINavigationController *secondaryNavigationController = self.splitViewController.viewControllers.lastObject;
+        NSLog(@"First %@", secondaryNavigationController);
+        //DetailViewController *detail = (DetailViewController *)secondaryNavigationController.viewControllers.firstObject;
+        //UIStoryboard *storyboard = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+        //UINavigationController *secondaryNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"DetailNavigationController"];
+        return secondaryNavigationController;
+    }
+    else if([identifierComponents.lastObject isEqualToString:@"DetailViewController"]){
+        UINavigationController *secondaryNavigationController = self.splitViewController.viewControllers.lastObject;
+        DetailViewController *detail = secondaryNavigationController.viewControllers.firstObject;
+       // UIStoryboard *storyboard = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+       // DetailViewController *detail = [storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
+        NSURL *objectURI = [coder decodeObjectForKey:DetailViewControllerDetailObjectKey];
+        if(objectURI){
+            NSManagedObject *object = [self.persistentContainer.viewContext mcd_existingObjectWithURI:objectURI error:nil];
+            if(object){
+                detail.event = object;
+            }
+        }
+        return detail;
+    }
+    else if([identifierComponents.lastObject isEqualToString:@"MasterViewController"]){
+        // no longer called
+        UIStoryboard *storyboard = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+        MasterViewController *master = [storyboard instantiateViewControllerWithIdentifier:@"MasterViewController"];
+        master.managedObjectContext = self.persistentContainer.viewContext;
+        NSURL *objectURI = [coder decodeObjectForKey:MasterViewControllerDetailObjectKey];
+        if(objectURI){
+            NSManagedObject *object = [self.persistentContainer.viewContext mcd_existingObjectWithURI:objectURI error:nil];
+            if(object){
+                [master setMasterItem:object deleteCache:NO];
+            }
+        }
+        return master;
+    }
+    return nil;
+}
+
 #pragma mark - Split view
 
+// if searching storyboard then:
+// not called for portrait->portrait
+// is called from landscape->portrait
+// I think we need it to be called in all cases for the seperate to work.
+// When in lanscape, choose and event, go back to venue, rotate to portrait, bug hiearchy is VEnues->Detail
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
-    if ([secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil)) {
+    
+    if ([secondaryViewController isKindOfClass:[UINavigationController class]] &&
+        [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] &&
+        ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] mcd_detailObject] == nil)){
         // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
         return YES;
-    } else {
+    }
+    // we need the preserved controller to keep showing the detail so when we seperate again it appears.
+//    else if([primaryViewController isKindOfClass:[UINavigationController class]] &&
+//            [[(UINavigationController *)primaryViewController topViewController] isKindOfClass:[InitialViewController class]]){
+//        // we had gone back to venues list.
+//        return YES;
+//    }
+    else {
         return NO;
     }
+}
+
+// if this is nil then when in portrate, on events list go in landscape. VEnues is on left and Events are on right.
+
+// if currently on master it puts the preserved on the right side.
+// default behavior pops the nav's top controller and puts it on the right, which isnt right when on Events vc.
+// if state was encoded as portrait then this is called because the state is restored as portrait then switched back to landscape. Because it wasn't collapsed we can't use default behavior.
+- (nullable UIViewController *)splitViewController:(UISplitViewController *)splitViewController separateSecondaryViewControllerFromPrimaryViewController:(UIViewController *)primaryViewController{
+   // id p = primaryViewController.parentViewController;
+    
+ //  id i = splitViewController.viewControllers;
+//    return [i lastObject];
+   // return nil;
+    /*
+    for(UIViewController *vc in [(UINavigationController *)primaryViewController viewControllers]){
+        NSLog(@"%@", vc);
+        if(![vc isKindOfClass:UINavigationController.class]){
+            continue;
+        }
+        UINavigationController *u = (UINavigationController *)vc;
+         for(UIViewController *dd in [u viewControllers]){
+            if(![dd isKindOfClass:DetailViewController.class]){
+                continue;
+            }
+            DetailViewController *c = (DetailViewController *)dd;
+            id f = c.viewedObject;
+            NSLog(@"");
+         }
+    }
+    
+    UINavigationController *d = [primaryViewController separateSecondaryViewControllerForSplitViewController:splitViewController];
+    NSLog(@"Second %@", d);
+    for(UIViewController *vc in d.viewControllers){
+        NSLog(@"%@", vc);
+        DetailViewController *c = (DetailViewController *)vc;
+        id f = c.viewedObject;
+        NSLog(@"");
+    }
+    return d;
+    */
+    UINavigationController *nav = (UINavigationController *)primaryViewController;
+    UIViewController *vc = nav.topViewController;
+    if([vc isKindOfClass:UINavigationController.class]){
+        return nil;
+    }
+    
+    //return [UINavigationController.alloc initWithRootViewController:UIViewController.alloc.init];
+    UINavigationController *nav2 = [splitViewController.storyboard instantiateViewControllerWithIdentifier:@"DetailNavigationController"];
+    // if display is full screen can end up in screen can't get back from.
+    nav2.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
+    return nav2;
+    //id s = [splitViewController performSelector:@selector(_impl)];
+   // id t = [s performSelector:@selector(_preservedDetailController)];
+//
+//   // if([splitViewController valueForKey:@"_preservedDetailController"]){
+//    id i = splitViewController.viewControllers;
+//      //  return nil;
+//    //}
+
 }
 
 #pragma mark - Core Data stack
@@ -165,6 +375,7 @@
         if (_persistentContainer == nil) {
             //NSURL *def = [MCDNSPersistentContainer defaultDirectoryURL];
             _persistentContainer = [MCDPersistentContainer.alloc initWithName:@"MCoreDataDemo"];
+            NSLog(@"%@", self.applicationDocumentsDirectory.absoluteString);
             //NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Test2.sqlite"];
            // MCDNSPersistentStoreDescription* d = [MCDNSPersistentStoreDescription persistentStoreDescriptionWithURL:storeURL];
             //_persistentContainer.persistentStoreDescriptions = @[d];
@@ -209,5 +420,7 @@
         }
     }
 }
+
+
 
 @end
