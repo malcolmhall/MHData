@@ -10,7 +10,7 @@
 		EC171BDD1F8FCF8300EFF892 /* EventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC171BDC1F8FCF8300EFF892 /* EventTableViewCell.m */; };
 		EC186805211CED01005A01F4 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC186804211CED01005A01F4 /* InitialViewController.m */; };
 		EC186810211CF043005A01F4 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = EC18680E211CF043005A01F4 /* Venue.m */; };
-		EC3B230220AC310600444480 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B230020AC310600444480 /* Event.m */; };
+		EC3B230220AC310600444480 /* Event2.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B230020AC310600444480 /* Event2.m */; };
 		EC507BF51F71C73D003940EB /* MCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC507BE61F71C718003940EB /* MCoreData.framework */; };
 		EC507BF61F71C73D003940EB /* MCoreData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC507BE61F71C718003940EB /* MCoreData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC5F680D1D1C091D004B84F2 /* MCoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ECC991A41D118968000F5EFB /* MCoreDataDemo.xcdatamodeld */; };
@@ -77,7 +77,7 @@
 		EC18680D211CF043005A01F4 /* Venue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		EC18680E211CF043005A01F4 /* Venue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		EC3B22FF20AC310600444480 /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		EC3B230020AC310600444480 /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		EC3B230020AC310600444480 /* Event2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event2.m; sourceTree = "<group>"; };
 		EC507BDF1F71C718003940EB /* MCoreData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MCoreData.xcodeproj; sourceTree = "<group>"; };
 		ECC9919B1D118968000F5EFB /* MCDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC9919F1D118968000F5EFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 				EC18680D211CF043005A01F4 /* Venue.h */,
 				EC18680E211CF043005A01F4 /* Venue.m */,
 				EC3B22FF20AC310600444480 /* Event.h */,
-				EC3B230020AC310600444480 /* Event.m */,
+				EC3B230020AC310600444480 /* Event2.m */,
 				ECC991A11D118968000F5EFB /* AppDelegate.h */,
 				ECC991A21D118968000F5EFB /* AppDelegate.m */,
 				EC171BDB1F8FCF8300EFF892 /* EventTableViewCell.h */,
@@ -304,7 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECC991AC1D118968000F5EFB /* DetailViewController.m in Sources */,
-				EC3B230220AC310600444480 /* Event.m in Sources */,
+				EC3B230220AC310600444480 /* Event2.m in Sources */,
 				ECC991A91D118968000F5EFB /* MasterViewController.m in Sources */,
 				EC186810211CF043005A01F4 /* Venue.m in Sources */,
 				EC186805211CED01005A01F4 /* InitialViewController.m in Sources */,

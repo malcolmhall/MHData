@@ -381,6 +381,7 @@
             //_persistentContainer.persistentStoreDescriptions = @[d];
             //_persistentContainer.persistentStoreCoordinator.mcd_persistentContainer = _persistentContainer;
          //   [_persistentContainer backupPersistentStore];
+            NSManagedObjectContext *moc = _persistentContainer.viewContext;
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull storeDescription, NSError * _Nullable error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
