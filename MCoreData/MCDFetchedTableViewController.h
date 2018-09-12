@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isMovingOrDeletingObjects;
 
-@property (nonatomic, strong, nullable) NSIndexPath *selectionPathOfDeletedRow;
+//@property (nonatomic, strong, nullable) NSIndexPath *selectionPathOfDeletedRow;
 
 //@property (nonatomic, strong, nullable) NSManagedObjectContext *managedObjectContext;
 

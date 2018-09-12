@@ -23,12 +23,12 @@ static void * const kUpdateViewsContext = (void *)&kUpdateViewsContext;
     }
     else if(_object){
         //[self removeUpdateViewsObserversForObject:_object];
-        [NSNotificationCenter.defaultCenter removeObserver:self name:MCDFetchedTableViewControllerObjectUpdated object:_object];
+//        [NSNotificationCenter.defaultCenter removeObserver:self name:MCDFetchedTableViewControllerObjectUpdated object:_object];
     }
     _object = object;
     if(object){
         //[self addUpdateViewsObserversForObject:object];
-        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(objectChanged:) name:MCDFetchedTableViewControllerObjectUpdated object:object];
+       // [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(objectChanged:) name:MCDFetchedTableViewControllerObjectUpdated object:object];
     }
     [self updateViewsFromCurrentObjectIfNecessary];
 }
