@@ -195,6 +195,7 @@
 //}
 
 - (void)updateViewsForCurrentFetchController{
+    
     [self.tableView reloadData];
 
     NSManagedObject *selectedObject = [self mcd_currentVisibleDetailObjectWithSender:self];
