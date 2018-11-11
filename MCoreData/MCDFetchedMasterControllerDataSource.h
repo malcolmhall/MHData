@@ -7,42 +7,35 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <UIKit/UIKit.h>
-#import <MCoreData/MCDObjectViewer.h>
-#import <MCoreData/MCDTableViewCell.h>
+#import <MUIKit/MUIKit.h>
+#import <MCoreData/MCDFetchedTableDataSource.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-//@class MCDObjectTableViewCell;
+@class MCDFetchedTableDataSource;
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
 // <ResultType : id<NSFetchRequestResult>>
-@interface MCDFetchedTableViewController<ResultType : NSManagedObject<MCDTableViewCellObject> *> : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MCDFetchedMasterControllerDataSource : NSObject <MUIMasterControllerDataSource> //<FetchedTableDataSourceDelegate, NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong, nullable) NSFetchedResultsController<ResultType> *fetchedResultsController;
+- (instancetype)initWithFetchedTableDataSource:(MCDFetchedTableDataSource *)fetchedTableDataSource masterController:(MUIMasterController *)masterController;
 
-@property (strong, nonatomic) ResultType selectedObject;
+@property (strong, nonatomic, readonly) MCDFetchedTableDataSource *fetchedTableDataSource;
 
-@property (nonatomic, assign, readonly) BOOL shouldAlwaysHaveSelectedObject;
+@property (strong, nonatomic, readonly) MUIMasterController *masterController;
 
-@property (nonatomic, assign) BOOL isMovingOrDeletingObjects;
+//@property (strong, nonatomic) ResultType selectedObject;
 
-//@property (nonatomic, strong, nullable) NSIndexPath *selectionPathOfDeletedRow;
+//@property (nonatomic, assign, readonly) BOOL shouldAlwaysHaveSelectedObject;
 
-//@property (nonatomic, strong, nullable) NSManagedObjectContext *managedObjectContext;
-
-//@property (strong, nonatomic, nullable) UIViewController *detailViewController;
+//@property (nonatomic, assign) BOOL isMovingOrDeletingObjects;
 
 - (void)updateSelectionInTableViewAnimated:(BOOL)animated;
 
 - (void)updateSelectionInTableViewAnimated:(BOOL)animated scrollToSelection:(BOOL)scrollToSelection;
 
-- (void)configureDetailViewControllerWithObject:(ResultType)object;
-
-- (UITableViewCell *)cellForObject:(NSManagedObject *)object atIndexPath:(NSIndexPath *)indexPath;
-
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object;
+//- (void)configureDetailViewControllerWithObject:(ResultType)object;
 
 // perform the segue using the objet as the sender.
 //- (void)showObject:(nullable NSManagedObject *)object startEditing:(BOOL)startEditing;
@@ -51,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 // load the detail controller and perform its segue
 //- (void)showDetailObjectForObject:(NSManagedObject *)object;
 
-- (BOOL)isFetchedResultsControllerCreated;
+//- (BOOL)isFetchedResultsControllerCreated;
 
 //- (void)showDetailObject:(id)viewedObject;
 
@@ -94,27 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface UIViewController (AAPLPhotoContents)
-
-- (NSManagedObject *)mcd_detailObject;
-//- (BOOL)mcd_viewedObjectContainsDetailObject:(NSManagedObject *)object;
-- (nullable NSManagedObject *)mcd_currentVisibleDetailObjectWithSender:(id)sender;
-// change to pushed object.
-//- (nullable NSManagedObject *)mcd_currentVisibleObjectWithSender:(id)sender;
-
-//@property (strong, nonatomic, nullable, setter=mcd_setDetailObject:) NSManagedObject *mcd_detailObject;
-
-@end
-
-@interface UIViewController (AAPLViewControllerShowing)
-
-// Returns whether calling showViewController:sender: would cause a navigation "push" to occur
-- (BOOL)mcd_willShowingViewControllerPushWithSender:(id)sender;
-
-// Returns whether calling showDetailViewController:sender: would cause a navigation "push" to occur
-- (BOOL)mcd_willShowingDetailViewControllerPushWithSender:(id)sender;
-
-@end
 
 
 NS_ASSUME_NONNULL_END

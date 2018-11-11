@@ -14,4 +14,4 @@
     #endif
 #endif
 
-#import <MCoreData/MCDDefines+Namespace.h>
+
