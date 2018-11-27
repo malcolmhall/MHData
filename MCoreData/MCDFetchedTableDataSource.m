@@ -14,26 +14,32 @@
 @interface MCDFetchedTableDataSource()
 
 @property (nonatomic, assign) BOOL sectionsCountChanged;
-@property (nonatomic, strong) NSIndexPath *selectedRowBeforeChanges;
+//@property (nonatomic, strong) NSIndexPath *selectedRowBeforeChanges;
+@property (weak, nonatomic) UITableView *tableView;
 
 @end
 
 @implementation MCDFetchedTableDataSource
 
 //- (instancetype)initWithTableView:(UITableView *)tableView{
-- (instancetype)initWithFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController tableView:(UITableView *)tableView{
+- (instancetype)initWithFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController{//} tableView:(UITableView *)tableView{
     self = [super init];
     if (self) {
-        tableView.dataSource = self;
-        if(![tableView dequeueReusableCellWithIdentifier:@"Cell"]){
-            [tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"Cell"];
-        }
-        _tableView = tableView;
-        
+//        tableView.dataSource = self;
         fetchedResultsController.delegate = self;
         _fetchedResultsController = fetchedResultsController;
     }
     return self;
+}
+
+- (void)setTableView:(UITableView *)tableView{
+    if(tableView == _tableView){
+        return;
+    }
+    if(![tableView dequeueReusableCellWithIdentifier:@"Cell"]){
+        [tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"Cell"];
+    }
+    _tableView = tableView;
 }
 
 - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject<MCDTableViewCellObject> *)object{
@@ -82,6 +88,7 @@
 #pragma mark Table Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    self.tableView = tableView;
     return self.fetchedResultsController.sections.count;
 }
 
@@ -121,7 +128,7 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
-    self.selectedRowBeforeChanges = self.tableView.indexPathForSelectedRow;
+    //self.selectedRowBeforeChanges = self.tableView.indexPathForSelectedRow;
     if([self.fetchedResultsControllerDelgate respondsToSelector:_cmd]){
         [self.fetchedResultsControllerDelgate controllerWillChangeContent:controller];
     }
@@ -191,7 +198,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
     self.sectionsCountChanged = NO;
-    self.selectedRowBeforeChanges = nil;
+    //self.selectedRowBeforeChanges = nil;
     if([self.fetchedResultsControllerDelgate respondsToSelector:_cmd]){
         [self.fetchedResultsControllerDelgate controllerDidChangeContent:controller];
     }

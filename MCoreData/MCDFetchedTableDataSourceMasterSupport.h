@@ -13,17 +13,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class MCDFetchedTableDataSource;
+@protocol MCDFetchedTableDataSourceMasterSupportDelegate;
 
 // default cell reuse identifier is Cell, so in storyboard set the table view to this or change it using the property.
 // perform fetch is done in view will appear
 // <ResultType : id<NSFetchRequestResult>>
-@interface MCDFetchedMasterControllerDataSource : NSObject <MUIMasterControllerDataSource> //<FetchedTableDataSourceDelegate, NSFetchedResultsControllerDelegate>
+@interface MCDFetchedTableDataSourceMasterSupport : NSObject <MUIMasterTableViewControllerDelegate> //<FetchedTableDataSourceDelegate, NSFetchedResultsControllerDelegate>
 
-- (instancetype)initWithFetchedTableDataSource:(MCDFetchedTableDataSource *)fetchedTableDataSource masterController:(MUIMasterController *)masterController;
+- (instancetype)initWithFetchedTableDataSource:(MCDFetchedTableDataSource *)fetchedTableDataSource masterTableViewController:(MUIMasterTableViewController *)masterTableViewController;
 
 @property (strong, nonatomic, readonly) MCDFetchedTableDataSource *fetchedTableDataSource;
 
-@property (strong, nonatomic, readonly) MUIMasterController *masterController;
+@property (weak, nonatomic, readonly) MUIMasterTableViewController *masterTableViewController;
 
 //@property (strong, nonatomic) ResultType selectedObject;
 
@@ -31,15 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (nonatomic, assign) BOOL isMovingOrDeletingObjects;
 
-- (void)updateSelectionInTableViewAnimated:(BOOL)animated;
+//- (void)updateSelectionInTableViewAnimated:(BOOL)animated;
 
-- (void)updateSelectionInTableViewAnimated:(BOOL)animated scrollToSelection:(BOOL)scrollToSelection;
+//- (void)updateSelectionInTableViewAnimated:(BOOL)animated scrollToSelection:(BOOL)scrollToSelection;
 
 //- (void)configureDetailViewControllerWithObject:(ResultType)object;
 
 // perform the segue using the objet as the sender.
 //- (void)showObject:(nullable NSManagedObject *)object startEditing:(BOOL)startEditing;
-- (void)showSelectedObject;
+//- (void)showSelectedObject;
 
 // load the detail controller and perform its segue
 //- (void)showDetailObjectForObject:(NSManagedObject *)object;
@@ -87,6 +88,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol MCDFetchedTableDataSourceMasterSupportDelegate <NSObject>
 
+
+
+@end
 
 NS_ASSUME_NONNULL_END

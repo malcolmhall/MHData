@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (instancetype)initWithTableView:(UITableView *)tableView;
 
-- (instancetype)initWithFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController tableView:(UITableView *)tableView;
+- (instancetype)initWithFetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;// tableView:(UITableView *)tableView;
 
 @property (nonatomic, assign) id<FetchedTableDataSourceDelegate> delgate;
 
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign, nonatomic, readonly) NSFetchedResultsController<CellObject> *fetchedResultsController;
 
-@property (strong, nonatomic, readonly) UITableView *tableView;
+//@property (weak, nonatomic, readonly) UITableView *tableView;
 
 @property (nonatomic, assign) id<UITableViewDataSource> tableDataSource;
 
