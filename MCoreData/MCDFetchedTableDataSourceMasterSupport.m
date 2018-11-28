@@ -57,7 +57,7 @@
         fetchedTableDataSource.fetchedResultsControllerDelgate = self;
         _fetchedTableDataSource = fetchedTableDataSource;
         
-        masterTableViewController.delegate = self;
+        masterTableViewController.datasource = self;
         _masterTableViewController = masterTableViewController;
     }
     return self;
@@ -65,9 +65,9 @@
 
 #pragma mark - Master Data Source
 
-- (id)masterTableViewController:(MUIMasterTableViewController *)masterTableViewController masterItemAtIndexPath:(NSIndexPath *)indexPath{
-    return [self.fetchedTableDataSource.fetchedResultsController objectAtIndexPath:indexPath];
-}
+//- (id)masterTableViewController:(MUIMasterTableViewController *)masterTableViewController masterItemAtIndexPath:(NSIndexPath *)indexPath{
+//    return [self.fetchedTableDataSource.fetchedResultsController objectAtIndexPath:indexPath];
+//}
 
 - (NSIndexPath *)masterTableViewController:(MUIMasterTableViewController *)masterTableViewController indexPathForMasterItem:(id)masterItem{
     return [self.fetchedTableDataSource.fetchedResultsController indexPathForObject:masterItem];
@@ -107,25 +107,7 @@
     if(self.indexPathOfDeletedObject){
         NSIndexPath *indexPath = [self.masterTableViewController.tableView mui_indexPathNearIndexPath:self.indexPathOfDeletedObject];
         id object = [controller objectAtIndexPath:indexPath];
-        [self.masterTableViewController selectMasterItem:object notify:YES];
-//        [self.masterTableViewController show:object];
-        
-        //[self.masterTableViewController selectMasterItemNearIndexPath:self.indexPathOfDeletedObject];
-        
-        
-//        NSUInteger count = [self.tableView numberOfRowsInSection:self.indexPathOfDeletedObject.section];//self.fetchedResultsController.fetchedObjects.count;
-//        id object;
-//        if(count){
-//            NSUInteger row = count - 1;
-//            if(self.indexPathOfDeletedObject.row < row){
-//                row = self.indexPathOfDeletedObject.row;
-//            }
-//            NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:row inSection:self.indexPathOfDeletedObject.section];
-//            object = [controller objectAtIndexPath:newIndexPath];
-//        }
-//        [self performSegueWithIdentifier:@"showDetail" sender:object];
-        //[self.masterSupport updateSelectionForCurrentSelectedMasterItem];
-        
+        [self.masterTableViewController setSelectedMasterItem:object notify:YES];
         self.indexPathOfDeletedObject = nil;
     }
 }
