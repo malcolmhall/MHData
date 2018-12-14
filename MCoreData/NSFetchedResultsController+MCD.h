@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)mcd_isValidIndexPath:(NSIndexPath *)indexPath;
 
+- (NSIndexPath *)mcd_indexPathNearIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 NS_ASSUME_NONNULL_END

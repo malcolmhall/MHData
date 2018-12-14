@@ -21,4 +21,19 @@
     return NO;
 }
 
+- (NSIndexPath *)mcd_indexPathNearIndexPath:(NSIndexPath *)indexPath{
+    // NSAssert(!self.tableView.isEditing, @"Cannot select while editing");
+    NSUInteger count = self.sections[indexPath.section].numberOfObjects;// [self numberOfRowsInSection:indexPath.section] ;//self.fetchedResultsController.fetchedObjects.count;
+    //id item;
+    NSIndexPath *newIndexPath;
+    if(count){
+        NSUInteger row = count - 1;
+        if(indexPath.row < row){
+            row = indexPath.row;
+        }
+        newIndexPath = [NSIndexPath indexPathForRow:row inSection:indexPath.section];
+    }
+    return newIndexPath;
+}
+
 @end
