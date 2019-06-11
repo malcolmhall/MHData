@@ -420,7 +420,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm MHFoundation\nln -sf Submodules/MHFoundation MHFoundation\n\n";
+			shellScript = "rm MHFoundation\nif [ ! -f \"MHFoundation\" ]; then ln -sf Submodules/MHFoundation MHFoundation; fi\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
