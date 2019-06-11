@@ -8,6 +8,7 @@
 
 #import <CoreData/CoreData.h>
 #import <MCoreData/MCDManagedObjectContext.h>
+#import <MHFoundation/MHFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
