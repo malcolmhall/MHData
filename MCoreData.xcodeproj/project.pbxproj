@@ -89,13 +89,6 @@
 			remoteGlobalIDString = EC31444C1D073A1A0025F669;
 			remoteInfo = MHFoundation;
 		};
-		EC5DAA7622AFD13F00BB3225 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3144D11D073E010025F669 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC5DAA7122AFD12100BB3225;
-			remoteInfo = Setup;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -302,7 +295,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				EC5DAA7722AFD13F00BB3225 /* PBXTargetDependency */,
 				EC5DAA6B22AFD02A00BB3225 /* PBXTargetDependency */,
 			);
 			name = MCoreData;
@@ -475,11 +467,6 @@
 			isa = PBXTargetDependency;
 			name = MHFoundation;
 			targetProxy = EC5DAA6A22AFD02A00BB3225 /* PBXContainerItemProxy */;
-		};
-		EC5DAA7722AFD13F00BB3225 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC5DAA7122AFD12100BB3225 /* Setup */;
-			targetProxy = EC5DAA7622AFD13F00BB3225 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
