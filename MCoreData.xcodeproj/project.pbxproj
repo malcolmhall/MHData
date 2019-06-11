@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		EC5DAA7122AFD12100BB3225 /* Setup */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = EC5DAA7222AFD12200BB3225 /* Build configuration list for PBXAggregateTarget "Setup" */;
-			buildPhases = (
-				EC5DAA7522AFD12500BB3225 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = Setup;
-			productName = Setup;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		EC3144DE1D073E010025F669 /* MCoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144DD1D073E010025F669 /* MCoreData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3144E51D073E010025F669 /* MCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3144DA1D073E010025F669 /* MCoreData.framework */; };
@@ -44,7 +30,6 @@
 		EC4A182720EF60EE0050672E /* MCDManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4A182520EF60EE0050672E /* MCDManagedObjectContext.m */; };
 		EC4A183A20EF84D30050672E /* MCDManagedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EC4A183820EF84D30050672E /* MCDManagedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC4A183B20EF84D30050672E /* MCDManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4A183920EF84D30050672E /* MCDManagedObject.m */; };
-		EC5DAA6C22AFD02F00BB3225 /* MHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5DAA6222AFCB9C00BB3225 /* MHFoundation.framework */; };
 		EC6023981D313FD200ACE8B0 /* MCDError.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6023961D313FD200ACE8B0 /* MCDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC6023991D313FD200ACE8B0 /* MCDError.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6023971D313FD200ACE8B0 /* MCDError.m */; };
 		ECB213761D872F2400246A1F /* NSError+MCD.h in Headers */ = {isa = PBXBuildFile; fileRef = ECB213741D872F2400246A1F /* NSError+MCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -68,23 +53,23 @@
 			remoteGlobalIDString = EC3144D91D073E010025F669;
 			remoteInfo = MHData;
 		};
-		EC5DAA6122AFCB9C00BB3225 /* PBXContainerItemProxy */ = {
+		EC5DAA8422AFD98900BB3225 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EC5DAA5C22AFCB9C00BB3225 /* MHFoundation.xcodeproj */;
+			containerPortal = EC5DAA7F22AFD98900BB3225 /* MHFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EC31444D1D073A1A0025F669;
 			remoteInfo = MHFoundation;
 		};
-		EC5DAA6322AFCB9C00BB3225 /* PBXContainerItemProxy */ = {
+		EC5DAA8622AFD98900BB3225 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EC5DAA5C22AFCB9C00BB3225 /* MHFoundation.xcodeproj */;
+			containerPortal = EC5DAA7F22AFD98900BB3225 /* MHFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EC3144571D073A1A0025F669;
 			remoteInfo = MHFoundationTests;
 		};
-		EC5DAA6A22AFD02A00BB3225 /* PBXContainerItemProxy */ = {
+		EC5DAA8822AFD99300BB3225 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EC5DAA5C22AFCB9C00BB3225 /* MHFoundation.xcodeproj */;
+			containerPortal = EC5DAA7F22AFD98900BB3225 /* MHFoundation.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = EC31444C1D073A1A0025F669;
 			remoteInfo = MHFoundation;
@@ -118,7 +103,7 @@
 		EC4A182520EF60EE0050672E /* MCDManagedObjectContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDManagedObjectContext.m; sourceTree = "<group>"; };
 		EC4A183820EF84D30050672E /* MCDManagedObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDManagedObject.h; sourceTree = "<group>"; };
 		EC4A183920EF84D30050672E /* MCDManagedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDManagedObject.m; sourceTree = "<group>"; };
-		EC5DAA5C22AFCB9C00BB3225 /* MHFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MHFoundation.xcodeproj; path = MHFoundation/MHFoundation.xcodeproj; sourceTree = "<group>"; };
+		EC5DAA7F22AFD98900BB3225 /* MHFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MHFoundation.xcodeproj; path = MHFoundation/MHFoundation.xcodeproj; sourceTree = "<group>"; };
 		EC6023961D313FD200ACE8B0 /* MCDError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDError.h; sourceTree = "<group>"; };
 		EC6023971D313FD200ACE8B0 /* MCDError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDError.m; sourceTree = "<group>"; };
 		ECB213741D872F2400246A1F /* NSError+MCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MCD.h"; sourceTree = "<group>"; };
@@ -140,7 +125,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC5DAA6C22AFD02F00BB3225 /* MHFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,11 +206,11 @@
 			path = MCoreDataTests;
 			sourceTree = "<group>";
 		};
-		EC5DAA5D22AFCB9C00BB3225 /* Products */ = {
+		EC5DAA8022AFD98900BB3225 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC5DAA6222AFCB9C00BB3225 /* MHFoundation.framework */,
-				EC5DAA6422AFCB9C00BB3225 /* MHFoundationTests.xctest */,
+				EC5DAA8522AFD98900BB3225 /* MHFoundation.framework */,
+				EC5DAA8722AFD98900BB3225 /* MHFoundationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,7 +218,7 @@
 		ECF22ED3203B05200047DBD5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EC5DAA5C22AFCB9C00BB3225 /* MHFoundation.xcodeproj */,
+				EC5DAA7F22AFD98900BB3225 /* MHFoundation.xcodeproj */,
 				ECC6B467210A873C0034DCB4 /* CoreData.framework */,
 			);
 			name = Frameworks;
@@ -295,7 +279,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				EC5DAA6B22AFD02A00BB3225 /* PBXTargetDependency */,
+				EC5DAA8922AFD99300BB3225 /* PBXTargetDependency */,
 			);
 			name = MCoreData;
 			productName = MHData;
@@ -337,11 +321,6 @@
 					EC3144E31D073E010025F669 = {
 						CreatedOnToolsVersion = 7.3;
 					};
-					EC5DAA7122AFD12100BB3225 = {
-						CreatedOnToolsVersion = 11.0;
-						DevelopmentTeam = HUK6B7UUU2;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = EC3144D41D073E010025F669 /* Build configuration list for PBXProject "MCoreData" */;
@@ -357,32 +336,31 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = EC5DAA5D22AFCB9C00BB3225 /* Products */;
-					ProjectRef = EC5DAA5C22AFCB9C00BB3225 /* MHFoundation.xcodeproj */;
+					ProductGroup = EC5DAA8022AFD98900BB3225 /* Products */;
+					ProjectRef = EC5DAA7F22AFD98900BB3225 /* MHFoundation.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
 				EC3144D91D073E010025F669 /* MCoreData */,
 				EC3144E31D073E010025F669 /* MCoreDataTests */,
-				EC5DAA7122AFD12100BB3225 /* Setup */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EC5DAA6222AFCB9C00BB3225 /* MHFoundation.framework */ = {
+		EC5DAA8522AFD98900BB3225 /* MHFoundation.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MHFoundation.framework;
-			remoteRef = EC5DAA6122AFCB9C00BB3225 /* PBXContainerItemProxy */;
+			remoteRef = EC5DAA8422AFD98900BB3225 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		EC5DAA6422AFCB9C00BB3225 /* MHFoundationTests.xctest */ = {
+		EC5DAA8722AFD98900BB3225 /* MHFoundationTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = MHFoundationTests.xctest;
-			remoteRef = EC5DAA6322AFCB9C00BB3225 /* PBXContainerItemProxy */;
+			remoteRef = EC5DAA8622AFD98900BB3225 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -403,26 +381,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EC5DAA7522AFD12500BB3225 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "rm MHFoundation\nif [ ! -f \"MHFoundation\" ]; then ln -sf Submodules/MHFoundation MHFoundation; fi\n\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC3144D51D073E010025F669 /* Sources */ = {
@@ -463,10 +421,10 @@
 			target = EC3144D91D073E010025F669 /* MCoreData */;
 			targetProxy = EC3144E61D073E010025F669 /* PBXContainerItemProxy */;
 		};
-		EC5DAA6B22AFD02A00BB3225 /* PBXTargetDependency */ = {
+		EC5DAA8922AFD99300BB3225 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MHFoundation;
-			targetProxy = EC5DAA6A22AFD02A00BB3225 /* PBXContainerItemProxy */;
+			targetProxy = EC5DAA8822AFD99300BB3225 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -639,24 +597,6 @@
 			};
 			name = Release;
 		};
-		EC5DAA7322AFD12200BB3225 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HUK6B7UUU2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		EC5DAA7422AFD12200BB3225 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HUK6B7UUU2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -683,15 +623,6 @@
 			buildConfigurations = (
 				EC3144F21D073E010025F669 /* Debug */,
 				EC3144F31D073E010025F669 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EC5DAA7222AFD12200BB3225 /* Build configuration list for PBXAggregateTarget "Setup" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EC5DAA7322AFD12200BB3225 /* Debug */,
-				EC5DAA7422AFD12200BB3225 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
