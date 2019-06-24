@@ -13,6 +13,7 @@
 - (MCDManagedObjectContext *)managedObjectContext{
     NSManagedObjectContext *moc = super.managedObjectContext;
     return MHFDynamicCast(MCDManagedObjectContext.class, moc);
+    
     //return [moc isKindOfClass:MCDManagedObjectContext.class] ? (MCDManagedObjectContext *)moc : nil;
 }
 

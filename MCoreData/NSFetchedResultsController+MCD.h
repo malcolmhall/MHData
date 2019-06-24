@@ -15,7 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)mcd_isValidIndexPath:(NSIndexPath *)indexPath;
 
-- (NSIndexPath *)mcd_indexPathNearIndexPath:(NSIndexPath *)indexPath;
+//- (NSIndexPath *)mcd_indexPathNearIndexPath:(NSIndexPath *)indexPath;
+
+- (void)mcd_setDelegateNotifyingParent:(id<NSFetchedResultsControllerDelegate>)delegate;
+
+@property (weak, nonatomic, setter=mcd_setParentFetchedResultsController:) NSFetchedResultsController *mcd_parentFetchedResultsController;
 
 @end
 
