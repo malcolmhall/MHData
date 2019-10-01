@@ -23,20 +23,21 @@
 }
 
 // not needed
-//- (NSIndexPath *)mcd_indexPathNearIndexPath:(NSIndexPath *)indexPath{
-//    // NSAssert(!self.tableView.isEditing, @"Cannot select while editing");
-//    NSUInteger count = self.sections[indexPath.section].numberOfObjects;// [self numberOfRowsInSection:indexPath.section] ;//self.fetchedResultsController.fetchedObjects.count;
-//    //id item;
-//    NSIndexPath *newIndexPath;
-//    if(count){
-//        NSUInteger row = count - 1;
-//        if(indexPath.row < row){
-//            row = indexPath.row;
-//        }
-//        newIndexPath = [NSIndexPath indexPathForRow:row inSection:indexPath.section];
-//    }
-//    return newIndexPath;
-//}
+- (NSIndexPath *)mcd_objectNearIndexPath:(NSIndexPath *)indexPath{
+    // NSAssert(!self.tableView.isEditing, @"Cannot select while editing");
+    NSUInteger count = self.sections[indexPath.section].numberOfObjects;// [self numberOfRowsInSection:indexPath.section] ;//self.fetchedResultsController.fetchedObjects.count;
+    //id item;
+    NSIndexPath *newIndexPath;
+    if(!count){
+        return nil;
+    }
+    NSUInteger row = count - 1;
+    if(indexPath.row < row){
+        row = indexPath.row;
+    }
+    newIndexPath = [NSIndexPath indexPathForRow:row inSection:indexPath.section];
+    return [self objectAtIndexPath:newIndexPath];
+}
 
 //we need this delegate to be first in the list
 - (void)mcd_setDelegateNotifyingParent:(id<NSFetchedResultsControllerDelegate>)delegate{

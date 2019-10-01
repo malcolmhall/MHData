@@ -223,4 +223,9 @@
     return fr;
 }
 
+// maybe wrong
+- (BOOL)mcd_isReallyDeleted{
+    return self.isDeleted || !self.managedObjectContext;
+}
+
 @end

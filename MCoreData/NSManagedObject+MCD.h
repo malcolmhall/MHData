@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 // new
 + (NSFetchRequest *)mcd_fetchRequestWithPredicate:(NSPredicate *)predicate;
 
+@property (assign, nonatomic, readonly) BOOL mcd_isReallyDeleted;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

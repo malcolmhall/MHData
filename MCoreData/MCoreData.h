@@ -11,11 +11,9 @@
 #import <MCoreData/MCDError.h>
 #import <MCoreData/MCDStackManager.h>
 #import <MCoreData/MCDPersistentStoreBridge.h>
-#import <MCoreData/MCDPersistentContainer.h>
 #import <MCoreData/MCDNSPersistentContainer.h>
 #import <MCoreData/MCDNSPersistentStoreDescription.h>
-#import <MCoreData/MCDManagedObject.h>
-#import <MCoreData/MCDManagedObjectContext.h>
+#import <MCoreData/MCDManagedObjectChangeController.h>
 
 #import <MCoreData/NSManagedObjectContext+MCD.h>
 #import <MCoreData/NSManagedObjectModel+MCD.h>

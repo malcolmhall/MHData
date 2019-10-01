@@ -62,10 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)mcd_saveWithLogDescription:(nullable NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 
 // assumed to exist
-- (NSManagedObject *)mcd_objectWithURI:(NSURL *)URI;
+- (__kindof NSManagedObject *)mcd_objectWithURI:(NSURL *)URI;
 
 // returns nil if doesn't exist.
 - (nullable __kindof NSManagedObject *)mcd_existingObjectWithURI:(NSURL *)objectURI error:(NSError**)error;
+
+
 
 @end
 
