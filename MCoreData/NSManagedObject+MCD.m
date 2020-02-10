@@ -44,10 +44,11 @@
     }
     NSError *error;
     NSManagedObject *object = [context existingObjectWithID:objectID error:&error];
-    if(![object isKindOfClass:self.class]){
-        NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
-        object = nil;
-    }
+//    if(![object isKindOfClass:self.class]){
+//        NSLog(@"Unexpected object type in checked dynamic cast %@ expects %@", object.class, self.class);
+//        object = nil;
+//    }
+    object = MHFCheckedDynamicCast(self.class, object);
     if(error){
         if(error.code == NSManagedObjectReferentialIntegrityError){
             NSLog(@"Unable to find object from objectID: %@", objectID);
