@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC19CD7A2390310100768876 /* UIViewController+MCD.h in Headers */ = {isa = PBXBuildFile; fileRef = EC19CD782390310100768876 /* UIViewController+MCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC19CD7B2390310100768876 /* UIViewController+MCD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC19CD792390310100768876 /* UIViewController+MCD.m */; };
 		EC3144DE1D073E010025F669 /* MCoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3144DD1D073E010025F669 /* MCoreData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC3144E51D073E010025F669 /* MCoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3144DA1D073E010025F669 /* MCoreData.framework */; };
 		EC3144EA1D073E010025F669 /* MHDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3144E91D073E010025F669 /* MHDataTests.m */; };
@@ -73,6 +75,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC19CD782390310100768876 /* UIViewController+MCD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MCD.h"; sourceTree = "<group>"; };
+		EC19CD792390310100768876 /* UIViewController+MCD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MCD.m"; sourceTree = "<group>"; };
 		EC3144DA1D073E010025F669 /* MCoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MCoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3144DD1D073E010025F669 /* MCoreData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCoreData.h; sourceTree = "<group>"; };
 		EC3144DF1D073E010025F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 				ECC4B0D21FD8C14F00076880 /* NSFetchedResultsController+MCD.m */,
 				ECB1697223007A9100EAEEBD /* MCDManagedObjectChangeController.h */,
 				ECB1697323007A9100EAEEBD /* MCDManagedObjectChangeController.m */,
+				EC19CD782390310100768876 /* UIViewController+MCD.h */,
+				EC19CD792390310100768876 /* UIViewController+MCD.m */,
 			);
 			path = MCoreData;
 			sourceTree = "<group>";
@@ -245,6 +251,7 @@
 				ECB1697423007A9100EAEEBD /* MCDManagedObjectChangeController.h in Headers */,
 				EC31450E1D073EA30025F669 /* MCDPersistentStoreBridge.h in Headers */,
 				EC6023981D313FD200ACE8B0 /* MCDError.h in Headers */,
+				EC19CD7A2390310100768876 /* UIViewController+MCD.h in Headers */,
 				ECF9A3C920BCC52B0042123C /* MCDNSPersistentStoreDescription.h in Headers */,
 				EC3144DE1D073E010025F669 /* MCoreData.h in Headers */,
 			);
@@ -379,6 +386,7 @@
 				EC3145111D073EA30025F669 /* MCDStackManager.m in Sources */,
 				EC3145171D073EA30025F669 /* NSManagedObjectContext+MCD.m in Sources */,
 				ECF9A3C720BCC52B0042123C /* MCDNSPersistentContainer.m in Sources */,
+				EC19CD7B2390310100768876 /* UIViewController+MCD.m in Sources */,
 				EC6023991D313FD200ACE8B0 /* MCDError.m in Sources */,
 				ECF9A3C820BCC52B0042123C /* MCDNSPersistentStoreDescription.m in Sources */,
 				ECB1697523007A9100EAEEBD /* MCDManagedObjectChangeController.m in Sources */,

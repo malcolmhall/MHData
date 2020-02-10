@@ -22,3 +22,4 @@
 #import <MCoreData/NSEntityDescription+MCD.h>
 #import <MCoreData/NSError+MCD.h>
 #import <MCoreData/NSFetchedResultsController+MCD.h>
+#import <MCoreData/UIViewController+MCD.h>
