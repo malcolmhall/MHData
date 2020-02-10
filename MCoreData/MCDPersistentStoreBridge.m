@@ -17,6 +17,7 @@ NSString * const MCDContextKey = @"MCDContextKey";
     NSIncrementalStore* _destinationPersistentStore;
 }
 
+
 + (void)initialize{
     if(self == MCDPersistentStoreBridge.class){
         [NSPersistentStoreCoordinator registerStoreClass:self forStoreType:self.type];
