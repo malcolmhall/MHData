@@ -155,4 +155,53 @@
     return [self destroyPersistentStoreAtURL:store.URL withType:store.type options:store.options error:error];
 }
 
+/*
+- (NSPersistentStoreDescription *)storeDescription{
+    return self.persistentStoreDescriptions.firstObject;
+}
+
+- (NSURL *)storeURL{
+    return self.storeDescription.URL;
+}
+
+- (NSURL *)backupsDirectoryURL{
+    return [self.storeURL.URLByDeletingLastPathComponent URLByAppendingPathComponent:@"Backups"];
+}
+
+- (NSDictionary *)storeOptions{
+    return self.storeDescription.options;
+}
+
+- (void)backupPersistentStore{
+    NSLog(@"Backing up persistent store");
+    NSURL *storeURL = self.storeURL;
+    NSDateFormatter *formatter = NSDateFormatter.alloc.init;
+    formatter.dateFormat = @"yyyy-MM-dd_HH-mm-ss";
+    NSString *s = [formatter stringFromDate:NSDate.date];
+    s = [NSString stringWithFormat:@"Backup-%@-%@", s, NSUUID.UUID.UUIDString];
+    NSURL *backupsURL = [self.backupsDirectoryURL URLByAppendingPathComponent:s];
+    NSURL *storeBackupURL = [backupsURL URLByAppendingPathComponent:storeURL.lastPathComponent];
+    NSError *error;
+    if(![NSFileManager.defaultManager createDirectoryAtURL:backupsURL withIntermediateDirectories:YES attributes:nil error:&error]){
+        NSLog(@"Failed to create database backup directory: %@", error);
+        error = nil;
+    }
+    if(![self.persistentStoreCoordinator replacePersistentStoreAtURL:storeBackupURL destinationOptions:self.storeOptions withPersistentStoreFromURL:storeURL sourceOptions:self.storeOptions storeType:NSSQLiteStoreType error:&error]){
+        NSLog(@"Error backing up old persistent store: %@", error);
+        return;
+    }
+    NSLog(@"Backed up old persistent store from %@ to %@", storeURL, storeBackupURL);
+    if(![storeURL checkResourceIsReachableAndReturnError:&error]){
+        NSLog(@"Backed up store and the old one is gone");
+        return;
+    }
+    NSLog(@"Destroying old persistent store at %@", storeURL);
+    if(![self.persistentStoreCoordinator destroyPersistentStoreAtURL:storeURL withType:NSSQLiteStoreType options:self.storeOptions error:&error]){
+        NSLog(@"Error destroying persistent store: %@", error);
+        return;
+    }
+    NSLog(@"Destroyed persistent store at %@", storeURL);
+}
+*/
+
 @end
