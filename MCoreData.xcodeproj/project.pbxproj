@@ -29,7 +29,7 @@
 		EC31451B1D073EA30025F669 /* NSPersistentStoreCoordinator+MCD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MCD.m */; };
 		EC31CCED246EB57000DCFF05 /* MCDLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = EC31CCEA246EB57000DCFF05 /* MCDLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC31CCEE246EB57000DCFF05 /* MCDLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC31CCEC246EB57000DCFF05 /* MCDLocation.m */; };
-		EC31CCF1246EC56D00DCFF05 /* MCDLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC31CCEF246EC56D00DCFF05 /* MCDLocation.xcdatamodeld */; };
+		EC31CD02246ECC7E00DCFF05 /* MCDLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC31CD00246ECC7E00DCFF05 /* MCDLocation.xcdatamodeld */; };
 		EC3B230B20ADABE900444480 /* NSPersistentStoreCoordinator+MCDPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EC3B230A20ADABDF00444480 /* NSPersistentStoreCoordinator+MCDPrivate.h */; };
 		EC6023981D313FD200ACE8B0 /* MCDError.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6023961D313FD200ACE8B0 /* MCDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC6023991D313FD200ACE8B0 /* MCDError.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6023971D313FD200ACE8B0 /* MCDError.m */; };
@@ -106,7 +106,7 @@
 		EC3145071D073EA30025F669 /* NSPersistentStoreCoordinator+MCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStoreCoordinator+MCD.m"; sourceTree = "<group>"; };
 		EC31CCEA246EB57000DCFF05 /* MCDLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDLocation.h; sourceTree = "<group>"; };
 		EC31CCEC246EB57000DCFF05 /* MCDLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDLocation.m; sourceTree = "<group>"; };
-		EC31CCF0246EC56D00DCFF05 /* MHLocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MHLocation.xcdatamodel; sourceTree = "<group>"; };
+		EC31CD01246ECC7E00DCFF05 /* MCDLocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MCDLocation.xcdatamodel; sourceTree = "<group>"; };
 		EC3B230A20ADABDF00444480 /* NSPersistentStoreCoordinator+MCDPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSPersistentStoreCoordinator+MCDPrivate.h"; sourceTree = "<group>"; };
 		EC6023961D313FD200ACE8B0 /* MCDError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDError.h; sourceTree = "<group>"; };
 		EC6023971D313FD200ACE8B0 /* MCDError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDError.m; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 				EC6023971D313FD200ACE8B0 /* MCDError.m */,
 				EC31CCEA246EB57000DCFF05 /* MCDLocation.h */,
 				EC31CCEC246EB57000DCFF05 /* MCDLocation.m */,
-				EC31CCEF246EC56D00DCFF05 /* MCDLocation.xcdatamodeld */,
+				EC31CD00246ECC7E00DCFF05 /* MCDLocation.xcdatamodeld */,
 				EC3144FA1D073EA30025F669 /* MCDPersistentStoreBridge.h */,
 				EC3144FB1D073EA30025F669 /* MCDPersistentStoreBridge.m */,
 				EC3144FC1D073EA30025F669 /* MCDStackManager.h */,
@@ -406,10 +406,10 @@
 				EC3145171D073EA30025F669 /* NSManagedObjectContext+MCD.m in Sources */,
 				ECF9A3C720BCC52B0042123C /* MCDNSPersistentContainer.m in Sources */,
 				EC19CD7B2390310100768876 /* UIViewController+MCD.m in Sources */,
+				EC31CD02246ECC7E00DCFF05 /* MCDLocation.xcdatamodeld in Sources */,
 				EC6023991D313FD200ACE8B0 /* MCDError.m in Sources */,
 				ECF9A3C820BCC52B0042123C /* MCDNSPersistentStoreDescription.m in Sources */,
 				ECB1697523007A9100EAEEBD /* MCDManagedObjectChangeController.m in Sources */,
-				EC31CCF1246EC56D00DCFF05 /* MCDLocation.xcdatamodeld in Sources */,
 				EC3145131D073EA30025F669 /* NSEntityDescription+MCD.m in Sources */,
 				ECB05DDF23F5BC210025FB1F /* MCDSelectionController.m in Sources */,
 				EC3145191D073EA30025F669 /* NSManagedObjectModel+MCD.m in Sources */,
@@ -644,14 +644,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		EC31CCEF246EC56D00DCFF05 /* MCDLocation.xcdatamodeld */ = {
+		EC31CD00246ECC7E00DCFF05 /* MCDLocation.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				EC31CCF0246EC56D00DCFF05 /* MHLocation.xcdatamodel */,
+				EC31CD01246ECC7E00DCFF05 /* MCDLocation.xcdatamodel */,
 			);
-			currentVersion = EC31CCF0246EC56D00DCFF05 /* MHLocation.xcdatamodel */;
-			name = MCDLocation.xcdatamodeld;
-			path = ../../MCoreLocation/MCoreLocation/MCDLocation.xcdatamodeld;
+			currentVersion = EC31CD01246ECC7E00DCFF05 /* MCDLocation.xcdatamodel */;
+			path = MCDLocation.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
