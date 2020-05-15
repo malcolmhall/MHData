@@ -34,6 +34,8 @@
 		EC6023981D313FD200ACE8B0 /* MCDError.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6023961D313FD200ACE8B0 /* MCDError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC6023991D313FD200ACE8B0 /* MCDError.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6023971D313FD200ACE8B0 /* MCDError.m */; };
 		EC98276A23F218AD00FF832B /* MHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC98276323F2189A00FF832B /* MHFoundation.framework */; };
+		ECB05DDE23F5BC210025FB1F /* MCDSelectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = ECB05DDC23F5BC210025FB1F /* MCDSelectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ECB05DDF23F5BC210025FB1F /* MCDSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB05DDD23F5BC210025FB1F /* MCDSelectionController.m */; };
 		ECB1697423007A9100EAEEBD /* MCDManagedObjectChangeController.h in Headers */ = {isa = PBXBuildFile; fileRef = ECB1697223007A9100EAEEBD /* MCDManagedObjectChangeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ECB1697523007A9100EAEEBD /* MCDManagedObjectChangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1697323007A9100EAEEBD /* MCDManagedObjectChangeController.m */; };
 		ECB213761D872F2400246A1F /* NSError+MCD.h in Headers */ = {isa = PBXBuildFile; fileRef = ECB213741D872F2400246A1F /* NSError+MCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -109,6 +111,8 @@
 		EC6023961D313FD200ACE8B0 /* MCDError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDError.h; sourceTree = "<group>"; };
 		EC6023971D313FD200ACE8B0 /* MCDError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDError.m; sourceTree = "<group>"; };
 		EC98275D23F2189A00FF832B /* MHFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MHFoundation.xcodeproj; path = ../MHFoundation/MHFoundation.xcodeproj; sourceTree = "<group>"; };
+		ECB05DDC23F5BC210025FB1F /* MCDSelectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDSelectionController.h; sourceTree = "<group>"; };
+		ECB05DDD23F5BC210025FB1F /* MCDSelectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDSelectionController.m; sourceTree = "<group>"; };
 		ECB1697223007A9100EAEEBD /* MCDManagedObjectChangeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDManagedObjectChangeController.h; sourceTree = "<group>"; };
 		ECB1697323007A9100EAEEBD /* MCDManagedObjectChangeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDManagedObjectChangeController.m; sourceTree = "<group>"; };
 		ECB213741D872F2400246A1F /* NSError+MCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MCD.h"; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 				ECB1697323007A9100EAEEBD /* MCDManagedObjectChangeController.m */,
 				EC19CD782390310100768876 /* UIViewController+MCD.h */,
 				EC19CD792390310100768876 /* UIViewController+MCD.m */,
+				ECB05DDC23F5BC210025FB1F /* MCDSelectionController.h */,
+				ECB05DDD23F5BC210025FB1F /* MCDSelectionController.m */,
 			);
 			path = MCoreData;
 			sourceTree = "<group>";
@@ -253,6 +259,7 @@
 				EC3145181D073EA30025F669 /* NSManagedObjectModel+MCD.h in Headers */,
 				EC31CCED246EB57000DCFF05 /* MCDLocation.h in Headers */,
 				EC3145101D073EA30025F669 /* MCDStackManager.h in Headers */,
+				ECB05DDE23F5BC210025FB1F /* MCDSelectionController.h in Headers */,
 				EC3145081D073EA30025F669 /* MCDDefines.h in Headers */,
 				EC3145141D073EA30025F669 /* NSManagedObject+MCD.h in Headers */,
 				EC3145161D073EA30025F669 /* NSManagedObjectContext+MCD.h in Headers */,
@@ -404,6 +411,7 @@
 				ECB1697523007A9100EAEEBD /* MCDManagedObjectChangeController.m in Sources */,
 				EC31CCF1246EC56D00DCFF05 /* MCDLocation.xcdatamodeld in Sources */,
 				EC3145131D073EA30025F669 /* NSEntityDescription+MCD.m in Sources */,
+				ECB05DDF23F5BC210025FB1F /* MCDSelectionController.m in Sources */,
 				EC3145191D073EA30025F669 /* NSManagedObjectModel+MCD.m in Sources */,
 				EC31CCEE246EB57000DCFF05 /* MCDLocation.m in Sources */,
 				EC31451B1D073EA30025F669 /* NSPersistentStoreCoordinator+MCD.m in Sources */,
