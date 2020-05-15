@@ -14,7 +14,6 @@
 #import <MCoreData/MCDNSPersistentContainer.h>
 #import <MCoreData/MCDNSPersistentStoreDescription.h>
 #import <MCoreData/MCDManagedObjectChangeController.h>
-#import <MCoreData/MCDSelectionController.h>
 #import <MCoreData/MCDLocation.h>
 
 #import <MCoreData/NSManagedObjectContext+MCD.h>
@@ -24,4 +23,3 @@
 #import <MCoreData/NSEntityDescription+MCD.h>
 #import <MCoreData/NSError+MCD.h>
 #import <MCoreData/NSFetchedResultsController+MCD.h>
-#import <MCoreData/UIViewController+MCD.h>
